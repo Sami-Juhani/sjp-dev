@@ -1,5 +1,5 @@
 import prisma from '@/lib/prisma'
-import { getUser } from '@/lib/user'
+import { getUser, updateUserActivity } from '@/lib/user'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import NextAuth, { NextAuthOptions, Session } from 'next-auth'
 import { AdapterUser } from 'next-auth/adapters'
@@ -24,12 +24,20 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session, user }: { session: Session; user: AdapterUser }) {
       if (session.user !== undefined) {
-        const dbUser = await getUser(user.id)
-        session.user.id = user.id
-        session.user.likes = dbUser?.likes || []
-        session.user.comments = dbUser?.comments || []
-        session.user.role = user.role
-        session.user.image = user.image
+        /* Get user from db */
+        const { dbUser, success } = await getUser(user.id)
+        if (!success || dbUser == undefined)
+          throw new Error('Error fetching user from database!')
+
+        /* Update users activity upon login */
+        updateUserActivity(dbUser.id)
+
+        /* Update default session.user with data from db */
+        session.user.id = dbUser.id
+        session.user.likes = dbUser.likes
+        session.user.comments = dbUser.comments
+        session.user.role = dbUser.role
+        session.user.image = dbUser.image
       }
       return session
     }
