@@ -73,7 +73,7 @@ export default function Dropdownmenu({
             <DropdownMenuItem
               className='flex justify-between'
               onClick={() => {
-                signOut()
+                signOut({ redirect: false})
                 update()
                 toast.success(dict.auth.logOutMsg)
               }}
