@@ -1,13 +1,12 @@
 import path from 'path'
 import fs from 'fs'
 import matter from 'gray-matter'
-import { Comments, SupportedLangs } from '@/types/types'
+import { SupportedLangs } from '@/types/types'
 import { getBlog } from './blog'
 
 export type Post = {
   metadata: BlogMetadata
   content: string
-  comments: Comments
 }
 
 export type Project = {
@@ -58,7 +57,7 @@ export async function getContentBySlug({
 
     const { data, content } = matter(fileContents)
 
-    return { metadata: { ...data, slug, likes }, content, comments }
+    return { metadata: { ...data, slug, likes }, content }
   } catch (err) {
     return null
   }
