@@ -1,0 +1,48 @@
+---
+title: Nextjs-portfoliosovellus
+summary: Nextjs on tehokas kehys erittäin responsiivisten verkkosovellusten rakentamiseen välimuistin avulla. Yhdistämällä tämä MDX:ään dynaamisen sisällön esittämiseksi kehitysprosessi tuntuu elämän sujuvimmalta ajelulta.
+image: '/images/blog/nextjs-portfolio-app/nextjs.jpeg'
+author: 'Sami Paananen'
+publishedAt: '2024-09-21'
+---
+
+## Tervetuloa
+
+Tämä on ensimmäinen postaukseni tässä blogissa. Tämän blogin luomisen idea on pitää kirjaa oppimisprosessistani ja ajatuskulustani tämän verkkosovelluksen kehityksen aikana. Aluksi minulla oli hyvin yksinkertainen staattinen verkkosivusto, joka oli rakennettu pelkällä HTML:llä ja CSS:llä, ja nyt on aika päivittää sitä.
+
+Olen juuri saanut päätökseen **WebDevSimplifiedin React- ja Next.js-kurssit**, ja nyt on aika laittaa vastikään opitut taidot käyttöön. Nämä kurssit ovat erinomaisia, ja Kyle frontend-kehityksen mentorina selittää monimutkaiset aiheet erittäin selkeästi. Hänen opetuksensa on todella herättänyt kiinnostukseni frontend-kehitystä kohtaan.
+
+## Visio
+
+Totta kai olisi paljon helpompaa ja kätevämpää toteuttaa staattinen verkkosivusto käyttämällä pelkkää Reactia ja Next.js:ää, mutta missä olisi hauskuus siinä?
+
+Visio on rakentaa **full-stack-sovellus**, jossa käytetään Reactia ja Next.js:ää frontendissä ja Node.js:ää backendissä palvelemaan dataa, kuten blogeja ja projekteja. Olen erityisen kiinnostunut näkemään, millaista optimointia Next.js voi tarjota server-side-komponenttien avulla verrattuna pelkkään Reactiin.
+
+### Lopulliseen tuotteeseen pitäisi sisältyä:
+
+- Ylläpitäjän hallintapaneeli blogipostauksien ja projektikatselmus-sivujen muokkaamiseen ja luomiseen, mukaan lukien kuvien lataus ja datan muokkaaminen.
+- Asetukset pimeän tilan ja kielivaihtoehtojen mahdollistamiseksi, jos perehdyn lokalisaatioon.
+- Paranneltu blogiosio tykkäyksillä ja kommenteilla.
+- Portfolio ja henkilökohtaiset tiedot.
+- Yhteydenottosivu.
+- Pilvessä tapahtuva käyttöönotto.
+- Ja muuta...
+
+## Lähtökohta
+
+Kuten mainitsin, olen suorittanut **React Beginner**-, **React Advanced**- ja **Next.js**-kurssit. Näiden kurssien ohella olen alkanut kehittää omaa **uudelleenkäytettävää, muokattavaa ja dokumentoitua komponenttikirjastoa**, erityisesti käytettäväksi uuden verkkosovellukseni kehityksessä. Voit tarkistaa repositorion [täältä](#).
+
+Minulla on muutama komponentti valmiina projektiini:
+
+- **MediaScroller**: Netflixistä inspiroitunut selauskomponentti projektien näyttämiseen. Se ottaa datan propina.
+- **InfiniteCarouselScroller**: Hienompi MediaScroller, joka tarjoaa loputtoman silmukan datan läpi. Tämä oli mielenkiintoinen toteuttaa.
+- **NotificationModal**: Näyttää erilaisia viestejä näytöllä, kuten onnistumiset, varoitukset ja hälytykset. Sijainti on konfiguroitavissa.
+- **FancyHero**: Hero-segmentti, joka sisältää mukautetun kirjoituskonekomponentin, joka kirjoittaa ja poistaa merkkijonoja heron asettelussa. Kirjoituskoneen sijainti on konfiguroitavissa.
+- **StickyNav**: Ylätunniste, joka sisältää navigointipalkin, joka tarttuu kiinni. Kun käyttäjä vierittää sivua alaspäin, StickyNav jää näkymään ja liukuu hetkeksi näkyville.
+
+Tässä vaiheessa sovelluksessa on vain **StickyNav**- ja **Blogi**-osio toteutettu. Kaikki data on kovakoodattu, ennen kuin backend-palvelin toteutetaan ja tietokanta otetaan käyttöön. Ulkoasukin on vielä tylsä, mutta odota hetki – se tulee muuttumaan!
+
+Voit tarkistaa sovelluksen repositorion [täältä](https://https://github.com/Sami-Juhani/sjpdev).
+
+Kiitos, että jaksoit lukea näin pitkälle. Tarkista päivitykset ja nauti kesästä.
+

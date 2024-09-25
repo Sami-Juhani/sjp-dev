@@ -1,0 +1,31 @@
+---
+  title: Musiikin Suosittelusovellus
+  summary: Koneoppimiseen perustuva musiikin suosittelusovellus, joka on integroitu Spotify API:iin ja rakennettu osana kouluprojektia.
+  image: '/images/projects/music-recommender.png'
+  author: 'Sami Paananen'
+  publishedAt: '2024-09-21'
+---
+
+Tämä projekti on musiikin suosittelusovellus, joka käyttää koneoppimista generoimaan kappalesuosituksia käyttäjän Spotify-soittolistan perusteella. Sovellus kehitettiin osana kouluprojektia, keskittyen sekä ohjelmointiin että ohjelmistokehityksen elinkaareen (SDLC) Scrum-menetelmää hyödyntäen.
+
+## Ominaisuudet
+
+- **Käyttäjän rekisteröinti**: Mahdollisuus käyttäjien rekisteröityä ja kirjautua sisään.
+- **Spotify-soittolistojen integrointi**: Hae käyttäjän soittolistat Spotify API:n kautta.
+- **Kappalesuositukset**: Generoi kappalesuosituksia vertaamalla soittolistavektoreita kosinifunktion avulla.
+- **Musiikkisoitin**: Sisältää toisto-, tauko-, seuraava-, edellinen- ja hakuominaisuudet.
+- **Lokalisaatio**: Tukee useita kieliä, kuten englantia, farsia, suomea, ranskaa, japania ja venäjää.
+- **Kappaleiden arviointi**: Käyttäjät voivat arvioida kappaleita 0-5 tähdellä, ja arviot tallennetaan tietokantaan.
+
+## Teknologiat
+
+- **Scikit-learn**: Pythonin koneoppimiskirjasto, jota käytettiin soittolistavektoreiden luomiseen.
+- **Spotify API**: Integroitu hakemaan käyttäjien soittolistat ja kappaletiedot.
+- **React**: Frontend-kehys käyttäjärajapinnan rakentamiseen.
+- **Node.js**: Backend, joka käsittelee API-pyynnöt ja palvelee sovellusta.
+- **MongoDB**: NoSQL-tietokanta käyttäjätietojen, kappalearvioiden ja suositusten tallentamiseen.
+- **Docker**: Sovellus säilöttiin Dockerilla helpompaa käyttöönottoa varten.
+
+## Yhteemveto
+
+Tämä musiikin suosittelusovellus havainnollistaa, kuinka koneoppiminen voi parantaa käyttäjäkokemusta tarjoamalla personoitua sisältöä. Integroimalla Spotify API:n ja hyödyntämällä scikit-learn-kirjastoa, tämä projekti tarjoaa mukaansatempaavan ja muokattavan tavan löytää uutta musiikkia. Keskittymällä SDLC:hen ja hyödyntämällä Scrum-menetelmää, tämä projekti oli syvällinen harjoitus todellisessa ohjelmistokehityksessä.

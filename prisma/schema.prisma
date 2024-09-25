@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String     @id @default(cuid())
+  email         String     @unique
+  name          String
+  image         String
+  emailVerified DateTime?
+  role          String     @default("user")
+  createdAt     DateTime   @default(now())
+  active        DateTime   @default(now())
+  likes         Likes[]    
+  comments      Comment[]
+  accounts      Account[]
+  sessions      Session[]
+}
+
+model Account {
+  id                String  @id @default(uuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Likes {
+  blog      Blog     @relation(fields: [blogSlug], references: [slug], onDelete: Cascade)
+  blogSlug  String 
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  @@unique([blogSlug, userId])   
+}
+
+model Blog {
+  id        String     @id @default(cuid())
+  slug      String     @unique
+  likes     Likes[]
+  comments  Comment[]  @relation("BlogComments")
+}
+
+model Project {
+  id        String     @id @default(cuid())
+  slug      String     @unique
+  comments  Comment[]  @relation("ProjectComments")
+}
+
+model Comment {
+  id          String    @id @default(cuid())
+  title       String
+  body        String
+  publishedAt DateTime @default(now())
+  userId      String
+  blogSlug    String?
+  projectSlug String?
+  childId     String?
+  parentId    String?   
+  replies     Comment[] @relation("CommentReplies")
+  parent      Comment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  author      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project     Project?  @relation("ProjectComments", fields: [projectSlug], references: [slug], onDelete: Cascade)
+  blog        Blog?     @relation("BlogComments", fields: [blogSlug], references: [slug], onDelete: Cascade)
+}

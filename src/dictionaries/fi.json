@@ -1,0 +1,86 @@
+{
+  "common": {
+    "error": "Tapahtui virhe. Yritä myöhemmin uudelleen."
+  },
+  "notfound": {
+    "title": "Sivua ei löydy",
+    "check": "Ole hyvä ja tarkasta URL osoitteesi",
+    "backButton": "Takaisin kotisivulle"
+  },
+  "header": {
+    "blogs": "Blogi",
+    "projects": "Projektit",
+    "contact": "Yhteydenotto",
+    "dropdownmenu": {
+      "menu": "Valikko",
+      "userSettings": "Asetukset",
+      "logIn": "Kirjaudu",
+      "logOut": "Ulos",
+      "language": "Kieli",
+      "finnish": "Suomi",
+      "english": "Englanti",
+      "theme": "Teema",
+      "dark": "Tumma",
+      "light": "Vaalea"
+    }
+  },
+  "footer": {
+    "rights": "Kaikki oikeudet pidätetään"
+  },
+  "home": {
+    "authorTitle": "Hei, Olen Sami",
+    "authorIntro": "Olen ohjelmistokehittäjä ja minulla on syvä kiinnostus web teknologioihin ja pilvipohjaisiin ratkaisuihin"
+  },
+  "blog": {
+    "backButton": "Takaisin julkaisuihin",
+    "title": "Julkaisut",
+    "recent": "Viimeisimmät julkaisut",
+    "allPosts": "Kaikki julkaisut",
+    "signatureTitle": "Terveisin",
+    "signature": "Ohjelmistokehittäjä",
+    "likeAdded": "Tykkäys lisätty.",
+    "likeRemoved": "Tykkäys poistettu.",
+    "noUser": "Kirjaudu sisään lisätäksesi tykkäyksiä.",
+    "likes": "Tykkäyksiä"
+  },
+  "projects": {
+    "backButton": "Takaisin projekteihin",
+    "title": "Projektit",
+    "recent": "Viimeisimmät projektit",
+    "allProjects": "Kaikki projektit"
+  },
+  "contact": {
+    "title": "Keskustellaan projektistasi",
+    "name": "Nimi",
+    "namePh": "Matti",
+    "email": "Sähköposti",
+    "emailPh": "matti@esimerkki.com",
+    "phone": "Puhelin",
+    "phonePh": "+3581234567",
+    "message": "Viesti",
+    "messagePh": "Hei...",
+    "contactButton": "Ota yhteyttä",
+    "contactButtonSubmitting": "Lähetetään",
+    "privacy": "Lähettämällä tämän lomakkeen hyväksyn",
+    "privacyLink": "tietosuojakäytännön",
+    "formSuccess": "Viestin lähetys onnistui",
+    "formError": "Tapahtui virhe! Yritä myöhemmin uudelleen"
+  },
+  "privacy": {
+    "google": {
+      "title": "Tämä sivusto on suojattu reCAPTCHA-palvelulla, joten Googlen",
+      "and": "ja",
+      "privacyPolicy": "tietosuojakäytäntö",
+      "termsOfService": "käyttöehdot",
+      "apply": "pätevät"
+    }
+  },
+  "auth": {
+    "login": "Kirjaudu",
+    "loginTitle": "Kirjaudu sisään Google-tililläsi",
+    "loginSuccess": "Tervetuloa! Olet kirjautunut sisään.",
+    "loginError": "Kirjautuminen epäonnistui. Yritä uudelleen.",
+    "logOutMsg": "Kirjauduit ulos.",
+    "googleLoginButton": "Kirjaudu sisään Googlella"
+  }
+}

@@ -1,0 +1,69 @@
+---
+title: Nextjs portfolio app
+summary: Nextjs is a powerful framework for building highly responsive web apps with caching. Combining this with MDX to represent dynamic content makes the development experience feel like the smoothest ride of your life.
+image: '/images/blog/nextjs-portfolio-app/nextjs.jpeg'
+author: 'Sami Paananen'
+publishedAt: '2024-09-21'
+---
+
+## Welcome
+
+This is my first post for this blog. The idea behind creating this blog is to keep track of my learning and thought process during the development of this web app. I initially had a very simple static website built with plain HTML and CSS, and now it’s time for an upgrade.
+
+I have just finished **WebDevSimplified's React and Next.js courses**, and it’s time to put those newly learned
+
+```
+function Code({ children, ...props }: any) {
+  let codeHTML = highlight(children)
+  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
+}
+
+const components = {
+  code: Code,
+}
+
+export default function MDXContent(
+  props: JSX.IntrinsicAttributes & MDXRemoteProps
+) {
+  return (
+    <MDXRemote
+      {...props}
+      components={{ ...components, ...(props.components || {}) }}
+    />
+  )
+}
+```
+
+## Vision
+
+Surely, it would be much easier and more convenient to implement a static website using plain React and Next.js, but where’s the fun in that?
+
+The vision here is to build a **full-stack app** using React and Next.js for the frontend and Node.js for the backend to serve data such as blogs and projects. I’m particularly interested in seeing the optimization Next.js can provide with server-side components compared to plain React.
+
+### The final product should include:
+
+- An admin dashboard to edit and create fully customizable blog post pages and project overview pages, including image uploads and data mutation.
+- Settings to enable dark mode and language options if I delve into localization.
+- An enhanced blog section with likes and comments.
+- My portfolio and personal information.
+- A contact section.
+- Deployment in the cloud.
+- And more...
+
+## Starting Point
+
+As I mentioned, I have completed courses on **React Beginner**, **React Advanced**, and **Next.js**. Alongside these courses, I started to develop my own **reusable, customizable, and documented component library**, particularly for use in the development process of my new web app. You can check the repo [here](#).
+
+I have a few components ready for my project:
+
+- **MediaScroller**: A Netflix-inspired scroller to display projects. It takes data as a prop.
+- **InfiniteCarouselScroller**: A fancier MediaScroller with endless looping through data. This was interesting to implement.
+- **NotificationModal**: Displays different types of messages on screen, such as success, alert, and warning. The position can be configured.
+- **FancyHero**: A hero section that includes a custom typewriter component to type and erase strings in the hero layout. The position of the typewriter can be configured.
+- **StickyNav**: A header including a navbar that sticks. When the user scrolls down the page, the StickyNav sticks above the viewport and briefly slides in.
+
+At this point, the app will only have the **StickyNav** and **Blog** section implemented. All the data will be hardcoded before implementing the backend server and setting up a database. The appearance will also be dull, but bear with me—it’s about to rock.
+
+You can view the app repo [here](https://https://github.com/Sami-Juhani/sjpdev).
+
+Thanks for reading this far. Check for updates and enjoy the summertime.

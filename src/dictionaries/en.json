@@ -1,0 +1,85 @@
+{
+  "common": {
+    "error": "Unexpected error occurred. Please try again later."
+  },
+  "notfound": {
+    "title": "Page not found",
+    "check": "Please check the URL in the address bar and try again",
+    "backButton": "Go back home"
+  },
+  "header": {
+    "blogs": "Blog",
+    "projects": "Projects",
+    "contact": "Contact",
+    "dropdownmenu": {
+      "menu": "Menu",
+      "userSettings": "User Settings",
+      "logIn": "Log In",
+      "logOut": "Log Out",
+      "language": "Language",
+      "finnish": "Finnish",
+      "english": "English",
+      "theme": "Theme",
+      "dark": "Dark",
+      "light": "Light"
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved"
+  },
+  "home": {
+    "authorTitle": "Hey, I'm Sami",
+    "authorIntro": "I'm a software developer based in Finland. I have a strong passion for web development and cloud technologies"
+  },
+  "blog": {
+    "backButton": "Back to posts",
+    "title": "Posts",
+    "recent": "Recent posts",
+    "allPosts": "All Posts",
+    "signatureTitle": "Cheers",
+    "signature": "Software developer",
+    "likeAdded": "Like added.",
+    "likeRemoved": "Like removed.",
+    "noUser": "Please login to add likes.",
+    "likes": "Likes"
+  },
+  "projects": {
+    "backButton": "Back to projects",
+    "title": "Projects",
+    "recent": "Recent projects",
+    "allProjects": "All Projects"
+  },
+  "contact": {
+    "title": "Let's work together",
+    "name": "Name",
+    "namePh": "John",
+    "email": "Email",
+    "emailPh": "john@example.com",
+    "phone": "Phone",
+    "message": "Message",
+    "messagePh": "Hi...",
+    "contactButton": "Contact Me",
+    "contactButtonSubmitting": "Sending",
+    "privacy": "By submitting this form, I agree to the",
+    "privacyLink": "privacy policy",
+    "formSuccess": "Message sent successfully",
+    "formError": "An error occurred! Please try again"
+  },
+  "privacy": {
+    "google": {
+      "title": "This site is protected by reCAPTCHA and the Google",
+      "and": "and",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": " Terms of Service",
+      "apply": "apply"
+    }
+  },
+  "auth": {
+    "login": "Login",
+    "loginTitle": "Sign in to your account using Google",
+    "loginSuccess": "Welcome! You're logged in.",
+    "loginError": "Login failed. Please try again.",
+    "logOutMsg": "Logged out.",
+    "googleLoginButton": "Sign in with Google"
+  }
+}
