@@ -1,0 +1,179 @@
+---
+title: Next.js + MDX
+description:
+  Opi luomaan dynaamisia blogeja nopeasti ja helposti Next.js:n ja MDX:n avulla.
+keywords: sjp, next.js, mdx, web development, software development
+image: '/images/blog/nextjs-and-mdx/nextjsmdx.webp'
+author: 'Sami Paananen'
+publishedAt: '2024-09-27'
+---
+
+## MDX?
+
+MDX on tapa kirjoittaa Markdown syntaksia JSX komponenttien kanssa. Se
+selkeyttää ja suoraviivaistaa blogin tai muun sisällön tuottamista sovellukseen
+ja mahdollistaa omien componenttien käyttämisen markdown syntaksin sisällä.
+
+MDX käännetään JavaScriptiksi integroitaessa selaimeen tai sovellukseen, mikä
+tarkoittaa, että siitä luodaan JavaScript-komponentteja, joita käytetään
+sisällön esittämiseen.
+
+- MDX
+
+```
+// content.mdx
+# tervetuloa
+
+ensimmäinen paragraph
+
+<Button />
+
+toinen paragraph
+
+## aliotsikko
+```
+
+- JSX
+
+```JSX
+// content.jsx
+<h1>tervetuloa</h1>
+<p>ensimmäinen paragraph</p>
+<button onClick{() => ...doSomething}>action<button>
+<p>toinen paragraph</p>
+<h2>aliotsikko</h2>
+```
+
+Yllä olevassa esimerkissä luodaan sama sisältö blogi sivustolle, toinen käyttäen
+MDX:ä ja toinen JSX:ä.
+
+Kumpi sinusta olisi luonnollisempi tapa?
+
+**_MDX Remote_**
+
+MDX Remote paketin avulla data voidaan hakea mistä tahansa lokaatiosta kuten
+tietokannasta, objektina tai lokaalista tiedostosta ja muuntaa componenteiksi
+joita selain voi käsitellä.
+
+```
+npm i next-mdx-remote
+```
+
+- _MDX datan lukeminen ja palauttaminen oikeassa muodossa:_
+
+```
+import { MDXRemote } from 'next-mdx-remote/rsc'
+
+export default async function RemoteMdxPage() {
+  // MDX text - can be from a local file, database, CMS, fetch, anywhere...
+  const res = await fetch('https://...')
+  const markdown = await res.text()
+  return <MDXRemote source={markdown} />
+}
+```
+
+## Metadata
+
+Metadataa kutsutaan MDX:ssä sanalla **_front-matter_**, joka sisältää tietoja
+kuten otsikko, kuvaus, julkaisupäivämäärä jne. Metadatan MDX:ssä määritellään
+tiedoston ylimpänä osana, kolmen viivan välissä:
+
+```
+---
+title: Next.js ❤ MDX
+description: Opi luomaan dynaamisia blogeja nopeasti ja helposti Next.js:n ja MDX:n avulla.
+image: '/images/blog/nextjs-and-mdx/nextjsmdx.webp'
+author: 'Sami Paananen'
+publishedAt: '2024-09-27'
+---
+```
+
+Metadata saadaan haettua suoraan MDX:stä käyttämällä gray-matter pakettia.
+Näiden tietojen avulla voimme jo luoda esikatselu sivun sisällöstämme.
+
+```
+npm i gray-matter
+```
+
+```
+import matter from 'gray-matter'
+
+function getMetadata() {
+    const file = ...getMDXContent
+
+    return matter(file)
+}
+```
+
+## Sisällön tyylittely
+
+Ensimmäisessä esimerkissä .mdx tuotti vain alastomia HTML elementtejä ilman
+luokkia tyylien lisäämiseen. Miten voimme määritellä esimerkiksi, että kaikki
+tekstit olisivat punaisia (en tiedä, kuka niin edes haluasi tehdä)?
+
+Tässä tilanteessa käytämme Tailwind typography pakettia, jonka avulla voimme
+tyylitellä kaikki HTML elemetin sisältävät ali-elementit. Annamme vain luokan
+_prose_ ylemmälle elementille. On myös mahdollista kustomoida koko prose luokka
+oman näköiseksi.
+
+```
+npm i @tailwindcss/typography
+```
+
+```
+// globals.css
+.prose * {
+    @apply text-red-600
+  }
+```
+
+```
+<main className='prose mt-16 dark:prose-invert'>
+    <MDXContent source={content} />
+</main>
+```
+
+## Komponenttien kustomointi ja tuominen sovellukseen
+
+Voimme myös ottaa kantaa kuinka elementti esitetään MDX:n kohdatessa sen
+integroinin yhteydessä. Luomme kartoituksen kustomoiduista componenteista:
+
+```
+import Counter from '@/components/counter'
+
+function MdxContentPage() {
+    //TODO: Get mdxSource
+
+    const overrideComponents = {
+        h1: ({ children }) => <h1 style={{ color: 'blue', fontSize: '100px' }}>{children}</h1>,
+        h2: ({ children }) => <h2 style={{ color: 'red', fontSize: '200px' }}>{children}</h2>
+        Counter: Counter
+    }
+
+    return <MDXRemote source={mdxSource} components={overrideComponents}
+}
+```
+
+Tässä näemme MDX:n ja JSX:n itegraation todellisen vahvuuden. Se tuo Markdownin
+selkeyden ja JSXn kompleksisuuden yhteenpaikkaan, jossa molempien parhaita
+puolia voidaan käyttää siellä missä niitä tarvitaan. Counter komponentti voi
+sisältää mitä tahansa interaktiivisuutta JSX sallii ja se on käytettävissä
+MDX:ssä.
+
+## Johtopäätös
+
+Next.js ominaisuus tallentaa samanlaiset datan haut välimuistiin yhdessä MDX:n
+suoraviivaiseen sisällönluontimenetelmän kanssa, tekee siitä erittäin
+varteenotettavan yhdistelmän, jos haluaa luoda suorituskykyisen sovelluksen,
+yhdenmukaisella ja interaktiivisella sisällöllä.
+
+Tämäkin blogi allekirjoittaa edelliseen lauseen.
+
+### _Linkit_
+
+- [MDX](https://mdxjs.com/)
+- [Next.js and MDX](https://nextjs.org/docs/app/building-your-application/configuring/mdx)
+- [Gray-matter](https://www.npmjs.com/package/gray-matter)
+- [Tailwind-Typography](https://github.com/tailwindlabs/tailwindcss-typography)
+
+Jos haluat lisätietoja miten saadaan helposti ja nopeasti oma blogi pystyyn lokaaleilla tiedostoilla, ota rohkeasti yhteyttä.
