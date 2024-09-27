@@ -67,14 +67,14 @@ export const metadata: Metadata = {
     }
   ],
   openGraph: {
-    title: 'SjP - Fullstack Software Development',
+    title: 'SjP - Software Development',
     description:
       'Your tech partner for innovative software development. Discover my latest projects and industry knowledge in my blog',
     url: process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000',
     type: 'website',
     images: [
       {
-        url: '/images/me/sjp_dev.png',
+        url: '/images/author/sjp_dev.png',
         width: 1200,
         height: 630,
         alt: 'SjP - Software Development'
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
     title: 'SjP - Software Development',
     description:
       'Your tech partner for innovative software development. Discover my latest projects and industry knowledge in my blog',
-    images: ['/images/me/SjP_dev.png']
+    images: ['/images/author/sjp_dev.png']
   },
   keywords: [
     'fullstack',
