@@ -1,16 +1,18 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { Metadata, ResolvingMetadata } from 'next'
 
 import { Mr_Dafoe } from 'next/font/google'
 import { formatDate } from '@/lib/utils'
 import { SUPPORTED_LANGS, SupportedLangs } from '@/types/types'
-import { getContent, getContentBySlug } from '@/lib/content'
+import { getContent, getContentBySlug, getContentMetadata } from '@/lib/content'
 import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import { notFound } from 'next/navigation'
 import { DictionaryResult, getDictionary } from '@/dictionaries/dictionaries'
 import MDXContent from '@/components/mdx-content'
 import BlogLikes from '@/components/blog-likes'
-import BlogComments from '@/components/blog-comments'
+import ContentComments from '@/components/content-comments'
+
 
 const dafoe = Mr_Dafoe({ weight: '400', subsets: ['latin'] })
 
@@ -65,13 +67,18 @@ export default async function Blog({
           <p className='mt-3 text-xs text-muted-foreground'>
             {author} / {date}
           </p>
-          <BlogLikes blogSlug={slug} fetchedLikes={likes}  dict={dict} />
+          <BlogLikes blogSlug={slug} fetchedLikes={likes} dict={dict} />
         </header>
 
         <main className='prose mt-16 dark:prose-invert'>
           <MDXContent source={content} />
           <Signature dict={dict} />
-          <BlogComments slug={slug} lang={lang} />
+          <ContentComments
+            contentType={'blog'}
+            slug={slug}
+            lang={lang}
+            dict={dict}
+          />
         </main>
 
         {/* <footer className='mt-16'>
@@ -84,7 +91,7 @@ export default async function Blog({
 
 function Signature({ dict }: { dict: DictionaryResult }) {
   return (
-    <p>
+    <p className='mt-8'>
       {dict.blog.signatureTitle},
       <br />
       <strong className={`${dafoe.className} pl-4 text-2xl`}>
@@ -105,4 +112,33 @@ export async function generateStaticParams() {
   )
 
   return slugs.flat()
+}
+
+export async function generateMetadata(
+  {
+    params: { lang, slug }
+  }: {
+    params: { lang: SupportedLangs; slug: string }
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata | undefined> {
+  const post = await getContentBySlug({ dir: 'blog', lang, slug })
+
+  if (!post) return
+
+  const metadata = post.metadata
+
+  const previousImages = (await parent).openGraph?.images || []
+
+  return {
+    title: `Blog | ${metadata.title}`,
+    description: metadata.description,
+    keywords: metadata.keywords,
+    openGraph: {
+      images: [metadata.image!, ...previousImages]
+    },
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+    )
+  }
 }

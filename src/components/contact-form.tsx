@@ -4,8 +4,8 @@ import { z } from 'zod'
 import Link from 'next/link'
 import { toast } from 'sonner'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { ContactFormSchema } from '@/lib/schemas'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -15,6 +15,7 @@ import { DictionaryResult } from '@/dictionaries/dictionaries'
 import { SupportedLangs } from '@/types/types'
 import { sendEmail } from '@/actions/emails'
 import GoogleRecaptchaPrivacy from './google-recaptcha-privacy'
+import { useRecaptcha } from '@/app/hooks/useRecaptcha'
 
 type Inputs = z.infer<typeof ContactFormSchema>
 
@@ -39,46 +40,26 @@ export default function ContactForm({
       message: ''
     }
   })
-  const { executeRecaptcha } = useGoogleReCaptcha()
+  const callRecaptcha = useRecaptcha()
 
   const processForm: SubmitHandler<Inputs> = async data => {
-    if (!executeRecaptcha) {
+    const { success, response } = await callRecaptcha()
+
+    if (!success) {
       toast.error(`${dict.contact.formError}.`)
-      return
     }
 
-    const gRecaptchaToken = await executeRecaptcha('registerSubmit')
+    if (response.success) {
+      const result = await sendEmail(data)
 
-    try {
-      const res = await fetch('/api/recaptcha', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ gRecaptchaToken })
-      })
-
-      if (!res.ok) {
+      if (result?.error) {
         toast.error(`${dict.contact.formError}.`)
+        return
       }
 
-      const response = await res.json()
-
-      if (response.success) {
-        const result = await sendEmail(data)
-
-        if (result?.error) {
-          toast.error(`${dict.contact.formError}.`)
-          return
-        }
-
-        toast.success(`${dict.contact.formSuccess}!`)
-        reset()
-      } else {
-        toast.error(`${dict.contact.formError}.`)
-      }
-    } catch (error) {
+      toast.success(`${dict.contact.formSuccess}!`)
+      reset()
+    } else {
       toast.error(`${dict.contact.formError}.`)
     }
   }
@@ -185,7 +166,7 @@ export default function ContactForm({
           </div>
           <p className='mt-4 text-xs text-muted-foreground'>
             {dict.contact.privacy}{' '}
-            <Link href={`/${lang}/privacy`} className='font-bold'>
+            <Link href={`/${lang}/privacy-policy`} className='font-bold'>
               {dict.contact.privacyLink}.
             </Link>
           </p>

@@ -1,7 +1,7 @@
 export interface DictionaryResult {
   common: {
     error: string
-  },
+  }
   notfound: {
     title: string
     check: string
@@ -30,6 +30,7 @@ export interface DictionaryResult {
   home: {
     authorTitle: string
     authorIntro: string
+    downloadButton: string
   }
   blog: {
     backButton: string
@@ -42,6 +43,32 @@ export interface DictionaryResult {
     likeRemoved: string
     noUser: string
     likes: string
+    searchPh: string
+    comments: {
+      heading: string
+      published: string
+      replied: string
+      addCommentButton: string
+      addCommentButtonSubmitting: string
+      replyButtonSubmitting: string
+      editButton: string
+      saveButton: string
+      saveButtonSubmitting: string
+      deleteButton: string
+      deleteButtonSubmitting: string
+      submitButton: string
+      submitButtonSubmitting: string
+      cancelButton: string
+      reply: string
+      replyFor: string
+      title: string
+      comment: string
+      commentPh: string
+      titlePh: string
+      commentSuccess: string
+      commentDeleted: string
+      commentUpdated: string
+    }
   }
   projects: {
     title: string
@@ -81,6 +108,56 @@ export interface DictionaryResult {
     loginError: string
     logOutMsg: string
     googleLoginButton: string
+  }
+  policy: {
+    title: string
+    sections: {
+      general: {
+        title: string
+        description: string
+      }
+      information_we_collect: {
+        title: string
+        description: string
+        data: string[]
+        contact_form: string
+        contact_data: string[]
+      }
+      purpose_of_data_collection: {
+        title: string
+        description: string
+        purposes: string[]
+      }
+      data_retention: {
+        title: string
+        description: string
+      }
+      third_parties: {
+        title: string
+        description: string
+      }
+      user_rights: {
+        title: string
+        description: string
+        rights: string[]
+      }
+      data_security: {
+        title: string
+        description: string
+      }
+      cookies: {
+        title: string
+        description: string
+      }
+      changes_to_policy: {
+        title: string
+        description: string
+      }
+      contact_us: {
+        title: string
+        description: string
+      }
+    }
   }
 }
 

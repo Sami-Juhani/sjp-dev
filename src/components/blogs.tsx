@@ -35,7 +35,7 @@ export default function Posts({
               <div className='max-w-sm text-center sm:text-start'>
                 <p className='text-lg font-semibold'>{post.title}</p>
                 <p className='mt-1 line-clamp-3 text-sm font-light text-muted-foreground'>
-                  {post.summary}
+                  {post.description}
                 </p>
               </div>
 

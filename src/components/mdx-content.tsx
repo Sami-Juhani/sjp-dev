@@ -7,8 +7,27 @@ function Code({ children, ...props }: any) {
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
 }
 
+function Anchor({
+  href,
+  children,
+  ...props
+}: React.JSX.IntrinsicElements['a']) {
+  return (
+    <a
+      href={href}
+      target='_blank'
+      rel='noreferer noopener'
+      className='text-muted-foreground underline-offset-4 text-xs'
+      {...props}
+    >
+      {children}
+    </a>
+  )
+}
+
 const components = {
   code: Code,
+  a: Anchor,
 }
 
 export default function MDXContent(

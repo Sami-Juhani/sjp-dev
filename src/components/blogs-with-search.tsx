@@ -8,8 +8,11 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { SupportedLangs } from '@/types/types'
+import { DictionaryResult } from '@/dictionaries/dictionaries'
 
-export default function BlogWithSearch({ blogs, lang }: { blogs: BlogMetadata[], lang: SupportedLangs }) {
+type BlogWithSearchProps = { blogs: BlogMetadata[], lang: SupportedLangs, dict: DictionaryResult }
+
+export default function BlogWithSearch({ blogs, lang, dict }: BlogWithSearchProps) {
   const [query, setQuery] = useState('')
   const filtered = blogs.filter(post =>
     post.title?.toLowerCase().includes(query.toLowerCase())
@@ -25,7 +28,7 @@ export default function BlogWithSearch({ blogs, lang }: { blogs: BlogMetadata[],
       <div className='mb-12 flex items-center gap-3'>
         <Input
           type='text'
-          placeholder='Search posts...'
+          placeholder={dict.blog.searchPh}
           className='h-9 w-full sm:w-1/2'
           value={query}
           onChange={e => setQuery(e.target.value)}

@@ -21,8 +21,9 @@ export default function BlogLikes({
 }) {
   const [likes, setLikes] = useState(fetchedLikes)
   const [isPending, startTransition] = useTransition()
-  const { data: session, update } = useSession()
+  const { data: session, status, update } = useSession()
 
+  const userIsLoading = status === 'loading'
   const userId = session?.user.id
   const hasLiked = session?.user.likes
     .map((like: { blogSlug: string }) => like.blogSlug)
@@ -57,7 +58,7 @@ export default function BlogLikes({
 
   return (
     <div className='mt-4 flex flex-col items-start gap-2'>
-      {!isPending && (
+      {!isPending && !userIsLoading && (
         <>
           {hasLiked ? (
             <HeartFilledIcon
@@ -83,7 +84,7 @@ export default function BlogLikes({
           </p>
         </>
       )}
-      {isPending && <LikesSkeleton />}
+      {isPending || userIsLoading && <LikesSkeleton />}
     </div>
   )
 }

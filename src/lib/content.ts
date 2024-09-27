@@ -4,6 +4,8 @@ import matter from 'gray-matter'
 import { SupportedLangs } from '@/types/types'
 import { getBlog } from './blog'
 
+export type ContentType = 'blog' | 'project'
+
 export type Post = {
   metadata: BlogMetadata
   content: string
@@ -16,20 +18,22 @@ export type Project = {
 
 export type BlogMetadata = {
   title?: string
-  summary?: string
+  description?: string
   image?: string
   author?: string
   publishedAt?: string
+  keywords?: string
   slug: string
   likes: number
 }
 
 export type ProjectMetadata = {
   title?: string
-  summary?: string
+  description?: string
   image?: string
   author?: string
   publishedAt?: string
+  keywords?: string
   slug: string
   likes: number
 }

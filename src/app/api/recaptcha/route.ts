@@ -33,7 +33,6 @@ export async function POST(req: NextRequest) {
 
     // Check the ReCaptcha response for success and a score above a certain threshold.
     if (responseData.success && responseData.score > 0.5) {
-      console.log("ReCaptcha score:", responseData.score)
       // Return a success response if the verification passes.
       return NextResponse.json(
         {

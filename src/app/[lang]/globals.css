@@ -104,6 +104,17 @@
   }
 }
 
+@layer utilities {
+  .mask-gradient {
+    mask-image: linear-gradient(
+      hsl(var(--background)),
+      rgb(0 0 0 / 1),
+      rgb(0 0 0 / 0.5),
+      rgb(0 0 0 / 0)
+    );
+  }
+}
+
 /* Hide google-recaptcha-v3 badge 
    Remember to add google's privacy policy 
 */

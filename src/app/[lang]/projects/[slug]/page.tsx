@@ -1,20 +1,23 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { Metadata, ResolvingMetadata } from 'next'
 
-import { formatDate } from '@/lib/utils'
+import { notFound } from 'next/navigation'
 import MDXContent from '@/components/mdx-content'
+import ContentComments from '@/components/content-comments'
+
 import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import { getContentBySlug, getContent } from '@/lib/content'
-import { notFound } from 'next/navigation'
 import { SUPPORTED_LANGS, SupportedLangs } from '@/types/types'
 import { getDictionary } from '@/dictionaries/dictionaries'
+import { formatDate } from '@/lib/utils'
 
 export default async function Project({
-    params: { slug, lang }
-  }: {
-    params: { slug: string; lang: SupportedLangs }
-  }) {
-  const project = await getContentBySlug({dir:'projects', lang, slug})
+  params: { slug, lang }
+}: {
+  params: { slug: string; lang: SupportedLangs }
+}) {
+  const project = await getContentBySlug({ dir: 'projects', lang, slug })
   const dict = await getDictionary(lang)
 
   if (!project) {
@@ -65,6 +68,12 @@ export default async function Project({
 
         <main className='prose mt-16 dark:prose-invert'>
           <MDXContent source={content} />
+          <ContentComments
+            contentType={'project'}
+            slug={slug}
+            lang={lang}
+            dict={dict}
+          />
         </main>
       </div>
     </section>
@@ -72,12 +81,41 @@ export default async function Project({
 }
 
 export async function generateStaticParams() {
-    const slugs = await Promise.all(
-      SUPPORTED_LANGS.map(async lang => {
-        const projects = await getContent({ dir: 'projects', lang })
-        return projects.map(project => ({ slug: project.slug }))
-      })
+  const slugs = await Promise.all(
+    SUPPORTED_LANGS.map(async lang => {
+      const projects = await getContent({ dir: 'projects', lang })
+      return projects.map(project => ({ slug: project.slug }))
+    })
+  )
+
+  return slugs.flat()
+}
+
+export async function generateMetadata(
+  {
+    params: { lang, slug }
+  }: {
+    params: { lang: SupportedLangs; slug: string }
+  },
+  parent: ResolvingMetadata
+): Promise<Metadata | undefined> {
+  const post = await getContentBySlug({ dir: 'projects', lang, slug })
+
+  if (!post) return
+
+  const metadata = post.metadata
+
+  const previousImages = (await parent).openGraph?.images || []
+
+  return {
+    title: `Projects | ${metadata.title}`,
+    description: metadata.description,
+    keywords: metadata.keywords,
+    openGraph: {
+      images: [metadata.image!, ...previousImages]
+    },
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     )
-  
-    return slugs.flat()
   }
+}

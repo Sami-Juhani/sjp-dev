@@ -1,5 +1,10 @@
 'use client'
 
+import { useState } from 'react'
+import { useTheme } from 'next-themes'
+import { usePathname, useRouter } from 'next/navigation'
+import { signOut, useSession } from 'next-auth/react'
+
 import {
   GlobeIcon,
   GearIcon,
@@ -25,14 +30,11 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import { useState } from 'react'
-import { SupportedLangs } from '@/types/types'
-import { useTheme } from 'next-themes'
-import { usePathname, useRouter } from 'next/navigation'
-import { DictionaryResult } from '@/dictionaries/dictionaries'
-import ModalLogin from './modal-login'
-import { signOut, useSession } from 'next-auth/react'
 import { toast } from 'sonner'
+import ModalLogin from './modal-login'
+
+import { DictionaryResult } from '@/dictionaries/dictionaries'
+import { SupportedLangs } from '@/types/types'
 
 export default function Dropdownmenu({
   lang,
@@ -52,7 +54,7 @@ export default function Dropdownmenu({
             <GearIcon className='size-4' />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align='end'>
+        <DropdownMenuContent align='end' className="min-w-48">
           <DropdownMenuLabel>{dict.header.dropdownmenu.menu}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
@@ -73,7 +75,7 @@ export default function Dropdownmenu({
             <DropdownMenuItem
               className='flex justify-between'
               onClick={() => {
-                signOut({ redirect: false})
+                signOut()
                 update()
                 toast.success(dict.auth.logOutMsg)
               }}

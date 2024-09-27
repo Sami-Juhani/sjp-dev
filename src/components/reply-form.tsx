@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { useSession } from 'next-auth/react'
 import { z } from 'zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -8,51 +8,55 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import GoogleRecaptchaPrivacy from './google-recaptcha-privacy'
 
 import { motion, AnimatePresence } from 'framer-motion'
 
-import { CommentFormSchema } from '@/lib/schemas'
+import { ReplyFormSchema } from '@/lib/schemas'
 import { DictionaryResult } from '@/dictionaries/dictionaries'
-import { addComment } from '@/actions/comment'
 import { ContentType } from '@/lib/content'
+import { addReply } from '@/actions/comment'
 import { useRecaptcha } from '@/app/hooks/useRecaptcha'
 
-type Inputs = z.infer<typeof CommentFormSchema>
+type Inputs = z.infer<typeof ReplyFormSchema>
 
-type CommentFormProps = {
+type ReplyFormProps = {
+  isOpen: boolean
+  setIsOpen: Dispatch<SetStateAction<boolean>>
+  parentId: string
+  parentTitle: string | null
   dict: DictionaryResult
   contentType: ContentType
   slug: string
 }
 
-export default function CommentForm({
+export default function ReplyForm({
+  isOpen,
+  setIsOpen,
+  parentId,
+  parentTitle,
   dict,
-  slug,
-  contentType
-}: CommentFormProps) {
-  const [isOpen, setIsOpen] = useState(false)
+  contentType,
+  slug
+}: ReplyFormProps) {
   const { data: session } = useSession()
   const callRecaptcha = useRecaptcha()
-
-  const isLoggedIn = session?.user !== undefined
-  const userId = session?.user.id
-
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting }
   } = useForm<Inputs>({
-    resolver: zodResolver(CommentFormSchema),
+    resolver: zodResolver(ReplyFormSchema),
     defaultValues: {
-      title: '',
-      body: ''
+      reply: ''
     }
   })
+
+  const isLoggedIn = session?.user !== undefined
+  const userId = session?.user.id
 
   const processForm: SubmitHandler<Inputs> = async data => {
     const { success, response } = await callRecaptcha()
@@ -63,7 +67,13 @@ export default function CommentForm({
 
     if (response.success) {
       try {
-        const result = await addComment({ data, userId, slug, contentType })
+        const result = await addReply({
+          data,
+          userId,
+          slug,
+          contentType,
+          parentId
+        })
 
         if (result?.error || result?.success == false) {
           toast.error(`${dict.common.error}.`)
@@ -78,23 +88,10 @@ export default function CommentForm({
       }
     }
   }
-
+  
   return (
     isLoggedIn && (
       <>
-        <div className='mx-auto'>
-          <Button
-            variant='outline'
-            size='sm'
-            disabled={isOpen || isSubmitting}
-            onClick={() => setIsOpen(true)}
-          >
-            {!isSubmitting
-              ? dict.blog.comments.addCommentButton
-              : dict.blog.comments.addCommentButtonSubmitting}
-          </Button>
-        </div>
-
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -109,34 +106,20 @@ export default function CommentForm({
                 className='mx-auto max-w-md space-y-4 p-4'
               >
                 <div>
-                  <Label htmlFor='title'>{dict.blog.comments.title}</Label>
-                  <Input
-                    id='title'
-                    placeholder={dict.blog.comments.titlePh}
-                    className='mt-1'
-                    {...register('title')}
-                  />
-                </div>
-
-                {errors.title?.message && (
-                  <p className='!mt-2 ml-1 text-sm text-rose-400'>
-                    {errors.title.message}
-                  </p>
-                )}
-
-                <div>
-                  <Label htmlFor='body'>{dict.blog.comments.comment}</Label>
+                  <Label htmlFor='reply'>
+                    {`${dict.blog.comments.replyFor}: ${parentTitle}`}
+                  </Label>
                   <Textarea
-                    id='body'
+                    id='reply'
                     placeholder={dict.blog.comments.commentPh}
                     className='mt-1'
-                    {...register('body')}
+                    {...register('reply')}
                   />
                 </div>
 
-                {errors.body?.message && (
+                {errors.reply?.message && (
                   <p className='!mt-2 ml-1 text-sm text-rose-400'>
-                    {errors.body.message}
+                    {errors.reply.message}
                   </p>
                 )}
 
@@ -155,6 +138,7 @@ export default function CommentForm({
                     variant='secondary'
                     size='sm'
                     type='button'
+                    disabled={isSubmitting}
                     onClick={() => setIsOpen(false)}
                   >
                     {dict.blog.comments.cancelButton}

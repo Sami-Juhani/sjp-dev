@@ -4,7 +4,6 @@ import { revalidatePath } from 'next/cache'
 import prisma from './prisma'
 
 export type Blog = Awaited<ReturnType<typeof getBlog>>
-export type BlogComments = Awaited<ReturnType<typeof getBlogComments>>
 
 export async function getBlog(slug: string) {
   return prisma.blog.findUnique({
@@ -18,27 +17,6 @@ export async function getBlog(slug: string) {
         }
       },
       comments: true
-    }
-  })
-}
-
-export async function getBlogComments(blogSlug: string) {
-  return prisma.comment.findMany({
-    where: {
-      blogSlug
-    },
-    include: {
-      author: {
-        select: {
-          id: true,
-          name: true,
-          image: true
-        }
-      },
-      replies: true
-    },
-    orderBy: {
-      publishedAt: 'desc'
     }
   })
 }

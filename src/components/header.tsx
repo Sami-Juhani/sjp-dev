@@ -31,9 +31,7 @@ export default function Header({
           </li>
         </ul>
 
-        <div className='flex'>
-          <Dropdownmenu lang={lang} dict={dict}/>
-        </div>
+        <Dropdownmenu lang={lang} dict={dict} />
       </nav>
     </header>
   )

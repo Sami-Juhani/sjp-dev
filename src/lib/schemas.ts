@@ -12,13 +12,29 @@ export const ContactFormSchema = z.object({
   phone: z
     .string()
     .optional()
-    .refine((val) => !val || /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/.test(val), {
-        message: 'Must be a valid mobile number.',
-      })
-    .refine((val) => !val || val.length >= 7, {
-      message: 'Must be at least 7 characters.',
+    .refine(
+      val => !val || /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/.test(val),
+      {
+        message: 'Must be a valid mobile number.'
+      }
+    )
+    .refine(val => !val || val.length >= 7, {
+      message: 'Must be at least 7 characters.'
     }),
   message: z.string().min(1, { message: 'Message is required.' })
+})
+
+export const CommentFormSchema = z.object({
+  title: z.string().min(1, { message: 'Title is required' }),
+  body: z.string().min(1, { message: 'Message is required.' })
+})
+
+export const ReplyFormSchema = z.object({
+  reply: z.string().min(1, { message: 'Message is required.' })
+})
+
+export const EditCommentFormSchema = z.object({
+  body: z.string().min(1, { message: 'Message is required.' })
 })
 
 export const NewsletterFormSchema = z.object({

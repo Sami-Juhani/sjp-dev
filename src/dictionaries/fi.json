@@ -1,6 +1,6 @@
 {
   "common": {
-    "error": "Tapahtui virhe. Yritä myöhemmin uudelleen."
+    "error": "Tapahtui odottamaton virhe. Yritä myöhemmin uudelleen."
   },
   "notfound": {
     "title": "Sivua ei löydy",
@@ -28,8 +28,9 @@
     "rights": "Kaikki oikeudet pidätetään"
   },
   "home": {
-    "authorTitle": "Hei, Olen Sami",
-    "authorIntro": "Olen ohjelmistokehittäjä ja minulla on syvä kiinnostus web teknologioihin ja pilvipohjaisiin ratkaisuihin"
+    "authorTitle": "Hei, Minä olen Sami",
+    "authorIntro": "Olen suomalainen ohjelmistokehittäjä, joka on erikoistunut web-kehitykseen, hallitsee myös palvelinpuolen ja omaa syvän kiinnostuksen pilviteknologioihin",
+    "downloadButton": "Lataa CV"
   },
   "blog": {
     "backButton": "Takaisin julkaisuihin",
@@ -41,7 +42,33 @@
     "likeAdded": "Tykkäys lisätty.",
     "likeRemoved": "Tykkäys poistettu.",
     "noUser": "Kirjaudu sisään lisätäksesi tykkäyksiä.",
-    "likes": "Tykkäyksiä"
+    "likes": "Tykkäyksiä",
+    "searchPh": "Etsi julkaisuja...",
+    "comments": {
+      "heading": "Kommentit",
+      "published": "Julkaistu",
+      "replied": "Vastasi",
+      "addCommentButton": "Lisää kommentti",
+      "addCommentButtonSubmitting": "Lisätään...",
+      "replyButtonSubmitting": "Vastataan...",
+      "editButton": "Muokkaa",
+      "saveButton": "Tallenna",
+      "saveButtonSubmitting": "Tallennetaan...",
+      "deleteButton": "Poista",
+      "deleteButtonSubmitting": "Poistetaan...",
+      "submitButton": "Lähetä",
+      "submitButtonSubmitting": "Lähetetään...",
+      "cancelButton": "Peruuta",
+      "reply": "Vastaa",
+      "replyFor": "Vastaus kommentille",
+      "title": "Otsikko",
+      "comment": "Kommentti",
+      "commentPh": "Kommentin tekstiä...",
+      "titlePh": "Otsikko tekstille...",
+      "commentSuccess": "Kommentti lisätty",
+      "commentDeleted": "Kommentti poistettu",
+      "commentUpdated": "Kommentti päivitetty"
+    }
   },
   "projects": {
     "backButton": "Takaisin projekteihin",
@@ -82,5 +109,73 @@
     "loginError": "Kirjautuminen epäonnistui. Yritä uudelleen.",
     "logOutMsg": "Kirjauduit ulos.",
     "googleLoginButton": "Kirjaudu sisään Googlella"
+  },
+  "policy": {
+    "title": "Tietosuojakäytäntö",
+    "sections": {
+      "general": {
+        "title": "Yleistä",
+        "description": "Tämä tietosuojakäytäntö kuvaa, kuinka keräämme, käytämme ja suojaamme henkilötietojasi, kun käytät verkkosivustoamme ja palveluitamme."
+      },
+      "information_we_collect": {
+        "title": "Kerättävät tiedot",
+        "description": "Kun käyttäjä kirjautuu sivustolle Google-tunnuksillaan, keräämme ja tallennamme seuraavat tiedot:",
+        "data": [
+          "Sähköpostiosoite",
+          "Nimi",
+          "Profiilikuva (jos saatavilla)"
+        ],
+        "contact_form": "Kun käyttäjä ottaa meihin yhteyttä yhteydenottolomakkeella, keräämme ja tallennamme seuraavat tiedot:",
+        "contact_data": [
+          "Nimi",
+          "Sähköpostiosoite",
+          "Viestin sisältö"
+        ]
+      },
+      "purpose_of_data_collection": {
+        "title": "Tietojen käyttötarkoitus",
+        "description": "Keräämme ja käytämme tietojasi seuraaviin tarkoituksiin:",
+        "purposes": [
+          "Käyttäjätilin ylläpitäminen ja tunnistaminen",
+          "Sivuston toiminnan ja käytön mahdollistaminen",
+          "Yhteydenottoihin vastaaminen ja asiakaspalvelu",
+          "Sivuston kehittäminen"
+        ]
+      },
+      "data_retention": {
+        "title": "Tietojen säilytys",
+        "description": "Tallennamme henkilötietoja niin kauan kuin on tarpeen tietosuojakäytännössä määriteltyjen tarkoitusten toteuttamiseksi tai lain edellyttämän ajan. Voit pyytää tietojesi poistamista ottamalla meihin yhteyttä tai poistamalla käyttäjä profiilisi asetukset sivulta."
+      },
+      "third_parties": {
+        "title": "Kolmannet osapuolet",
+        "description": "Emme jaa tietojasi kolmansille osapuolille ilman suostumustasi, ellei laki toisin vaadi."
+      },
+      "user_rights": {
+        "title": "Käyttäjän oikeudet",
+        "description": "Sinulla on oikeus:",
+        "rights": [
+          "Päästä käsiksi henkilötietoihisi",
+          "Pyytää tietojen oikaisua tai poistamista",
+          "Rajoittaa tietojen käsittelyä",
+          "Vastustaa tietojen käyttöä markkinointitarkoituksiin"
+        ]
+      },
+      "data_security": {
+        "title": "Tietoturva",
+        "description": "Suojaamme henkilötietosi asianmukaisin teknisin ja organisatorisin toimenpitein. Pyrimme estämään luvattoman pääsyn, muutoksen, paljastamisen tai tuhoamisen."
+      },
+      "cookies": {
+        "title": "Evästeet",
+        "description": "Käytämme evästeitä käyttäjäkokemuksen parantamiseksi. Voit hallita evästeasetuksia selaimesi asetuksista."
+      },
+      "changes_to_policy": {
+        "title": "Muutokset tietosuojakäytäntöön",
+        "description": "Pidätämme oikeuden päivittää tätä tietosuojakäytäntöä. Ilmoitamme käyttäjille muutoksista tarpeen mukaan."
+      },
+      "contact_us": {
+        "title": "Ota yhteyttä",
+        "description": "Jos sinulla on kysyttävää tästä tietosuojakäytännöstä tai haluat käyttää oikeuksiasi, voit ottaa meihin yhteyttä yhteydenottolomakkeella."
+      }
+    }
   }
 }

@@ -15,7 +15,7 @@ export default function Projects({
   return (
     <ul className='grid grid-cols-1 gap-8 sm:grid-cols-2'>
       {projects.map(project => (
-        <li key={project.slug} className='group relative'>
+        <li key={project.slug} className='group relative rounded-lg overflow-hidden'>
           <Link href={`/${lang}/projects/${project.slug}`}>
             {project.image && (
               <div className='relative h-72 w-full overflow-hidden bg-muted sm:h-60'>
@@ -36,7 +36,7 @@ export default function Projects({
                 {project.title}
               </h2>
               <p className='line-clamp-1 text-sm text-muted-foreground'>
-                {project.summary}
+                {project.description}
               </p>
               <p className='text-xs font-light text-muted-foreground'>
               {formatDate(

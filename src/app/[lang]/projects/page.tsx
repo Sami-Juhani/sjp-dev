@@ -1,4 +1,7 @@
+import { Metadata } from 'next'
+
 import Projects from '@/components/projects'
+
 import { getDictionary } from '@/dictionaries/dictionaries'
 import { getContent } from '@/lib/content'
 import { SupportedLangs } from '@/types/types'
@@ -20,4 +23,12 @@ export default async function ProjectsPage({
       </div>
     </section>
   )
+}
+
+export const metadata: Metadata = {
+  title: 'Projects',
+  description:
+    'Explore our impressive portfolio of software development projects, showcasing my expertise and innovative solutions.',
+  keywords:
+    'projects, software development, portfolio, solutions, technology, web development'
 }

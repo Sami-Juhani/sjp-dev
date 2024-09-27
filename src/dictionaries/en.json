@@ -29,7 +29,8 @@
   },
   "home": {
     "authorTitle": "Hey, I'm Sami",
-    "authorIntro": "I'm a software developer based in Finland. I have a strong passion for web development and cloud technologies"
+    "authorIntro": "I'm a software developer based in Finland with expertise in web development, proficiency in backend development, and a strong passion for cloud technologies",
+    "downloadButton": "Download CV"
   },
   "blog": {
     "backButton": "Back to posts",
@@ -41,7 +42,33 @@
     "likeAdded": "Like added.",
     "likeRemoved": "Like removed.",
     "noUser": "Please login to add likes.",
-    "likes": "Likes"
+    "likes": "Likes",
+    "searchPh": "Search posts...",
+    "comments": {
+      "heading": "Comments",
+      "published": "Published on",
+      "replied": "Replied on",
+      "addCommentButton": "Add Comment",
+      "addCommentButtonSubmitting": "Adding...",
+      "replyButtonSubmitting": "Replying...",
+      "editButton": "Edit",
+      "saveButton": "Save",
+      "saveButtonSubmitting": "Saving...",
+      "deleteButton": "Delete",
+      "deleteButtonSubmitting": "Deleting...",
+      "submitButton": "Submit",
+      "submitButtonSubmitting": "Submitting...",
+      "cancelButton": "Cancel",
+      "reply": "Reply",
+      "replyFor": "Reply for comment",
+      "title": "Title",
+      "comment": "Comment",
+      "commentPh": "Comment text...",
+      "titlePh": "Title for the comment...",
+      "commentSuccess": "Comment added",
+      "commentDeleted": "Comment deleted",
+      "commentUpdated": "Comment updated"
+    }
   },
   "projects": {
     "backButton": "Back to projects",
@@ -81,5 +108,141 @@
     "loginError": "Login failed. Please try again.",
     "logOutMsg": "Logged out.",
     "googleLoginButton": "Sign in with Google"
+  },
+  "policy": {
+    "title": "Privacy Policy",
+    "sections": {
+      "general": {
+        "title": "General",
+        "description": "This privacy policy describes how we collect, use, and protect your personal data when you use our website and services."
+      },
+      "information_we_collect": {
+        "title": "Information We Collect",
+        "description": "When users log in to our website using their Google account, we collect and store the following information:",
+        "data": [
+          "Email address",
+          "Name",
+          "Profile picture (if available)"
+        ],
+        "contact_form": "When users contact us through the contact form, we collect and store the following information:",
+        "contact_data": [
+          "Name",
+          "Email address",
+          "Message content"
+        ]
+      },
+      "purpose_of_data_collection": {
+        "title": "Purpose of Data Collection",
+        "description": "We collect and use your data for the following purposes:",
+        "purposes": [
+          "Managing and identifying your user account",
+          "Enabling the functionality and use of the website",
+          "Responding to inquiries and providing customer support",
+          "Improving the website"
+        ]
+      },
+      "data_retention": {
+        "title": "Data Retention",
+        "description": "We retain personal data as long as necessary to fulfill the purposes described in this privacy policy or as required by law. You can request the deletion of your data by contacting us or by deleting your account on the settings page."
+      },
+      "third_parties": {
+        "title": "Third Parties",
+        "description": "We do not share your data with third parties without your consent, unless required by law."
+      },
+      "user_rights": {
+        "title": "User Rights",
+        "description": "You have the right to:",
+        "rights": [
+          "Access your personal data",
+          "Request correction or deletion of data",
+          "Restrict the processing of your data",
+          "Object to the use of your data for marketing purposes"
+        ]
+      },
+      "data_security": {
+        "title": "Data Security",
+        "description": "We implement appropriate technical and organizational measures to protect your personal data and prevent unauthorized access, alteration, disclosure, or destruction."
+      },
+      "cookies": {
+        "title": "Cookies",
+        "description": "We use cookies to enhance the user experience. You can manage cookie settings through your browser settings."
+      },
+      "changes_to_policy": {
+        "title": "Changes to This Privacy Policy",
+        "description": "We reserve the right to update this privacy policy. We will inform users of any significant changes as necessary."
+      },
+      "contact_us": {
+        "title": "Contact Us",
+        "description": "If you have any questions about this privacy policy or wish to exercise your rights, please contact us by the contact form."
+      }
+    }
+  },
+  "privacypolicy": {
+    "title": "Tietosuojakäytäntö",
+    "sections": {
+      "general": {
+        "title": "Yleistä",
+        "description": "Tämä tietosuojakäytäntö kuvaa, kuinka keräämme, käytämme ja suojaamme henkilötietojasi, kun käytät verkkosivustoamme ja palveluitamme."
+      },
+      "information_we_collect": {
+        "title": "Kerättävät tiedot",
+        "description": "Kun käyttäjä kirjautuu sivustolle Google-tunnuksillaan, keräämme ja tallennamme seuraavat tiedot:",
+        "data": [
+          "Sähköpostiosoite",
+          "Nimi",
+          "Profiilikuva (jos saatavilla)"
+        ],
+        "contact_form": "Kun käyttäjä ottaa meihin yhteyttä yhteydenottolomakkeella, keräämme ja tallennamme seuraavat tiedot:",
+        "contact_data": [
+          "Nimi",
+          "Sähköpostiosoite",
+          "Viestin sisältö"
+        ]
+      },
+      "purpose_of_data_collection": {
+        "title": "Tietojen käyttötarkoitus",
+        "description": "Keräämme ja käytämme tietojasi seuraaviin tarkoituksiin:",
+        "purposes": [
+          "Käyttäjätilin ylläpitäminen ja tunnistaminen",
+          "Sivuston toiminnan ja käytön mahdollistaminen",
+          "Yhteydenottoihin vastaaminen ja asiakaspalvelu",
+          "Sivuston kehittäminen ja personointi käyttäjien tarpeiden mukaan"
+        ]
+      },
+      "data_retention": {
+        "title": "Tietojen säilytys",
+        "description": "Tallennamme henkilötietoja niin kauan kuin on tarpeen tietosuojakäytännössä määriteltyjen tarkoitusten toteuttamiseksi tai lain edellyttämän ajan. Voit pyytää tietojesi poistamista ottamalla meihin yhteyttä."
+      },
+      "third_parties": {
+        "title": "Kolmannet osapuolet",
+        "description": "Emme jaa tietojasi kolmansille osapuolille ilman suostumustasi, ellei laki toisin vaadi."
+      },
+      "user_rights": {
+        "title": "Käyttäjän oikeudet",
+        "description": "Sinulla on oikeus:",
+        "rights": [
+          "Päästä käsiksi henkilötietoihisi",
+          "Pyytää tietojen oikaisua tai poistamista",
+          "Rajoittaa tietojen käsittelyä",
+          "Vastustaa tietojen käyttöä markkinointitarkoituksiin"
+        ]
+      },
+      "data_security": {
+        "title": "Tietoturva",
+        "description": "Suojaamme henkilötietosi asianmukaisin teknisin ja organisatorisin toimenpitein. Pyrimme estämään luvattoman pääsyn, muutoksen, paljastamisen tai tuhoamisen."
+      },
+      "cookies": {
+        "title": "Evästeet",
+        "description": "Käytämme evästeitä käyttäjäkokemuksen parantamiseksi. Voit hallita evästeasetuksia selaimesi asetuksista."
+      },
+      "changes_to_policy": {
+        "title": "Muutokset tietosuojakäytäntöön",
+        "description": "Pidätämme oikeuden päivittää tätä tietosuojakäytäntöä. Ilmoitamme käyttäjille muutoksista tarpeen mukaan."
+      },
+      "contact_us": {
+        "title": "Ota yhteyttä",
+        "description": "Jos sinulla on kysyttävää tästä tietosuojakäytännöstä tai haluat käyttää oikeuksiasi, voit ottaa meihin yhteyttä osoitteeseen [sähköpostiosoite]."
+      }
+    }
   }
 }
