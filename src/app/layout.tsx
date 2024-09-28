@@ -72,14 +72,7 @@ export const metadata: Metadata = {
       'Your tech partner for innovative software development. Discover my latest projects and industry knowledge in my blog',
     url: process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000',
     type: 'website',
-    images: [
-      {
-        url: '/images/author/sjp_dev.png',
-        width: 1200,
-        height: 630,
-        alt: 'SjP - Software Development'
-      }
-    ]
+    images: ['/images/author/sjp_dev.png']
   },
   twitter: {
     card: 'summary_large_image',
