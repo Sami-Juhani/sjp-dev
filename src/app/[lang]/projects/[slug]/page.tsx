@@ -111,15 +111,30 @@ export async function generateMetadata(
     title: `Projects | ${metadata.title}`,
     description: metadata.description,
     keywords: metadata.keywords,
+
     openGraph: {
-      images: [metadata.image!, ...previousImages]
+      title: metadata.title,
+      description: metadata.description,
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/projects/${slug}` || 'http://localhost:3000',
+      type: 'website',
+      images: [
+        {
+          url: metadata.image || '/images/author/sjp_dev.png',
+          width: 1200,
+          height: 630,
+          alt: metadata.title,
+          ...previousImages
+        }
+      ]
     },
+
     twitter: {
       card: 'summary_large_image',
       title: metadata.title,
       description: metadata.description,
       images: [metadata.image || '/images/author/sjp_dev.png']
     },
+
     metadataBase: new URL(
       process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     )
