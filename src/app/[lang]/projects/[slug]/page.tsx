@@ -118,7 +118,7 @@ export async function generateMetadata(
       card: 'summary_large_image',
       title: metadata.title,
       description: metadata.description,
-      images: [metadata.title || '/images/author/sjp_dev.png']
+      images: [metadata.image || '/images/author/sjp_dev.png']
     },
     metadataBase: new URL(
       process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
