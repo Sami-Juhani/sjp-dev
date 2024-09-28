@@ -105,9 +105,6 @@ export async function generateMetadata(
 
   const metadata = post.metadata
 
-  const previousImages = (await parent).openGraph?.images || []
-  console.log(previousImages)
-
   return {
     title: `Projects | ${metadata.title}`,
     description: metadata.description,
@@ -124,8 +121,7 @@ export async function generateMetadata(
         {
           url: metadata.image || '/images/author/sjp_dev.png',
           alt: metadata.title
-        },
-        ...previousImages
+        }
       ]
     },
 
