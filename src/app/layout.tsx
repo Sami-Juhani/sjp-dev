@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     title: 'SjP - Software Development',
     description:
       'Your tech partner for innovative software development. Discover my latest projects and industry knowledge in my blog',
-    url: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
+    url: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
     type: 'website',
     images: [
       {
@@ -101,17 +101,15 @@ export const metadata: Metadata = {
   authors: [
     {
       name: 'SjP',
-      url: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000')
+      url: new URL(process.env.NEXT_PUBLIC_BASE_URL!)
     }
   ],
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000',
+    canonical: process.env.NEXT_PUBLIC_BASE_URL,
     languages: {
       'en-US': '/en',
       'fi-FI': '/fi'
     }
   },
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-  )
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!)
 }

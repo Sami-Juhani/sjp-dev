@@ -113,9 +113,7 @@ export async function generateMetadata(
     openGraph: {
       title: metadata.title,
       description: metadata.description,
-      url:
-        `${process.env.NEXT_PUBLIC_BASE_URL}/projects/${slug}` ||
-        'http://localhost:3000',
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/projects/${slug}`,
       type: 'website',
       images: [
         {
@@ -137,8 +135,6 @@ export async function generateMetadata(
       ]
     },
 
-    metadataBase: new URL(
-      process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    )
+    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!)
   }
 }

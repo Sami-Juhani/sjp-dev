@@ -135,16 +135,10 @@ export async function generateMetadata(
     openGraph: {
       title: metadata.title,
       description: metadata.description,
-      url:
-        `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${slug}` ||
-        'http://localhost:3000',
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${slug}`,
       type: 'website',
-      images: [
-        metadata.image || '/images/author/sjp_dev.png',
-      ]
+      images: [metadata.image || '/images/author/sjp_dev.png']
     },
-    metadataBase: new URL(
-      process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-    )
+    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!)
   }
 }

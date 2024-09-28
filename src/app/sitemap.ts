@@ -3,7 +3,7 @@ import { SUPPORTED_LANGS } from '@/types/types'
 import { MetadataRoute } from 'next'
 
 export default async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
   // Fetch posts and projects for all supported languages
   const postsPromises = SUPPORTED_LANGS.map(lang =>
