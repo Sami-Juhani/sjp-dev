@@ -106,6 +106,7 @@ export async function generateMetadata(
   const metadata = post.metadata
 
   const previousImages = (await parent).openGraph?.images || []
+  console.log(previousImages)
 
   return {
     title: `Projects | ${metadata.title}`,
@@ -120,7 +121,10 @@ export async function generateMetadata(
         'http://localhost:3000',
       type: 'website',
       images: [
-        metadata.image || '/images/author/sjp_dev.png',
+        {
+          url: metadata.image || '/images/author/sjp_dev.png',
+          alt: metadata.title
+        },
         ...previousImages
       ]
     },
@@ -129,7 +133,12 @@ export async function generateMetadata(
       card: 'summary_large_image',
       title: metadata.title,
       description: metadata.description,
-      images: [metadata.image || '/images/author/sjp_dev.png']
+      images: [
+        {
+          url: metadata.image || '/images/author/sjp_dev.png',
+          alt: metadata.title
+        }
+      ]
     },
 
     metadataBase: new URL(

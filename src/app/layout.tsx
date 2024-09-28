@@ -70,16 +70,25 @@ export const metadata: Metadata = {
     title: 'SjP - Software Development',
     description:
       'Your tech partner for innovative software development. Discover my latest projects and industry knowledge in my blog',
-    url: process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000',
+    url: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
     type: 'website',
-    images: ['/images/author/sjp_dev.png']
+    images: [
+      {
+        width: 1200,
+        height: 630,
+        url: '/images/author/sjp_dev.png',
+        alt: 'SjP - Software Development'
+      }
+    ]
   },
   twitter: {
     card: 'summary_large_image',
     title: 'SjP - Software Development',
     description:
       'Your tech partner for innovative software development. Discover my latest projects and industry knowledge in my blog',
-    images: ['/images/author/sjp_dev.png']
+    images: [
+      { url: '/images/author/sjp_dev.png', alt: 'SjP - Software Development' }
+    ]
   },
   keywords: [
     'fullstack',
@@ -92,7 +101,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: 'SjP',
-      url: process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+      url: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000')
     }
   ],
   alternates: {
