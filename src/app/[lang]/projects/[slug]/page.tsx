@@ -114,6 +114,12 @@ export async function generateMetadata(
     openGraph: {
       images: [metadata.image!, ...previousImages]
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: metadata.title,
+      description: metadata.description,
+      images: [metadata.title || '/images/author/sjp_dev.png']
+    },
     metadataBase: new URL(
       process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
     )

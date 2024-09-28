@@ -13,7 +13,6 @@ import MDXContent from '@/components/mdx-content'
 import BlogLikes from '@/components/blog-likes'
 import ContentComments from '@/components/content-comments'
 
-
 const dafoe = Mr_Dafoe({ weight: '400', subsets: ['latin'] })
 
 export default async function Blog({
@@ -136,6 +135,12 @@ export async function generateMetadata(
     keywords: metadata.keywords,
     openGraph: {
       images: [metadata.image!, ...previousImages]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: metadata.title,
+      description: metadata.description,
+      images: [metadata.title || '/images/author/sjp_dev.png']
     },
     metadataBase: new URL(
       process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'

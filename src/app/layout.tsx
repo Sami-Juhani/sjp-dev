@@ -83,7 +83,6 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@yourtwitterhandle',
     title: 'SjP - Software Development',
     description:
       'Your tech partner for innovative software development. Discover my latest projects and industry knowledge in my blog',
