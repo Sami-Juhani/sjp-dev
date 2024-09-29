@@ -50,7 +50,7 @@ export default function ContactForm({
     }
 
     if (response.success) {
-      const result = await sendEmail(data)
+      const result = await sendEmail({ data, dict })
 
       if (result?.error) {
         toast.error(`${dict.contact.formError}.`)
