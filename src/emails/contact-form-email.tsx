@@ -1,4 +1,3 @@
-import { Signature } from '@/app/[lang]/blog/[slug]/page'
 import { DictionaryResult } from '@/dictionaries/dictionaries'
 import {
   Head,
@@ -40,10 +39,9 @@ export default function ContactFormEmail({
         will get back to you as soon as possible.
       </Text>
       <Text className='m-0'>Submission details:</Text>
-      <Section className='mb-4 mt-2 ml-4 bg-gray-50 p-4 rounded-lg'>
+      <Section className='mb-4 ml-4 mt-2 rounded-lg bg-gray-50 p-4'>
         <Text className='m-0 mb-2'>
-          From: <strong>Sami Paananen</strong> at{' '}
-          <strong>sami.paananen@gmail.com</strong>
+          From: <strong>{name}</strong> at <strong>{email}</strong>
         </Text>
         {phone !== undefined && (
           <Text className='m-0 mb-2'>
@@ -53,12 +51,11 @@ export default function ContactFormEmail({
         <Text className='m-0'>
           Message: <strong>{message}</strong>
         </Text>
-        
       </Section>
       <Text className='m-0'>
-          If you have any further questions or additional information to
-          provide, feel free to reply to this email.
-        </Text>
+        If you have any further questions or additional information to provide,
+        feel free to reply to this email.
+      </Text>
     </EmailTemplate>
   )
 }
