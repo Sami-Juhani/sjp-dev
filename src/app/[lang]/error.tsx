@@ -38,6 +38,15 @@ export default function Error({
     // Log the error to an error reporting service
     console.error(error)
   }, [error])
+  
+  if (process.env.NODE_ENV === 'development') {
+    return (
+      <div className='absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]'>
+        <h2>Development Mode: Error Stack Trace</h2>
+        <pre>{error.stack}</pre>
+      </div>
+    )
+  }
 
   return (
     <div className='absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] text-center'>

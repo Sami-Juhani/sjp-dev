@@ -120,17 +120,9 @@
       "information_we_collect": {
         "title": "Kerättävät tiedot",
         "description": "Kun käyttäjä kirjautuu sivustolle Google-tunnuksillaan, keräämme ja tallennamme seuraavat tiedot:",
-        "data": [
-          "Sähköpostiosoite",
-          "Nimi",
-          "Profiilikuva (jos saatavilla)"
-        ],
+        "data": ["Sähköpostiosoite", "Nimi", "Profiilikuva (jos saatavilla)"],
         "contact_form": "Kun käyttäjä ottaa meihin yhteyttä yhteydenottolomakkeella, keräämme ja tallennamme seuraavat tiedot:",
-        "contact_data": [
-          "Nimi",
-          "Sähköpostiosoite",
-          "Viestin sisältö"
-        ]
+        "contact_data": ["Nimi", "Sähköpostiosoite", "Viestin sisältö"]
       },
       "purpose_of_data_collection": {
         "title": "Tietojen käyttötarkoitus",
@@ -176,6 +168,31 @@
         "title": "Ota yhteyttä",
         "description": "Jos sinulla on kysyttävää tästä tietosuojakäytännöstä tai haluat käyttää oikeuksiasi, voit ottaa meihin yhteyttä yhteydenottolomakkeella."
       }
+    }
+  },
+  "settings": {
+    "title": "Asetukset",
+    "description": "Hallinnoi tilisi asetuksia",
+    "showImage": "Näytä kuva kommenteissa",
+    "yourComments": "Sinun kommenttisi",
+    "noComments": "Et ole vielä lisännyt yhtään kommenttia...",
+    "badgeBlog": "blogi",
+    "badgeProject": "projekti",
+    "tooltip": "Poista kommentti",
+    "topLevel": "Viestin aloittaja",
+    "reply": "Vastaus",
+    "deleteProfile": "Poista profiili",
+    "userNoImage": "Profiilikuva piilotettu",
+    "userShowImage": "Profiilikuva asetettu julkiseksi",
+    "modal": {
+      "title": "Oletko aivan varma",
+      "description": "Tätä toimintoa ei voi perua. Tämä poistaa tilisi pysyvästi ja poistaa tietosi palvelimiltamme",
+      "confStart": "Kirjoita",
+      "confEnd": "vahvistaaksesi",
+      "delConfirmation": "poista minut",
+      "deleteButton": "Poista profiili",
+      "deleteButtonSubmitting": "Poistetaan...",
+      "profileDeleted": "Profiili poistettu"
     }
   }
 }

@@ -41,7 +41,7 @@ export default function BlogLikes({
       return
     }
     setLikes(updatedBlog._count.likes)
-    update()
+    await update()
     toast.success(dict.blog.likeAdded)
   }
 
@@ -52,7 +52,7 @@ export default function BlogLikes({
       return
     }
     setLikes(updatedBlog._count.likes)
-    update()
+    await update()
     toast.success(dict.blog.likeRemoved)
   }
 

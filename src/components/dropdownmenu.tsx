@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useTheme } from 'next-themes'
 import { usePathname, useRouter } from 'next/navigation'
 import { signOut, useSession } from 'next-auth/react'
+import Link from 'next/link'
 
 import {
   GlobeIcon,
@@ -44,7 +45,8 @@ export default function Dropdownmenu({
   dict: DictionaryResult
 }) {
   const [isLoginOpen, setIsLoginOpen] = useState(false)
-  const { data: session, update } = useSession()
+  const { data: session } = useSession()
+  const router = useRouter()
 
   return (
     <>
@@ -54,7 +56,7 @@ export default function Dropdownmenu({
             <GearIcon className='size-4' />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align='end' className="min-w-48">
+        <DropdownMenuContent align='end' className='min-w-48'>
           <DropdownMenuLabel>{dict.header.dropdownmenu.menu}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
@@ -62,22 +64,27 @@ export default function Dropdownmenu({
             <ThemeToggle dict={dict} />
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem
-            className='flex justify-between'
-            disabled={session?.user == null}
+          <Link
+            href={session?.user == null ? '' : `/${lang}/settings`}
+            className='cursor-default'
           >
-            {dict.header.dropdownmenu.userSettings}
-            <PersonIcon className='size-4' />
-          </DropdownMenuItem>
+            <DropdownMenuItem
+              className='flex justify-between'
+              disabled={session?.user == null}
+            >
+              {dict.header.dropdownmenu.userSettings}
+              <PersonIcon className='size-4' />
+            </DropdownMenuItem>
+          </Link>
           <DropdownMenuSeparator />
 
           {session?.user ? (
             <DropdownMenuItem
               className='flex justify-between'
-              onClick={() => {
-                signOut()
-                update()
+              onClick={async () => {
+                await signOut({ redirect: false })
                 toast.success(dict.auth.logOutMsg)
+                router.push(`/${lang}`)
               }}
             >
               {dict.header.dropdownmenu.logOut}

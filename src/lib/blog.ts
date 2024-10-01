@@ -1,6 +1,5 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import prisma from './prisma'
 
 export type Blog = Awaited<ReturnType<typeof getBlog>>
@@ -41,7 +40,7 @@ export async function removeBlogLike({
 
   if (!blog) return { success: false }
   const updatedBlog = await getBlog(blogSlug)
-  revalidatePath(`/blog/${blogSlug}`)
+
   return { success: true, updatedBlog }
 }
 
@@ -61,6 +60,6 @@ export async function addBlogLike({
   })
   if (!blog) return { success: false }
   const updatedBlog = await getBlog(blogSlug)
-  revalidatePath(`/blog/${blogSlug}`)
+
   return { success: true, updatedBlog }
 }

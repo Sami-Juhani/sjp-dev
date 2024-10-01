@@ -69,7 +69,7 @@ export default async function Project({
         <main className='prose mt-16 dark:prose-invert'>
           <MDXContent source={content} />
           <ContentComments
-            contentType={'project'}
+            contentType={'projects'}
             slug={slug}
             lang={lang}
             dict={dict}

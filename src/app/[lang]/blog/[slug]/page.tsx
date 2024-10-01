@@ -5,7 +5,7 @@ import { Metadata, ResolvingMetadata } from 'next'
 import { Mr_Dafoe } from 'next/font/google'
 import { formatDate } from '@/lib/utils'
 import { SUPPORTED_LANGS, SupportedLangs } from '@/types/types'
-import { getContent, getContentBySlug, getContentMetadata } from '@/lib/content'
+import { getContent, getContentBySlug } from '@/lib/content'
 import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import { notFound } from 'next/navigation'
 import { DictionaryResult, getDictionary } from '@/dictionaries/dictionaries'
@@ -52,6 +52,7 @@ export default async function Blog({
         {image && (
           <div className='relative mb-6 h-96 w-full overflow-hidden rounded-lg'>
             <Image
+              sizes="100vw"
               src={image}
               alt={title || ''}
               className='object-cover'

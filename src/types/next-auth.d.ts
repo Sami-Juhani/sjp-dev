@@ -1,5 +1,5 @@
 import { DefaultUser } from 'next-auth'
-import { type Comment } from '@prisma/client'
+import { type Likes, type Comment } from '@prisma/client'
 
 declare module 'next-auth' {
   interface Session {
@@ -9,7 +9,8 @@ declare module 'next-auth' {
       name: string
       image?: string
       email: string
-      likes: Likes
+      showImage: boolean
+      likes: Likes[]
       comments: Comment[]
     }
   }
@@ -18,7 +19,8 @@ declare module 'next-auth' {
     role: string
     image?: string
     email: string
-    likes: Likes
+    showImage: boolean
+    likes: Likes[]
     comments: Comment[]
   }
 }

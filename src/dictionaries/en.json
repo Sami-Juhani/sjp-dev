@@ -119,17 +119,9 @@
       "information_we_collect": {
         "title": "Information We Collect",
         "description": "When users log in to our website using their Google account, we collect and store the following information:",
-        "data": [
-          "Email address",
-          "Name",
-          "Profile picture (if available)"
-        ],
+        "data": ["Email address", "Name", "Profile picture (if available)"],
         "contact_form": "When users contact us through the contact form, we collect and store the following information:",
-        "contact_data": [
-          "Name",
-          "Email address",
-          "Message content"
-        ]
+        "contact_data": ["Name", "Email address", "Message content"]
       },
       "purpose_of_data_collection": {
         "title": "Purpose of Data Collection",
@@ -187,17 +179,9 @@
       "information_we_collect": {
         "title": "Kerättävät tiedot",
         "description": "Kun käyttäjä kirjautuu sivustolle Google-tunnuksillaan, keräämme ja tallennamme seuraavat tiedot:",
-        "data": [
-          "Sähköpostiosoite",
-          "Nimi",
-          "Profiilikuva (jos saatavilla)"
-        ],
+        "data": ["Sähköpostiosoite", "Nimi", "Profiilikuva (jos saatavilla)"],
         "contact_form": "Kun käyttäjä ottaa meihin yhteyttä yhteydenottolomakkeella, keräämme ja tallennamme seuraavat tiedot:",
-        "contact_data": [
-          "Nimi",
-          "Sähköpostiosoite",
-          "Viestin sisältö"
-        ]
+        "contact_data": ["Nimi", "Sähköpostiosoite", "Viestin sisältö"]
       },
       "purpose_of_data_collection": {
         "title": "Tietojen käyttötarkoitus",
@@ -243,6 +227,31 @@
         "title": "Ota yhteyttä",
         "description": "Jos sinulla on kysyttävää tästä tietosuojakäytännöstä tai haluat käyttää oikeuksiasi, voit ottaa meihin yhteyttä osoitteeseen [sähköpostiosoite]."
       }
+    }
+  },
+  "settings": {
+    "title": "User Settings",
+    "description": "Manage your account preferences",
+    "showImage": "Show image in comments",
+    "yourComments": "Your Comments",
+    "noComments": "You have not posted any comments yet",
+    "badgeBlog": "blog",
+    "badgeProject": "project",
+    "tooltip": "Delete comment",
+    "topLevel": "Top-level",
+    "reply": "Reply",
+    "userNoImage": "Profile image is now hidden",
+    "userShowImage":"Profile image is now public",
+    "deleteProfile": "Delete Profile",
+    "modal": {
+      "title": "Are you absolutely sure",
+      "description": "This action cannot be undone. This will permanently delete your account and remove your data from our servers",
+      "confStart": "Type",
+      "confEnd": "to confirm",
+      "delConfirmation": "delete me",
+      "deleteButton": "Delete Profile",
+      "deleteButtonSubmitting": "Deleting...",
+      "profileDeleted": "Profile deleted successfully"
     }
   }
 }

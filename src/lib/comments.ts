@@ -48,7 +48,7 @@ export async function createComment({
       }
     })
 
-  if (contentType === 'project')
+  if (contentType === 'projects')
     return await prisma.comment.create({
       data: {
         title,
@@ -70,7 +70,7 @@ export async function createReply({
 }: ReplyPayload) {
   if (!parentId || !body || !userId || !contentType || !slug)
     throw new Error(
-      'parentId, body, userId, contenType and slug must be provided to create a new reply.'
+      'parentId, body, userId, contentType and slug must be provided to create a new reply.'
     )
 
   if (contentType === 'blog')
@@ -83,7 +83,7 @@ export async function createReply({
       }
     })
 
-  if (contentType === 'project')
+  if (contentType === 'projects')
     return await prisma.comment.create({
       data: {
         body,
@@ -113,7 +113,8 @@ export async function getComments({
           select: {
             id: true,
             name: true,
-            image: true
+            image: true,
+            showImage: true
           }
         },
         replies: {
@@ -130,7 +131,7 @@ export async function getComments({
       }
     })
 
-  if (model === 'project')
+  if (model === 'projects')
     return prisma.comment.findMany({
       where: {
         projectSlug: slug
@@ -140,7 +141,8 @@ export async function getComments({
           select: {
             id: true,
             name: true,
-            image: true
+            image: true,
+            showImage: true
           }
         },
         replies: {

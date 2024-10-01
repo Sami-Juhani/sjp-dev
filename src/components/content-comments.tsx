@@ -17,20 +17,33 @@ export default async function ContentComments({
   dict: DictionaryResult
   contentType: ContentType
 }) {
-  const comments = await getComments({ model: contentType, slug })
-
-  if (!comments) return
+  const data = await getComments({ model: contentType, slug })
+  if (!data) return
+  
+  const comments = data?.map(comment => {
+    return {
+      ...comment,
+      author: { ...comment.author, image: comment.author.image || undefined }
+    }
+  })
 
   return (
     <>
       <h4 className='title'>{dict.blog.comments.heading}</h4>
-      <CommentForm dict={dict} slug={slug} contentType={contentType}  />
+      <CommentForm dict={dict} slug={slug} contentType={contentType} />
       <section className='mt-4 flex w-full flex-col items-center gap-4'>
         {comments.map(
           comment =>
             /* Render if comment doesn't have any replies */
             !comment.parentId && (
-              <Comment key={comment.id} {...comment} lang={lang} dict={dict} contentType={contentType} slug={slug} />
+              <Comment
+                key={comment.id}
+                {...comment}
+                lang={lang}
+                dict={dict}
+                contentType={contentType}
+                slug={slug}
+              />
             )
         )}
       </section>

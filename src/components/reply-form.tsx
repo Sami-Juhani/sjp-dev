@@ -41,7 +41,7 @@ export default function ReplyForm({
   contentType,
   slug
 }: ReplyFormProps) {
-  const { data: session } = useSession()
+  const { data: session, update } = useSession()
   const callRecaptcha = useRecaptcha()
   const {
     register,
@@ -81,6 +81,7 @@ export default function ReplyForm({
         }
 
         toast.success(dict.blog.comments.commentSuccess)
+        await update()
         reset()
         setIsOpen(false)
       } catch (err) {

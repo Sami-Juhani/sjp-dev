@@ -35,7 +35,7 @@ export default function CommentForm({
   contentType
 }: CommentFormProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const { data: session } = useSession()
+  const { data: session, update } = useSession()
   const callRecaptcha = useRecaptcha()
 
   const isLoggedIn = session?.user !== undefined
@@ -71,6 +71,7 @@ export default function CommentForm({
         }
 
         toast.success(dict.blog.comments.commentSuccess)
+        await update()
         reset()
         setIsOpen(false)
       } catch (err) {

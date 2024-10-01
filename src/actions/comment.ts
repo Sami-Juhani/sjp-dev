@@ -14,6 +14,7 @@ import {
 } from '@/lib/comments'
 import { revalidatePath } from 'next/cache'
 import { ContentType } from '@/lib/content'
+import { SUPPORTED_LANGS } from '@/types/types'
 
 type CommentFormInputs = z.infer<typeof CommentFormSchema>
 type ReplyFormInputs = z.infer<typeof ReplyFormSchema>
@@ -38,6 +39,7 @@ type UpdateCommentProps = {
   data: EditCommentInputs
   id: string
   slug: string
+  contentType: ContentType
 }
 
 export async function addComment({
@@ -67,7 +69,9 @@ export async function addComment({
 
     if (!comment) return { success: false }
 
-    revalidatePath(`/blog/${slug}`)
+    SUPPORTED_LANGS.forEach(lang =>
+      revalidatePath(`/${lang}/${contentType}/${slug}`)
+    )
     return { success: true }
   } catch (error) {
     return { success: false, error }
@@ -102,7 +106,9 @@ export async function addReply({
 
     if (!comment) return { success: false }
 
-    revalidatePath(`/blog/${slug}`)
+    SUPPORTED_LANGS.forEach(lang =>
+      revalidatePath(`/${lang}/${contentType}/${slug}`)
+    )
     return { success: true }
   } catch (error) {
     return { success: false, error }
@@ -111,10 +117,12 @@ export async function addReply({
 
 export async function removeComment({
   id,
-  slug
+  slug,
+  contentType
 }: {
   id: string
   slug: string
+  contentType: ContentType
 }) {
   if (!id) return { success: false }
 
@@ -123,14 +131,22 @@ export async function removeComment({
 
     if (!comment) return { success: false }
 
-    revalidatePath(`/blog/${slug}`)
+    SUPPORTED_LANGS.forEach(lang =>
+      revalidatePath(`/${lang}/${contentType}/${slug}`)
+    )
+
     return { success: true, title: comment.title || '' }
   } catch (error) {
     return { success: false }
   }
 }
 
-export async function updateComment({ data, id, slug }: UpdateCommentProps) {
+export async function updateComment({
+  data,
+  id,
+  slug,
+  contentType
+}: UpdateCommentProps) {
   const result = EditCommentFormSchema.safeParse(data)
 
   if (result.error) {
@@ -144,7 +160,10 @@ export async function updateComment({ data, id, slug }: UpdateCommentProps) {
 
     if (!comment) return { success: false }
 
-    revalidatePath(`/blog/${slug}`)
+    SUPPORTED_LANGS.forEach(lang =>
+      revalidatePath(`/${lang}/${contentType}/${slug}`)
+    )
+
     return { success: true }
   } catch (error) {
     return { success: false, error }

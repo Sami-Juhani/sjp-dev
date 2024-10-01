@@ -4,7 +4,7 @@ import matter from 'gray-matter'
 import { SupportedLangs } from '@/types/types'
 import { getBlog } from './blog'
 
-export type ContentType = 'blog' | 'project'
+export type ContentType = 'blog' | 'projects'
 
 export type Post = {
   metadata: BlogMetadata
@@ -39,7 +39,7 @@ export type ProjectMetadata = {
 }
 
 type getContentBySlugProps = {
-  dir: string
+  dir: ContentType
   lang: SupportedLangs
   slug: string
 }
@@ -69,7 +69,7 @@ export async function getContentBySlug({
 
 type getContentProps = {
   limit?: number
-  dir: string
+  dir: ContentType
   lang: SupportedLangs
 }
 

@@ -12,8 +12,8 @@ import { DictionaryResult, getDictionary } from '@/dictionaries/dictionaries'
 
 export default function NotFound() {
   const [dict, setDict] = useState<DictionaryResult | null>(null)
-
   const pathname = usePathname()
+
   const locale = pathname.split('/').filter(a => a !== '')[0]
 
   useEffect(() => {

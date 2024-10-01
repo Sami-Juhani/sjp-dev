@@ -159,6 +159,31 @@ export interface DictionaryResult {
       }
     }
   }
+  settings: {
+    title: string
+    description: string
+    showImage: string
+    yourComments: string
+    noComments: string
+    badgeBlog: string
+    badgeProject: string
+    tooltip: string
+    topLevel: string
+    reply: string
+    deleteProfile: string
+    userNoImage: string
+    userShowImage: string
+    modal: {
+      title: string
+      description: string
+      confStart: string
+      confEnd: string
+      delConfirmation: string
+      deleteButton: string
+      deleteButtonSubmitting: string
+      profileDeleted: string
+    }
+  }
 }
 
 interface Dictionary {

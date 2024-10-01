@@ -37,7 +37,8 @@ const authOptions: NextAuthOptions = {
         session.user.likes = dbUser.likes
         session.user.comments = dbUser.comments
         session.user.role = dbUser.role
-        session.user.image = dbUser.image
+        session.user.image = dbUser.image || undefined 
+        session.user.showImage = dbUser.showImage
       }
       return session
     }

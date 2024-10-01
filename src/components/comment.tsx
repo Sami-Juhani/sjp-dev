@@ -16,7 +16,7 @@ import { toast } from 'sonner'
 import ReplyForm from './reply-form'
 
 import { SupportedLangs } from '@/types/types'
-import { formatDate } from '@/lib/utils'
+import { formatDate, getInitials } from '@/lib/utils'
 import { type Comment } from '@prisma/client'
 import { CommentWithAuthor } from '@/lib/comments'
 import { DictionaryResult } from '@/dictionaries/dictionaries'
@@ -24,11 +24,11 @@ import { ContentType } from '@/lib/content'
 import { removeComment, updateComment } from '@/actions/comment'
 import { EditCommentFormSchema } from '@/lib/schemas'
 
-interface CommentProps {
+type CommentProps = {
   id: string
   title: string | null
   body: string
-  author: { id: string; name: string; image: string }
+  author: { id: string; name: string; image: string | undefined; showImage: boolean }
   publishedAt: Date
   replies?: CommentWithAuthor[]
   isReply?: boolean
@@ -53,7 +53,7 @@ export default function Comment({
   lang,
   dict
 }: CommentProps) {
-  const { data: session, status } = useSession()
+  const { data: session, status, update } = useSession()
   const [isEditing, setIsEditing] = useState(false)
   const [isReplyFormOpen, setIsReplyFormOpen] = useState(false)
   const [isPending, startTransition] = useTransition()
@@ -85,7 +85,7 @@ export default function Comment({
 
   const handleUpdate: SubmitHandler<Inputs> = async data => {
     try {
-      const result = await updateComment({ data, slug, id })
+      const result = await updateComment({ data, slug, id, contentType })
 
       if (result?.error || result?.success == false) {
         toast.error(`${dict.common.error}.`)
@@ -102,15 +102,16 @@ export default function Comment({
 
   const handleDelete = async ({ id, slug }: { id: string; slug: string }) => {
     try {
-      const { success, title } = await removeComment({ id, slug })
+      const { success, title } = await removeComment({ id, slug, contentType })
 
       if (!success) {
         toast.error(dict.common.error)
         return
       }
 
+      await update()
       toast.success(
-        `${dict.blog.comments.commentDeleted} ${title !== null ? `: ${title}` : ''}`
+        `${dict.blog.comments.commentDeleted}${title ? `: ${title}` : ''}`
       )
     } catch (error) {
       toast.error(dict.common.error)
@@ -118,11 +119,15 @@ export default function Comment({
   }
 
   return !userIsLoading ? (
-    <Card className='mx-auto w-full max-w-2xl'>
+    <Card id={id} className='mx-auto w-full max-w-2xl'>
       <CardHeader className='flex flex-row items-center gap-4 py-6 pb-0 pt-4'>
         <Avatar>
-          <AvatarImage src={author.image} alt={author.name} className='mt-0' />
-          <AvatarFallback>{author.name.charAt(0)}</AvatarFallback>
+          <AvatarImage
+            src={author.showImage ? author.image : undefined}
+            alt={author.name}
+            className='mt-0'
+          />
+          <AvatarFallback>{getInitials(author.name)}</AvatarFallback>
         </Avatar>
         <div className='flex flex-col'>
           <h5 className='m-0 text-lg font-semibold'>{title}</h5>
@@ -184,25 +189,30 @@ export default function Comment({
               </Button>
             )}
 
-            {!isEditing ? <Button
-              variant='outline'
-              size='sm'
-              type='button'
-              disabled={isPending || isSubmitting}
-              onMouseDown={() => setIsEditing(prev => !prev)}
-            >
-              <Pencil className='mr-2 h-4 w-4' />
-              {dict.blog.comments.editButton}
-            </Button> : <Button
-              variant='outline'
-              size='sm'
-              type='button'
-              disabled={isPending || isSubmitting}
-              onMouseDown={() => setIsEditing(prev => !prev)}
-            >
-              <X className='mr-2 h-4 w-4' />
-              {dict.blog.comments.cancelButton}
-            </Button>}
+            {isPublisher &&
+              (!isEditing ? (
+                <Button
+                  variant='outline'
+                  size='sm'
+                  type='button'
+                  disabled={isPending || isSubmitting}
+                  onMouseDown={() => setIsEditing(prev => !prev)}
+                >
+                  <Pencil className='mr-2 h-4 w-4' />
+                  {dict.blog.comments.editButton}
+                </Button>
+              ) : (
+                <Button
+                  variant='outline'
+                  size='sm'
+                  type='button'
+                  disabled={isPending || isSubmitting}
+                  onMouseDown={() => setIsEditing(prev => !prev)}
+                >
+                  <X className='mr-2 h-4 w-4' />
+                  {dict.blog.comments.cancelButton}
+                </Button>
+              ))}
 
             {isPublisher && !isEditing && (
               <Button
@@ -240,7 +250,7 @@ export default function Comment({
         replies.map(reply => (
           <div key={reply.id} className='p-4'>
             <Comment
-              {...reply}
+              {...{...reply, author: { ...reply.author, image: reply.author.image || undefined}}}
               lang={lang}
               isReply
               dict={dict}

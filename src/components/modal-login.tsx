@@ -1,5 +1,9 @@
 'use client'
 
+import { LiteralUnion, signIn } from 'next-auth/react'
+import { BuiltInProviderType } from 'next-auth/providers/index'
+import { usePathname } from 'next/navigation'
+
 import { Dispatch, SetStateAction } from 'react'
 import { Button } from '@/components/ui/button'
 import {
@@ -10,11 +14,9 @@ import {
   DialogTitle
 } from '@/components/ui/dialog'
 import { Card, CardContent } from '@/components/ui/card'
-import { DictionaryResult } from '@/dictionaries/dictionaries'
 import { toast } from 'sonner'
-import { LiteralUnion, signIn } from 'next-auth/react'
-import { BuiltInProviderType } from 'next-auth/providers/index'
-import { usePathname } from 'next/navigation'
+
+import { DictionaryResult } from '@/dictionaries/dictionaries'
 
 type ModalLoginProps = {
   isOpen: boolean
@@ -29,16 +31,15 @@ const handleSignIn = async ({
 }: {
   provider: LiteralUnion<BuiltInProviderType>
   dict: DictionaryResult
-  callbackUrl?: string
+  callbackUrl: string
 }) => {
   try {
-    const result = await signIn(provider, { callbackUrl })
+    const result = await signIn(provider, { callbackUrl, redirect: false })
+    console.log(result)
+    if (result?.ok) toast.success(dict.auth.loginSuccess)
 
     if (result?.error) {
       toast.error(dict.auth.loginError)
-    } else {
-      toast.error(dict.auth.loginSuccess)
-      return
     }
   } catch (error) {
     toast.error(dict.auth.loginError)
@@ -50,6 +51,9 @@ export default function ModalLogin({
   setIsOpen,
   dict
 }: ModalLoginProps) {
+  const pathname = usePathname()
+  const locale = pathname.split('/').filter(a => a !== '')[0]
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent className='sm:max-w-[425px]'>
@@ -59,7 +63,7 @@ export default function ModalLogin({
         </DialogHeader>
         <Card className='border-0 shadow-none'>
           <CardContent className='flex justify-center pt-4'>
-            <GoogleLogin dict={dict} />
+            <GoogleLogin dict={dict} callbackUrl={`/${locale}`} />
           </CardContent>
         </Card>
       </DialogContent>
@@ -67,15 +71,19 @@ export default function ModalLogin({
   )
 }
 
-function GoogleLogin({ dict }: { dict: DictionaryResult }) {
-  const pathname = usePathname()
-
+function GoogleLogin({
+  dict,
+  callbackUrl
+}: {
+  dict: DictionaryResult
+  callbackUrl: string
+}) {
   return (
     <Button
       variant='outline'
       className='w-full max-w-sm'
       onClick={() => {
-        handleSignIn({ provider: 'google', dict, callbackUrl: pathname })
+        handleSignIn({ provider: 'google', dict, callbackUrl })
       }}
     >
       <svg
