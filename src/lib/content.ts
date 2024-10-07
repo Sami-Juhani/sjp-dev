@@ -1,8 +1,8 @@
 import path from 'path'
 import fs from 'fs'
 import matter from 'gray-matter'
+import prisma from './prisma'
 import { SupportedLangs } from '@/types/types'
-import { getBlog } from './blog'
 
 export type ContentType = 'blog' | 'projects'
 
@@ -24,7 +24,8 @@ export type BlogMetadata = {
   publishedAt?: string
   keywords?: string
   slug: string
-  likes: number
+  likeCount: number
+  commentCount: number
 }
 
 export type ProjectMetadata = {
@@ -35,13 +36,33 @@ export type ProjectMetadata = {
   publishedAt?: string
   keywords?: string
   slug: string
-  likes: number
+  likeCount: number
+  commentCount: number
 }
 
 type getContentBySlugProps = {
   dir: ContentType
   lang: SupportedLangs
   slug: string
+}
+
+export type Blog = Awaited<ReturnType<typeof getContentData>>
+
+export async function getContentData(slug: string) {
+  return prisma.blog.findUnique({
+    where: {
+      slug
+    },
+    include: {
+      _count: {
+        select: {
+          likes: true,
+          comments: true
+        }
+      },
+      comments: true
+    }
+  })
 }
 
 export async function getContentBySlug({
@@ -55,13 +76,13 @@ export async function getContentBySlug({
 
     const fileContents = fs.readFileSync(filePath, { encoding: 'utf-8' })
 
-    const post = await getBlog(slug)
-    const likes = post?._count.likes || 0
-    const comments = post?.comments
+    const post = await getContentData(slug)
+    const likeCount = post?._count.likes || 0
+    const commentCount = post?._count.comments || 0
 
     const { data, content } = matter(fileContents)
 
-    return { metadata: { ...data, slug, likes }, content }
+    return { metadata: { ...data, slug, likeCount, commentCount }, content }
   } catch (err) {
     return null
   }
@@ -108,7 +129,8 @@ export async function getContentMetadata(
   const filePath = path.join(rootDir, filepath)
   const fileContent = fs.readFileSync(filePath, { encoding: 'utf8' })
   const { data } = matter(fileContent)
-  const post = await getBlog(slug)
-  const likes = post?._count.likes || 0
-  return { ...data, slug, likes }
+  const post = await getContentData(slug)
+  const likeCount = post?._count.likes || 0
+  const commentCount = post?._count.comments || 0
+  return { ...data, slug, likeCount, commentCount }
 }

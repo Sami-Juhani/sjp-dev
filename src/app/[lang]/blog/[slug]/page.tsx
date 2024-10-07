@@ -26,7 +26,7 @@ export default async function Blog({
   if (!blog) return notFound()
 
   const { metadata, content } = blog
-  const { title, image, author, publishedAt, likes } = metadata
+  const { title, image, author, publishedAt, likeCount } = metadata
 
   const date = formatDate(
     lang === 'fi' ? 'fi-FI' : 'en-US',
@@ -52,7 +52,7 @@ export default async function Blog({
         {image && (
           <div className='relative mb-6 h-96 w-full overflow-hidden rounded-lg'>
             <Image
-              sizes="100vw"
+              sizes='100vw'
               src={image}
               alt={title || ''}
               className='object-cover'
@@ -67,7 +67,7 @@ export default async function Blog({
           <p className='mt-3 text-xs text-muted-foreground'>
             {author} / {date}
           </p>
-          <BlogLikes blogSlug={slug} fetchedLikes={likes} dict={dict} />
+          <BlogLikes blogSlug={slug} fetchedLikes={likeCount} dict={dict} />
         </header>
 
         <main className='prose mt-16 dark:prose-invert'>

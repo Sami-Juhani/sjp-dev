@@ -1,24 +1,7 @@
 'use server'
 
+import { getContentData } from './content'
 import prisma from './prisma'
-
-export type Blog = Awaited<ReturnType<typeof getBlog>>
-
-export async function getBlog(slug: string) {
-  return prisma.blog.findUnique({
-    where: {
-      slug
-    },
-    include: {
-      _count: {
-        select: {
-          likes: true
-        }
-      },
-      comments: true
-    }
-  })
-}
 
 export async function removeBlogLike({
   userId,
@@ -39,7 +22,7 @@ export async function removeBlogLike({
   })
 
   if (!blog) return { success: false }
-  const updatedBlog = await getBlog(blogSlug)
+  const updatedBlog = await getContentData(blogSlug)
 
   return { success: true, updatedBlog }
 }
@@ -59,7 +42,7 @@ export async function addBlogLike({
     }
   })
   if (!blog) return { success: false }
-  const updatedBlog = await getBlog(blogSlug)
+  const updatedBlog = await getContentData(blogSlug)
 
   return { success: true, updatedBlog }
 }

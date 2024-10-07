@@ -5,18 +5,20 @@ import { SupportedLangs } from '@/types/types'
 import { DictionaryResult } from '@/dictionaries/dictionaries'
 
 export default async function RecentProjects({
-    dict,
-    lang
-  }: {
-    dict: DictionaryResult
-    lang: SupportedLangs
-  }) {
-  const projects = await getContent({limit:2, dir:'projects', lang})
+  dict,
+  lang
+}: {
+  dict: DictionaryResult
+  lang: SupportedLangs
+}) {
+  const projects = await getContent({ limit: 2, dir: 'projects', lang })
 
   return (
-    <section className='pb-24'>
+    <section>
       <div>
-        <h2 className='title mb-12'>{dict.projects.recent}</h2>
+        <h2 className='comic-title mb-12 w-fit text-3xl invert'>
+          {dict.projects.title}
+        </h2>
         <Projects projects={projects} lang={lang} />
 
         <Link

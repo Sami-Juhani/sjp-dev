@@ -5,6 +5,7 @@ import { SupportedLangs } from '@/types/types'
 import { getComments } from '@/lib/comments'
 import { ContentType } from '@/lib/content'
 import { DictionaryResult } from '@/dictionaries/dictionaries'
+import { ChatBubbleIcon } from '@radix-ui/react-icons'
 
 export default async function ContentComments({
   slug,
@@ -19,7 +20,7 @@ export default async function ContentComments({
 }) {
   const data = await getComments({ model: contentType, slug })
   if (!data) return
-  
+
   const comments = data?.map(comment => {
     return {
       ...comment,
@@ -29,7 +30,10 @@ export default async function ContentComments({
 
   return (
     <>
-      <h4 className='title'>{dict.blog.comments.heading}</h4>
+      <div className='flex items-center gap-2 border-t-2'>
+        <ChatBubbleIcon className='h-4 w-4' />
+        <h4 className='text-2xl font-serif my-6'>{dict.blog.comments.heading}</h4>
+      </div>
       <CommentForm dict={dict} slug={slug} contentType={contentType} />
       <section className='mt-4 flex w-full flex-col items-center gap-4'>
         {comments.map(

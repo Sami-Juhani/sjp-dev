@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 
 import { cn } from '@/lib/utils'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Inter, Playfair_Display, Bangers } from 'next/font/google'
 import { SupportedLangs } from '@/types/types'
 import './[lang]/globals.css'
 
@@ -9,6 +9,11 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 const playfair = Playfair_Display({
   subsets: ['latin'],
   variable: '--font-serif'
+})
+const bangers = Bangers({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-bangers'
 })
 
 export default function GlobalLayout({
@@ -24,7 +29,8 @@ export default function GlobalLayout({
         className={cn(
           'flex min-h-screen flex-col font-sans antialiased',
           inter.variable,
-          playfair.variable
+          playfair.variable,
+          bangers.variable
         )}
       >
         {children}
@@ -35,7 +41,7 @@ export default function GlobalLayout({
 
 export const metadata: Metadata = {
   title: {
-    default: 'SjP',
+    default: 'SjP | Software Development',
     template: 'SjP | %s '
   },
   description:

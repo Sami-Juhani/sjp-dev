@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { ProjectMetadata } from '@/lib/content'
-import { formatDate } from '@/lib/utils'
+import { cn, formatDate } from '@/lib/utils'
 import { SupportedLangs } from '@/types/types'
 
 export default function Projects({
@@ -14,11 +14,14 @@ export default function Projects({
 }) {
   return (
     <ul className='grid grid-cols-1 gap-8 sm:grid-cols-2'>
-      {projects.map(project => (
-        <li key={project.slug} className='group relative rounded-lg overflow-hidden'>
+      {projects.map((project, i) => (
+        <li
+          key={project.slug}
+          className={`${cn(i === 0 && 'col-span-2')} group relative overflow-hidden rounded-lg`}
+        >
           <Link href={`/${lang}/projects/${project.slug}`}>
             {project.image && (
-              <div className='relative h-72 w-full overflow-hidden bg-muted sm:h-60'>
+              <div className='relative aspect-video w-full overflow-hidden bg-muted'>
                 <Image
                   sizes='100%'
                   src={project.image}
@@ -39,15 +42,15 @@ export default function Projects({
                 {project.description}
               </p>
               <p className='text-xs font-light text-muted-foreground'>
-              {formatDate(
-                    lang === 'fi' ? 'fi-FI' : 'en-US',
-                    new Date(project.publishedAt || ''),
-                    {
-                      day: 'numeric',
-                      month: 'short',
-                      year: 'numeric'
-                    }
-                  )}
+                {formatDate(
+                  lang === 'fi' ? 'fi-FI' : 'en-US',
+                  new Date(project.publishedAt || ''),
+                  {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric'
+                  }
+                )}
               </p>
             </div>
           </Link>
