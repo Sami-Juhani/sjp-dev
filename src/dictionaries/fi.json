@@ -28,9 +28,11 @@
     "rights": "Kaikki oikeudet pidätetään"
   },
   "home": {
+    "mainTitle": "Ohjelmistot – enemmän kuin pelkkää koodia!",
     "authorTitle": "Hei, Minä olen Sami",
     "authorIntro": "Olen suomalainen ohjelmistokehittäjä, joka on erikoistunut web-kehitykseen, hallitsee myös palvelinpuolen ja omaa syvän kiinnostuksen pilviteknologioihin",
-    "downloadButton": "Lataa CV"
+    "downloadButton": "Lataa CV",
+    "getInTouch": "Lähetä viesti"
   },
   "blog": {
     "backButton": "Takaisin julkaisuihin",
@@ -91,7 +93,8 @@
     "privacy": "Lähettämällä tämän lomakkeen hyväksyn",
     "privacyLink": "tietosuojakäytännön",
     "formSuccess": "Viestin lähetys onnistui",
-    "formError": "Tapahtui virhe! Yritä myöhemmin uudelleen"
+    "formError": "Tapahtui virhe! Yritä myöhemmin uudelleen",
+    "about": "Tietoa minusta"
   },
   "privacy": {
     "google": {

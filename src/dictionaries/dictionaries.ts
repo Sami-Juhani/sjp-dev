@@ -28,9 +28,11 @@ export interface DictionaryResult {
     rights: string
   }
   home: {
+    mainTitle: string
     authorTitle: string
     authorIntro: string
     downloadButton: string
+    getInTouch: string
   }
   blog: {
     backButton: string
@@ -91,6 +93,7 @@ export interface DictionaryResult {
     privacyLink: string
     formSuccess: string
     formError: string
+    about: string
   }
   privacy: {
     google: {
