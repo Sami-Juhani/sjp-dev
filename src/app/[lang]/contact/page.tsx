@@ -19,8 +19,8 @@ export default async function Contact({
     <section className='pb-24 pt-40'>
       <div className='container max-w-3xl'>
         <div className='relative mb-20 border-2 border-solid border-foreground bg-background p-2'>
-          <div className='absolute left-0 top-1/2 -z-10 h-32 w-32 bg-green-500 blur-[180px]'></div>
-          <div className='absolute right-0 top-1/2 -z-10 h-32 w-32 bg-green-500 blur-[170px]'></div>
+          <div className='absolute left-0 top-1/2 -z-10 h-24 w-24 bg-green-500 blur-[170px] md:h-32 md:w-32'></div>
+          <div className='absolute right-0 top-1/2 -z-10 h-24 w-24 bg-green-500 blur-[170px] md:h-32 md:w-32'></div>
           <Image src={HandShake} alt='two superheroes shake hands' />
           <h1 className='title absolute bottom-8 left-8 text-zinc-100 no-underline'>
             {dict.contact.title}

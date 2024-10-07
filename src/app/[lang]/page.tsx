@@ -25,7 +25,7 @@ export default async function Home({
         <Image
           src={heroImage}
           alt='superhero with logo sjp in chest floating in the air'
-          className='max-h-[80vh] w-1/2 min-w-[300px] max-w-[800px] object-cover'
+          className='w-1/2 min-w-[300px] max-w-[800px] object-cover'
           priority
         />
         <div className='m-auto flex w-full flex-col sm:w-1/2'>
@@ -51,7 +51,7 @@ export default async function Home({
           </Button>
         </div>
       </div>
-      <div className='sm:mt-main container flex max-w-3xl flex-col gap-12 py-8 sm:gap-24'>
+      <div className='sm:mt-main pt-12 container flex max-w-lg flex-col gap-12 py-8 sm:gap-24 md:max-w-3xl'>
         <>
           <RecentPosts dict={dict} lang={lang} />
           <RecentProjects dict={dict} lang={lang} />
