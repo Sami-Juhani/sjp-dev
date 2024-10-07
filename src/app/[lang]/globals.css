@@ -115,7 +115,7 @@
   }
 
   .mt-main {
-    margin-top: clamp(-177px, -25%, -70px);
+    margin-top: clamp(-177px, -20%, -70px);
   }
 }
 

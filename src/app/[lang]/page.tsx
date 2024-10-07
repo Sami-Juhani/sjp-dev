@@ -51,7 +51,7 @@ export default async function Home({
           </Button>
         </div>
       </div>
-      <div className='sm:mt-main pt-12 container flex max-w-lg flex-col gap-12 py-8 sm:gap-24 md:max-w-3xl'>
+      <div className='sm:mt-main pt-12 container flex max-w-sm flex-col gap-12 py-8 sm:gap-24 md:max-w-3xl'>
         <>
           <RecentPosts dict={dict} lang={lang} />
           <RecentProjects dict={dict} lang={lang} />
