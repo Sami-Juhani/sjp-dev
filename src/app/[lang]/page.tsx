@@ -18,10 +18,10 @@ export default async function Home({
   const dict = await getDictionary(lang)
 
   return (
-    <section className='m-auto py-24'>
-      <div className='relative m-auto flex w-fit flex-col items-center gap-6 px-4 sm:flex-row'>
-        <div className='absolute left-20 top-36 -z-10 h-32 w-32 bg-primary blur-[180px]'></div>
-        <div className='top-30 absolute right-48 -z-10 hidden h-32 w-32 bg-primary blur-[170px] md:block'></div>
+    <section className='relative m-auto py-24'>
+      <div className='absolute left-0 top-0 -z-10 hidden h-64 w-64 rounded-full bg-primary opacity-50 blur-[180px] md:block'></div>
+      <div className='absolute -right-8 top-0 mt-40 -z-10 h-80 w-80 rounded-full bg-primary opacity-50 blur-[180px]'></div>
+      <div className='m-auto flex w-fit flex-col items-center gap-6 px-4 sm:flex-row'>
         <Image
           src={heroImage}
           alt='superhero with logo sjp in chest floating in the air'
@@ -51,7 +51,7 @@ export default async function Home({
           </Button>
         </div>
       </div>
-      <div className='sm:mt-main pt-12 container flex max-w-sm flex-col gap-12 py-8 sm:gap-24 md:max-w-3xl'>
+      <div className='sm:mt-main container flex max-w-md flex-col gap-12 py-8 pt-12 sm:gap-24 lg:max-w-2xl'>
         <>
           <RecentPosts dict={dict} lang={lang} />
           <RecentProjects dict={dict} lang={lang} />
