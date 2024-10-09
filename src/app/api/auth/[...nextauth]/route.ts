@@ -13,7 +13,7 @@ if (!googleClientId || !googleSecret)
   throw new Error('Google clientId and secret must be provided!')
 if (!nextAuthSecret) throw new Error('nextAuthSecret must be provided!')
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
