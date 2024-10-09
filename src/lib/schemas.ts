@@ -40,3 +40,7 @@ export const EditCommentFormSchema = z.object({
 export const NewsletterFormSchema = z.object({
   email: z.string().email('Invalid email.')
 })
+
+export const insertResourceSchema = z.object({
+  content: z.string(),
+});
