@@ -4,7 +4,7 @@ import { openai } from '@ai-sdk/openai'
 import { convertToCoreMessages, streamText, tool } from 'ai'
 import { getServerSession } from 'next-auth'
 import { z } from 'zod'
-import { authOptions } from '../auth/[...nextauth]/route'
+import { authOptions } from '../auth/[...nextauth]/auth-options'
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30
