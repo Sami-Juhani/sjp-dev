@@ -18,7 +18,10 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
 
   const scrollToBottom = () => {
     if (messagesEndRef.current == null) return
-    messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+    messagesEndRef.current.scrollTo({
+      top: messagesEndRef.current.scrollHeight,
+      behavior: 'smooth'
+    })
   }
 
   useEffect(() => {
@@ -37,10 +40,7 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
   }, [messages])
 
   return (
-    <div
-      className='sticky bottom-0 ml-auto p-8 w-3/4 max-w-md'
-      ref={aiRef}
-    >
+    <div className='sticky bottom-0 ml-auto w-3/4 max-w-md p-8' ref={aiRef}>
       <button
         type='button'
         className='relative z-20 m-0 ml-auto block'
@@ -72,10 +72,12 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
 
       {/* Messages */}
       {isOpen && messages.length > 0 && (
-        <div className='absolute bottom-48 right-8 z-10 flex max-h-[60vh] w-full max-w-md flex-col space-y-4 overflow-auto border border-dashed border-zinc-600 rounded-lg bg-muted p-4 shadow-xl'>
+        <div
+          className='absolute bottom-48 right-8 z-10 flex max-h-[60vh] w-full max-w-md flex-col space-y-4 overflow-auto rounded-lg border border-dashed border-zinc-600 bg-muted p-4 shadow-xl'
+          ref={messagesEndRef}
+        >
           {messages.map(m => (
             <div key={m.id} className='whitespace-pre-wrap'>
-
               {/* Prefix for message */}
               {m.role === 'user' ? (
                 <span className='font-bold'>You: </span>
@@ -103,7 +105,6 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
           {isLoading &&
             messages[messages.length - 1].role === 'assistant' &&
             !messages[messages.length - 1].content && <LoisThinking />}
-          <div ref={messagesEndRef} />
         </div>
       )}
     </div>
