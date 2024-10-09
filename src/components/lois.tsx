@@ -72,7 +72,7 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
 
       {/* Messages */}
       {isOpen && messages.length > 0 && (
-        <div className='absolute bottom-48 right-8 z-10 flex max-h-[60vh] w-full max-w-md flex-col space-y-4 overflow-auto rounded-lg bg-zinc-50 p-4 text-neutral-900 shadow-lg'>
+        <div className='absolute bottom-48 right-8 z-10 flex max-h-[60vh] w-full max-w-md flex-col space-y-4 overflow-auto border border-dashed border-zinc-600 rounded-lg bg-muted p-4 shadow-xl'>
           {messages.map(m => (
             <div key={m.id} className='whitespace-pre-wrap'>
 
