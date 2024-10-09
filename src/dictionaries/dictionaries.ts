@@ -187,6 +187,9 @@ export interface DictionaryResult {
       profileDeleted: string
     }
   }
+  lois: {
+    inputPh: string
+  }
 }
 
 interface Dictionary {

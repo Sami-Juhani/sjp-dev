@@ -244,7 +244,7 @@
     "topLevel": "Top-level",
     "reply": "Reply",
     "userNoImage": "Profile image is now hidden",
-    "userShowImage":"Profile image is now public",
+    "userShowImage": "Profile image is now public",
     "deleteProfile": "Delete Profile",
     "modal": {
       "title": "Are you absolutely sure",
@@ -256,5 +256,8 @@
       "deleteButtonSubmitting": "Deleting...",
       "profileDeleted": "Profile deleted successfully"
     }
+  },
+  "lois": {
+    "inputPh": "Ask something..."
   }
 }
