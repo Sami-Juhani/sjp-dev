@@ -28,7 +28,6 @@ export async function POST(req: Request) {
             .describe('the content or resource to add to the knowledge base')
         }),
         execute: async ({ content }) =>
-          process.env.NODE_ENV !== 'production' &&
           session?.user.role === 'admin' &&
           createResource({ content })
       }),
