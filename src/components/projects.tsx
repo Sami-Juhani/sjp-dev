@@ -7,17 +7,19 @@ import { SupportedLangs } from '@/types/types'
 
 export default function Projects({
   projects,
-  lang
+  lang,
+  isLandingPage
 }: {
   projects: ProjectMetadata[]
   lang: SupportedLangs
+  isLandingPage?: boolean
 }) {
   return (
     <ul className='grid grid-cols-1 gap-8 sm:grid-cols-2'>
       {projects.map((project, i) => (
         <li
           key={project.slug}
-          className={`${cn(i === 0 && 'col-span-2')} group relative overflow-hidden rounded-lg`}
+          className={`${cn(i === 0 && isLandingPage && 'sm:col-span-2')} group relative overflow-hidden rounded-lg`}
         >
           <Link href={`/${lang}/projects/${project.slug}`}>
             {project.image && (

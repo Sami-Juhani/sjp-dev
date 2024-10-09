@@ -50,15 +50,8 @@ export default async function Blog({
         </Link>
 
         {image && (
-          <div className='relative mb-6 h-96 w-full overflow-hidden rounded-lg'>
-            <Image
-              sizes='100vw'
-              src={image}
-              alt={title || ''}
-              className='object-cover'
-              fill
-              priority
-            />
+          <div className='relative mb-6 aspect-video overflow-hidden rounded-lg'>
+            <Image sizes='100vw' src={image} alt={title || ''} fill priority />
           </div>
         )}
 

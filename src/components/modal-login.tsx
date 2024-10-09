@@ -35,7 +35,7 @@ const handleSignIn = async ({
 }) => {
   try {
     const result = await signIn(provider, { callbackUrl, redirect: false })
-    console.log(result)
+
     if (result?.ok) toast.success(dict.auth.loginSuccess)
 
     if (result?.error) {

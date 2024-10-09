@@ -5,6 +5,7 @@ import Providers from '@/components/providers'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import './globals.css'
+import Lois from '@/components/lois'
 
 export default async function RootLayout({
   params: { lang },
@@ -20,6 +21,7 @@ export default async function RootLayout({
       <Providers>
         <Header dict={dict} lang={lang} />
         <main className='grow'>{children}</main>
+        <Lois dict={dict} />
         <Footer dict={dict} />
       </Providers>
     </>

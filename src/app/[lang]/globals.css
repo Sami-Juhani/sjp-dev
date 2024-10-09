@@ -108,14 +108,26 @@
     background: linear-gradient(
       45deg,
       hsl(var(--primary) / 0.1),
-      transparent 40%,
-      transparent 60%,
+      hsl(var(--foreground) / 0.1) 20%,
+      hsl(var(--foreground) / 0.1) 80%,
       hsl(var(--primary) / 0.1)
     );
   }
 
   .mt-main {
     margin-top: clamp(-177px, -20%, -70px);
+  }
+
+  @keyframes blink {
+    0%, 20% {
+      opacity: 0;
+    }
+    40% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
   }
 }
 

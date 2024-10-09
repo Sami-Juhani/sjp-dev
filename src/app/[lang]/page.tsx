@@ -18,7 +18,7 @@ export default async function Home({
   const dict = await getDictionary(lang)
 
   return (
-    <section className='relative m-auto py-24'>
+    <section className='relative m-auto pt-24 overflow-hidden'>
       <div className='absolute left-0 top-0 -z-10 hidden h-64 w-64 rounded-full bg-primary opacity-50 blur-[180px] md:block'></div>
       <div className='absolute -right-8 top-0 mt-40 -z-10 h-80 w-80 rounded-full bg-primary opacity-50 blur-[180px]'></div>
       <div className='m-auto flex w-fit flex-col items-center gap-6 px-4 sm:flex-row'>

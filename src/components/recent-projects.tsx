@@ -11,7 +11,7 @@ export default async function RecentProjects({
   dict: DictionaryResult
   lang: SupportedLangs
 }) {
-  const projects = await getContent({ limit: 2, dir: 'projects', lang })
+  const projects = await getContent({ limit: 3, dir: 'projects', lang })
 
   return (
     <section>
@@ -19,7 +19,7 @@ export default async function RecentProjects({
         <h2 className='comic-title mb-12 w-fit text-3xl invert'>
           {dict.projects.title}
         </h2>
-        <Projects projects={projects} lang={lang} />
+        <Projects isLandingPage projects={projects} lang={lang} />
 
         <Link
           href={`/${lang}/projects`}
