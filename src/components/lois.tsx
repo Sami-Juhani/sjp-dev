@@ -7,12 +7,10 @@ import Image from 'next/image'
 import LoisImage from '/public/images/sjpdev/lois.png'
 import { DictionaryResult } from '@/dictionaries/dictionaries'
 
-const MAX_STEPS = process.env.NODE_ENV !== 'production' ? 5 : 0
-
 export default function Lois({ dict }: { dict: DictionaryResult }) {
   const { messages, input, handleInputChange, isLoading, handleSubmit } =
     useChat({
-      maxSteps: MAX_STEPS
+      maxSteps: 5
     })
   const [isOpen, setIsOpen] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
