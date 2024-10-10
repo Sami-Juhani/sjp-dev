@@ -1,21 +1,27 @@
 'use client'
 
-import { FormEvent, useEffect, useRef, useState } from 'react'
-import { Message, useChat } from 'ai/react'
+import { useChat } from 'ai/react'
 import Image from 'next/image'
+import { FormEvent, useEffect, useRef, useState } from 'react'
 
 import { toast } from 'sonner'
 
-import LoisImage from '/public/images/sjpdev/lois.png'
 import { DictionaryResult } from '@/dictionaries/dictionaries'
 import { MDXContentClient } from './mdx-content-client'
+import LoisImage from '/public/images/sjpdev/lois.png'
 
 export default function Lois({ dict }: { dict: DictionaryResult }) {
-  const [initialMessage, setInitialMessage] = useState<Message[]>([])
   const { messages, input, handleInputChange, isLoading, handleSubmit } =
     useChat({
       maxSteps: 5,
-      initialMessages: initialMessage,
+      initialMessages: [
+        {
+          content:
+            "Hello, I'm Lois, your personal assistant. Feel free to ask me anything about SjP Software Development or Sami.\n\n How may I assist you today?",
+          id: crypto.randomUUID(),
+          role: 'assistant'
+        }
+      ],
       onError(error) {
         if (process.env.NODE_ENV === 'development')
           throw new Error(error.message)
@@ -23,35 +29,27 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
       }
     })
   const [isOpen, setIsOpen] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesContainerRef = useRef<HTMLDivElement>(null)
   const aiRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (messages.length == 0)
-        setInitialMessage([
-          {
-            content:
-              "Hello, I'm Lois, your personal assistant. Feel free to ask me anything about SjP Software Development or Sami.\n\n How may I assist you today?",
-            id: crypto.randomUUID(),
-            role: 'assistant'
-          }
-        ])
-      setIsOpen(true)
-    }, 8000)
-
-    if (messages.length > 0) clearTimeout(timer)
-
-    return () => clearTimeout(timer)
-  }, [messages])
+  const openMsgTimeout = useRef<NodeJS.Timeout | null>(null)
 
   const scrollToBottom = () => {
-    if (messagesEndRef.current == null) return
-    messagesEndRef.current.scrollTo({
-      top: messagesEndRef.current.scrollHeight,
+    if (messagesContainerRef.current == null) return
+    messagesContainerRef.current.scrollTo({
+      top: messagesContainerRef.current.scrollHeight,
       behavior: 'smooth'
     })
   }
+
+  useEffect(() => {
+    openMsgTimeout.current = setTimeout(() => setIsOpen(true), 10000)
+
+    return () => {
+      if (openMsgTimeout.current) {
+        clearTimeout(openMsgTimeout.current)
+      }
+    }
+  }, [])
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -70,10 +68,17 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
 
   return (
     <div className='fixed bottom-0 right-8 w-3/4 max-w-md' ref={aiRef}>
+      {/* Figure of Lois */}
       <button
         type='button'
         className='relative z-20 m-0 ml-auto block'
-        onClick={() => setIsOpen(o => !o)}
+        onClick={() => {
+          if (openMsgTimeout.current) {
+            clearTimeout(openMsgTimeout.current)
+            openMsgTimeout.current = null
+          }
+          setIsOpen(o => !o)
+        }}
       >
         <Image
           src={LoisImage}
@@ -88,7 +93,7 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
       {isOpen && (
         <div
           className='absolute bottom-32 right-4 z-10 flex max-h-[60vh] w-full max-w-md flex-col space-y-4 overflow-auto rounded-lg border border-dashed border-zinc-600 bg-muted p-4 shadow-xl'
-          ref={messagesEndRef}
+          ref={messagesContainerRef}
         >
           {messages.map(m => (
             <div key={m.id} className='whitespace-pre-wrap'>
