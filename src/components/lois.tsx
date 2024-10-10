@@ -1,21 +1,47 @@
 'use client'
 
 import { FormEvent, useEffect, useRef, useState } from 'react'
-import { useChat } from 'ai/react'
+import { Message, useChat } from 'ai/react'
 import Image from 'next/image'
+
+import { toast } from 'sonner'
 
 import LoisImage from '/public/images/sjpdev/lois.png'
 import { DictionaryResult } from '@/dictionaries/dictionaries'
 import { MDXContentClient } from './mdx-content-client'
 
 export default function Lois({ dict }: { dict: DictionaryResult }) {
+  const [initialMessage, setInitialMessage] = useState<Message[]>([])
   const { messages, input, handleInputChange, isLoading, handleSubmit } =
     useChat({
-      maxSteps: 5
+      maxSteps: 5,
+      initialMessages: initialMessage,
+      onError(error) {
+        if (process.env.NODE_ENV === 'development')
+          throw new Error(error.message)
+        else toast.error(dict.lois.responseError)
+      }
     })
   const [isOpen, setIsOpen] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const aiRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (messages.length == 0)
+        setInitialMessage([
+          {
+            content:
+              "Hello, I'm Lois, your personal assistant. Feel free to ask me anything about SjP Software Development or Sami.\n\n How may I assist you today?",
+            id: crypto.randomUUID(),
+            role: 'assistant'
+          }
+        ])
+    }, 8000)
+    setIsOpen(true)
+
+    return () => clearTimeout(timer)
+  }, [messages])
 
   const scrollToBottom = () => {
     if (messagesEndRef.current == null) return
@@ -41,7 +67,7 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
   }, [messages])
 
   return (
-    <div className='sticky bottom-0 ml-auto w-3/4 max-w-md p-8' ref={aiRef}>
+    <div className='fixed bottom-0 right-8 w-3/4 max-w-md' ref={aiRef}>
       <button
         type='button'
         className='relative z-20 m-0 ml-auto block'
@@ -56,25 +82,10 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
         />
       </button>
 
-      <form
-        onSubmit={(e: FormEvent) => {
-          e.preventDefault()
-          isOpen == false && setIsOpen(true)
-          handleSubmit()
-        }}
-      >
-        <input
-          className='w-full rounded border border-gray-300 p-2 shadow-xl'
-          value={input}
-          placeholder={dict.lois.inputPh}
-          onChange={handleInputChange}
-        />
-      </form>
-
       {/* Messages */}
       {isOpen && messages.length > 0 && (
         <div
-          className='absolute bottom-48 right-8 z-10 flex max-h-[60vh] w-full max-w-md flex-col space-y-4 overflow-auto rounded-lg border border-dashed border-zinc-600 bg-muted p-4 shadow-xl'
+          className='absolute bottom-32 right-4 z-10 flex max-h-[60vh] w-full max-w-md flex-col space-y-4 overflow-auto rounded-lg border border-dashed border-zinc-600 bg-muted p-4 shadow-xl'
           ref={messagesEndRef}
         >
           {messages.map(m => (
@@ -99,13 +110,32 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
                   </p>
                 )}
 
-              <p>{m.content.length > 0 && <MDXContentClient source={m.content} />}</p>
+              <>
+                {m.content.length > 0 && (
+                  <MDXContentClient source={m.content} />
+                )}
+              </>
             </div>
           ))}
           {/* isPending -> Show pending state */}
           {isLoading &&
             messages[messages.length - 1].role === 'assistant' &&
             !messages[messages.length - 1].content && <LoisThinking />}
+
+          {/* TextInput */}
+          <form
+            onSubmit={(e: FormEvent) => {
+              e.preventDefault()
+              handleSubmit()
+            }}
+          >
+            <input
+              className='w-full rounded border border-gray-300 p-2 shadow-xl'
+              value={input}
+              placeholder={dict.lois.inputPh}
+              onChange={handleInputChange}
+            />
+          </form>
         </div>
       )}
     </div>
