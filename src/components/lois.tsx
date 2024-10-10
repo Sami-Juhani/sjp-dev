@@ -32,12 +32,13 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
   const messagesContainerRef = useRef<HTMLDivElement>(null)
   const aiRef = useRef<HTMLDivElement>(null)
   const openMsgTimeout = useRef<NodeJS.Timeout | null>(null)
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
 
-  const scrollToBottom = () => {
+  const scrollToBottom = (behavior: ScrollBehavior) => {
     if (messagesContainerRef.current == null) return
     messagesContainerRef.current.scrollTo({
       top: messagesContainerRef.current.scrollHeight,
-      behavior: 'smooth'
+      behavior: behavior
     })
   }
 
@@ -63,8 +64,22 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
   }, [])
 
   useEffect(() => {
-    scrollToBottom()
+    scrollToBottom('smooth')
   }, [messages])
+
+  useEffect(() => {
+    if (isOpen) {
+      scrollTimeout.current = setTimeout(() => {
+        scrollToBottom('instant')
+      }, 0)
+    }
+
+    return () => {
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current)
+      }
+    }
+  }, [isOpen])
 
   return (
     <div className='fixed bottom-0 right-8 w-3/4 max-w-md' ref={aiRef}>
@@ -78,6 +93,7 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
             openMsgTimeout.current = null
           }
           setIsOpen(o => !o)
+          scrollToBottom('instant')
         }}
       >
         <Image
@@ -92,7 +108,7 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
       {/* Messages */}
       {isOpen && (
         <div
-          className='absolute bottom-32 right-4 z-10 flex max-h-[60vh] w-full max-w-md flex-col space-y-4 overflow-auto rounded-lg border border-dashed border-zinc-600 bg-muted p-4 shadow-xl'
+          className='absolute bottom-32 right-4 z-10 flex max-h-[60vh] w-full max-w-md flex-col space-y-4 overflow-hidden overflow-y-auto rounded-lg border border-dashed border-zinc-600 bg-muted p-4 shadow-xl'
           ref={messagesContainerRef}
         >
           {messages.map(m => (
@@ -124,6 +140,7 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
               </>
             </div>
           ))}
+          <div className='overflow-anchor-auto' />
           {/* isPending -> Show pending state */}
           {isLoading &&
             messages[messages.length - 1].role === 'assistant' &&
