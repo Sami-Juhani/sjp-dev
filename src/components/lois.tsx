@@ -83,7 +83,7 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
       </button>
 
       {/* Messages */}
-      {isOpen && messages.length > 0 && (
+      {isOpen && (
         <div
           className='absolute bottom-32 right-4 z-10 flex max-h-[60vh] w-full max-w-md flex-col space-y-4 overflow-auto rounded-lg border border-dashed border-zinc-600 bg-muted p-4 shadow-xl'
           ref={messagesEndRef}
