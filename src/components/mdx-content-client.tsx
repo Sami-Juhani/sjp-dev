@@ -41,5 +41,5 @@ export const MDXContentClient: FC<{
     evaluate(source, runtime).then(r => setMdxClientContent(() => r.default))
   }, [source])
 
-  return <MdxClientContent components={components} />
+  return <MdxClientContent components={components}  />
 }
