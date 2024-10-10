@@ -37,8 +37,10 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
             role: 'assistant'
           }
         ])
+      setIsOpen(true)
     }, 8000)
-    setIsOpen(true)
+
+    if (messages.length > 0) clearTimeout(timer)
 
     return () => clearTimeout(timer)
   }, [messages])
