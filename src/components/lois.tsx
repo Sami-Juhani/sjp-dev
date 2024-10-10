@@ -6,6 +6,7 @@ import Image from 'next/image'
 
 import LoisImage from '/public/images/sjpdev/lois.png'
 import { DictionaryResult } from '@/dictionaries/dictionaries'
+import { MDXContentClient } from './mdx-content-client'
 
 export default function Lois({ dict }: { dict: DictionaryResult }) {
   const { messages, input, handleInputChange, isLoading, handleSubmit } =
@@ -98,7 +99,7 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
                   </p>
                 )}
 
-              <p>{m.content.length > 0 && m.content}</p>
+              <p>{m.content.length > 0 && <MDXContentClient source={m.content} />}</p>
             </div>
           ))}
           {/* isPending -> Show pending state */}
