@@ -30,7 +30,7 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
     })
   const [isOpen, setIsOpen] = useState(false)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
-  const aiRef = useRef<HTMLDivElement>(null)
+  const loisIconRef = useRef<HTMLButtonElement>(null)
   const openMsgTimeout = useRef<NodeJS.Timeout | null>(null)
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
 
@@ -54,7 +54,11 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (aiRef.current && !aiRef.current.contains(e.target as Node)) {
+      if (
+        (messagesContainerRef.current &&
+          !messagesContainerRef.current.contains(e.target as Node)) &&
+        (loisIconRef.current && !loisIconRef.current.contains(e.target as Node))
+      ) {
         setIsOpen(false)
       }
     }
@@ -82,33 +86,11 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
   }, [isOpen])
 
   return (
-    <div className='fixed bottom-0 right-8 w-3/4 max-w-md' ref={aiRef}>
-      {/* Figure of Lois */}
-      <button
-        type='button'
-        className='relative z-20 m-0 ml-auto block'
-        onClick={() => {
-          if (openMsgTimeout.current) {
-            clearTimeout(openMsgTimeout.current)
-            openMsgTimeout.current = null
-          }
-          setIsOpen(o => !o)
-          scrollToBottom('instant')
-        }}
-      >
-        <Image
-          src={LoisImage}
-          alt='Image of AI assistant'
-          width={100}
-          height={100}
-          draggable={false}
-        />
-      </button>
-
+    <div className='fixed bottom-0 right-0 top-0 mt-28 flex max-w-xl flex-col justify-end gap-4'>
       {/* Messages */}
       {isOpen && (
         <div
-          className='absolute bottom-32 right-4 z-10 flex max-h-[60vh] w-full max-w-md flex-col space-y-4 overflow-hidden overflow-y-auto rounded-lg border border-dashed border-zinc-600 bg-muted p-4 shadow-xl'
+          className='z-10 mx-4 flex flex-col space-y-4 overflow-hidden overflow-y-auto rounded-lg border border-dashed border-zinc-600 bg-muted p-4 shadow-xl'
           ref={messagesContainerRef}
         >
           {messages.map(m => (
@@ -140,7 +122,7 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
               </>
             </div>
           ))}
-          <div className='overflow-anchor-auto' />
+
           {/* isPending -> Show pending state */}
           {isLoading &&
             messages[messages.length - 1].role === 'assistant' &&
@@ -162,6 +144,29 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
           </form>
         </div>
       )}
+
+      {/* Figure of Lois */}
+      <button
+        type='button'
+        className='ml-auto mr-4'
+        onClick={() => {
+          if (openMsgTimeout.current) {
+            clearTimeout(openMsgTimeout.current)
+            openMsgTimeout.current = null
+          }
+          setIsOpen(o => !o)
+          scrollToBottom('instant')
+        }}
+        ref={loisIconRef}
+      >
+        <Image
+          src={LoisImage}
+          alt='Image of AI assistant'
+          width={100}
+          height={100}
+          draggable={false}
+        />
+      </button>
     </div>
   )
 }
