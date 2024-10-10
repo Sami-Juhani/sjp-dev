@@ -199,6 +199,7 @@
     }
   },
   "lois": {
-    "inputPh": "Kysy jotakin..."
+    "inputPh": "Kysy jotakin...",
+    "responseError": "AI ei vastaa. Yritä myöhemmin uudelleen..."
   }
 }

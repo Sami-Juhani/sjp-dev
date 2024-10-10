@@ -258,6 +258,7 @@
     }
   },
   "lois": {
-    "inputPh": "Ask something..."
+    "inputPh": "Ask something...",
+    "responseError": "AI not responding. Try again later..."
   }
 }
