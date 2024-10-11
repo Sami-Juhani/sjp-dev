@@ -27,7 +27,7 @@ export default function GlobalLayout({
     <html lang={lang} suppressHydrationWarning>
       <body
         className={cn(
-          'flex min-h-screen flex-col font-sans antialiased',
+          'flex h-mobile flex-col font-sans antialiased',
           inter.variable,
           playfair.variable,
           bangers.variable

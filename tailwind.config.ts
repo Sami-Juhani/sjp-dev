@@ -19,6 +19,10 @@ const config = {
       }
     },
     extend: {
+      height: {
+        screen: "100dvh",
+        mobile: "100svh"
+      },
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans],
         serif: ['var(--font-serif)', ...fontFamily.serif],
