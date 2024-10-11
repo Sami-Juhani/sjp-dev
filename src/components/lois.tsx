@@ -18,7 +18,7 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
         {
           content:
             "Hello, I'm Lois, your personal assistant. Feel free to ask me anything about SjP Software Development or Sami.\n\n How may I assist you today?",
-          id: crypto.randomUUID(),
+          id: 'message_1',
           role: 'assistant'
         }
       ],
@@ -55,9 +55,10 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (
-        (messagesContainerRef.current &&
-          !messagesContainerRef.current.contains(e.target as Node)) &&
-        (loisIconRef.current && !loisIconRef.current.contains(e.target as Node))
+        messagesContainerRef.current &&
+        !messagesContainerRef.current.contains(e.target as Node) &&
+        loisIconRef.current &&
+        !loisIconRef.current.contains(e.target as Node)
       ) {
         setIsOpen(false)
       }
@@ -86,7 +87,7 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
   }, [isOpen])
 
   return (
-    <div className='fixed bottom-0 right-0 top-0 mt-28 flex max-w-xl flex-col justify-end gap-4'>
+    <div className='fixed bottom-0 right-0 h-[85%] flex max-w-xl flex-col justify-end gap-4'>
       {/* Messages */}
       {isOpen && (
         <div
