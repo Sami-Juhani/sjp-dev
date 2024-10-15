@@ -4,7 +4,11 @@ import { MDXRemote, MDXRemoteProps } from 'next-mdx-remote/rsc'
 
 function Code({ children, ...props }: any) {
   const codeHTML = highlight(children)
-  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
+  return (
+    <pre tabIndex={0} {...props}>
+      <code dangerouslySetInnerHTML={{ __html: codeHTML }} />
+    </pre>
+  )
 }
 
 function Anchor({
@@ -17,7 +21,7 @@ function Anchor({
       href={href}
       target='_blank'
       rel='noreferer noopener'
-      className='text-muted-foreground underline-offset-4 text-xs'
+      className='text-xs text-muted-foreground underline-offset-4'
       {...props}
     >
       {children}
@@ -27,7 +31,7 @@ function Anchor({
 
 const components = {
   code: Code,
-  a: Anchor,
+  a: Anchor
 }
 
 export default function MDXContent(

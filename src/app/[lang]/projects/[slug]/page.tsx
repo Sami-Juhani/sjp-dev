@@ -61,7 +61,7 @@ export default async function Project({
           </p>
         </header>
 
-        <main className='prose mt-16 dark:prose-invert'>
+        <div className='prose mt-16 dark:prose-invert'>
           <MDXContent source={content} />
           <ContentComments
             contentType={'projects'}
@@ -69,7 +69,7 @@ export default async function Project({
             lang={lang}
             dict={dict}
           />
-        </main>
+        </div>
       </div>
     </section>
   )

@@ -54,7 +54,6 @@ export default async function Blog({
             <Image sizes='100vw' src={image} alt={title || ''} fill priority />
           </div>
         )}
-
         <header>
           <h1 className='title'>{title}</h1>
           <p className='mt-3 text-xs text-muted-foreground'>
@@ -63,7 +62,7 @@ export default async function Blog({
           <BlogLikes blogSlug={slug} fetchedLikes={likeCount} dict={dict} />
         </header>
 
-        <main className='prose mt-16 dark:prose-invert'>
+        <div className='prose mt-16 dark:prose-invert'>
           <MDXContent source={content} />
           <Signature dict={dict} />
           <ContentComments
@@ -72,7 +71,7 @@ export default async function Blog({
             lang={lang}
             dict={dict}
           />
-        </main>
+        </div>
 
         {/* <footer className='mt-16'>
           <NewsletterForm />

@@ -52,7 +52,8 @@ export default function Dropdownmenu({
     <>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
-          <Button size='sm' variant='ghost'>
+          <Button size='sm' variant='ghost' aria-label='Settings'>
+            <span className='sr-only'>Settings Button</span>
             <GearIcon className='size-4' />
           </Button>
         </DropdownMenuTrigger>

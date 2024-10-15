@@ -31,14 +31,14 @@
     --chart-5: 27 87% 67%;
 
     --sh-identifier: #354150;
-    --sh-keyword: #f47067;
-    --sh-string: #00a99a;
-    --sh-class: #8d85ff;
-    --sh-property: #4e8fdf;
-    --sh-entity: #6eafad;
-    --sh-jsxliterals: #bf7db6;
-    --sh-sign: #8996a3;
-    --sh-comment: #a19595;
+    --sh-keyword: #760091;
+    --sh-string: #a94600;
+    --sh-class: #004cff;
+    --sh-property: #4060be;
+    --sh-entity: #004cff;
+    --sh-jsxliterals: #000000;
+    --sh-sign: #9da000;
+    --sh-comment: #00491a;
   }
 
   .dark {
@@ -66,6 +66,16 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
+    --sh-identifier: #9a9fa6;
+    --sh-keyword: #e365ff;
+    --sh-string: #d07b3f;
+    --sh-class: #5a8bff;
+    --sh-property: #a5b0d2;
+    --sh-entity: #7da4ff;
+    --sh-jsxliterals: #e3e3e3;
+    --sh-sign: #c2c500;
+    --sh-comment: #1ea14c;
   }
 }
 

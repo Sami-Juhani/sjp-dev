@@ -91,11 +91,16 @@ export default function UserSettings({
     <Card>
       <CardHeader className='flex flex-row items-center gap-4'>
         <Avatar className='h-20 w-20'>
-          <AvatarImage src={user.showImage ? user?.image : undefined} />
+          <AvatarImage
+            src={user.showImage ? user?.image : undefined}
+            alt='User avatar'
+          />
           <AvatarFallback className='text-3xl'>{initials}</AvatarFallback>
         </Avatar>
         <div>
-          <CardTitle>{dict.settings.title}</CardTitle>
+          <h1 className='font-semibold leading-none tracking-tight'>
+            {dict.settings.title}
+          </h1>
           <CardDescription className='mt-2'>
             {dict.settings.description}
           </CardDescription>
@@ -111,6 +116,7 @@ export default function UserSettings({
 
               <Switch
                 id='show-image'
+                aria-label='Toggle user avatar visibility'
                 checked={showImage}
                 disabled={isPending}
                 onCheckedChange={() => {
@@ -127,9 +133,9 @@ export default function UserSettings({
           )}
         </div>
         <div className='space-y-4'>
-          <h3 className='text-lg font-semibold'>
+          <h2 className='text-lg font-semibold'>
             {dict.settings.yourComments}
-          </h3>
+          </h2>
           {user.comments.length > 0 ? (
             user?.comments.map(comment => (
               <CommentPreview
@@ -227,6 +233,7 @@ function CommentPreview({
                 <Button
                   variant='ghost'
                   size='icon'
+                  aria-label='Delete Comment'
                   onClick={() =>
                     startTransition(async () => handleDelete({ id, slug }))
                   }

@@ -157,7 +157,7 @@ export default function ContactForm({
             <Button
               type='submit'
               disabled={isSubmitting}
-              className='w-full disabled:opacity-50'
+              className='w-full disabled:opacity-50 text-white'
             >
               {isSubmitting
                 ? `${dict.contact.contactButtonSubmitting}`

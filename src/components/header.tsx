@@ -16,7 +16,7 @@ export default function Header({
         <div className='relative rounded-full border-l-[30px] border-r-[30px] border-t-[40px] border-transparent border-t-zinc-100'>
           <Link
             href={`/${lang}`}
-            className='absolute left-[0.05rem] bottom-3 -translate-x-1/2  transform font-serif text-base font-bold tracking-wide text-neutral-900'
+            className='absolute left-[0.05rem] bottom-3 -translate-x-1/2  transform font-serif text-base font-bold tracking-wide text-neutral-950'
           >
             SjP
           </Link>

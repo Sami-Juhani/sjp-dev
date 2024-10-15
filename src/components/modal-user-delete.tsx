@@ -66,8 +66,11 @@ export default function ModalUserDelete({
   return (
     <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
       <DialogTrigger asChild>
-        <Button variant='destructive' className='w-full'>
-          <UserX className='mr-2 h-4 w-4' />
+        <Button
+          className='w-full text-white'
+          aria-label={dict.settings.deleteProfile}
+        >
+          <UserX className='mr-2 h-4 w-4 text-white' />
           {dict.settings.deleteProfile}
         </Button>
       </DialogTrigger>
