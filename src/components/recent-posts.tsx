@@ -15,7 +15,7 @@ export default async function RecentPosts({
 
   return (
     <section>
-      <h2 className='comic-title mb-12 w-fit text-3xl invert'>
+      <h2 className='comic-title mb-12 w-fit text-2xl invert'>
         {dict.blog.title}
       </h2>
       <Blogs blogs={blogs} lang={lang} isLandingPage />

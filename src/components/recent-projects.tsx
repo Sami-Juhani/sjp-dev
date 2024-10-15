@@ -16,7 +16,7 @@ export default async function RecentProjects({
   return (
     <section>
       <div>
-        <h2 className='comic-title mb-12 w-fit text-3xl invert'>
+        <h2 className='comic-title mb-12 w-fit text-2xl invert'>
           {dict.projects.title}
         </h2>
         <Projects isLandingPage projects={projects} lang={lang} />
