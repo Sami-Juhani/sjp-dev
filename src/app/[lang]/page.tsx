@@ -45,7 +45,7 @@ export default async function Home({
               <Image
                 src={WhatsAppIcon}
                 alt='WhatsApp Icon'
-                className='h-8 w-8'
+                className='h-6 w-6'
               />
             </Link>
           </Button>
