@@ -1,56 +1,85 @@
 'use client'
 
-import { useChat } from 'ai/react'
-import Image from 'next/image'
 import { FormEvent, useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
+
+import { Message, useChat } from 'ai/react'
+import { debounce } from 'lodash'
 
 import { toast } from 'sonner'
+import { useLocalStorage } from 'usehooks-ts'
+import { MDXContentClient } from './mdx-content-client'
 
 import { DictionaryResult } from '@/dictionaries/dictionaries'
-import { MDXContentClient } from './mdx-content-client'
 import LoisImage from '/public/images/sjpdev/lois.png'
 
+const MAX_HISTORY = 10
+
 export default function Lois({ dict }: { dict: DictionaryResult }) {
+  const [chatHistory, setChatHistory] = useLocalStorage<Message[]>(
+    'chatMessages',
+    []
+  )
+
   const { messages, input, handleInputChange, isLoading, handleSubmit } =
     useChat({
       maxSteps: 5,
-      initialMessages: [
-        {
-          content:
-            "Hello, I'm Lois, your personal assistant. Feel free to ask me anything about SjP Software Development or Sami.\n\n How may I assist you today?",
-          id: 'message_1',
-          role: 'assistant'
-        }
-      ],
+      initialMessages:
+        chatHistory.length === 0
+          ? [
+              {
+                content:
+                  "Hello, I'm Lois, your personal assistant. Feel free to ask me anything about SjP Software Development or Sami.\n\n How may I assist you today?",
+                id: crypto.randomUUID(),
+                role: 'assistant'
+              }
+            ]
+          : chatHistory,
       onError(error) {
         if (process.env.NODE_ENV === 'development')
           throw new Error(error.message)
         else toast.error(dict.lois.responseError)
       }
     })
+
   const [isOpen, setIsOpen] = useState(false)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
   const loisIconRef = useRef<HTMLButtonElement>(null)
   const openMsgTimeout = useRef<NodeJS.Timeout | null>(null)
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
 
+  const saveMessagesDebounced = useRef(
+    debounce((newMessages: Message[]) => {
+      console.log('Saving messages')
+      if (newMessages.length < MAX_HISTORY) {
+        setChatHistory(newMessages)
+      } else {
+        setChatHistory(prev => [...prev, ...newMessages].slice(-MAX_HISTORY))
+      }
+    }, 500)
+  ).current
+
   const scrollToBottom = (behavior: ScrollBehavior) => {
-    if (messagesContainerRef.current == null) return
+    if (!messagesContainerRef.current) return
     messagesContainerRef.current.scrollTo({
       top: messagesContainerRef.current.scrollHeight,
-      behavior: behavior
+      behavior
     })
   }
 
   useEffect(() => {
-    openMsgTimeout.current = setTimeout(() => setIsOpen(true), 10000)
+    if (messages.length === 1) {
+      openMsgTimeout.current = setTimeout(() => setIsOpen(true), 10000)
+    }
+
+    if (messages !== chatHistory) {
+      saveMessagesDebounced(messages) // Save with debounce
+    }
 
     return () => {
-      if (openMsgTimeout.current) {
-        clearTimeout(openMsgTimeout.current)
-      }
+      if (openMsgTimeout.current) clearTimeout(openMsgTimeout.current)
     }
-  }, [])
+  }, [messages, saveMessagesDebounced, chatHistory])
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -74,38 +103,27 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
 
   useEffect(() => {
     if (isOpen) {
-      scrollTimeout.current = setTimeout(() => {
-        scrollToBottom('instant')
-      }, 0)
+      scrollTimeout.current = setTimeout(() => scrollToBottom('instant'), 0)
     }
-
     return () => {
-      if (scrollTimeout.current) {
-        clearTimeout(scrollTimeout.current)
-      }
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current)
     }
   }, [isOpen])
 
   return (
-    <div className='fixed bottom-0 right-0 h-[85%] flex max-w-xl flex-col justify-end gap-4'>
-      {/* Messages */}
+    <div className='fixed bottom-0 right-0 flex h-[85%] max-w-xl flex-col justify-end gap-4'>
       {isOpen && (
         <div
-          className='z-10 mx-4 flex flex-col space-y-4 overflow-hidden overflow-y-auto rounded-lg border border-dashed border-zinc-600 bg-muted p-4 shadow-xl'
+          className='z-10 mx-4 flex flex-col space-y-4 overflow-hidden overflow-y-auto rounded-lg bg-muted p-4 shadow-xl'
           ref={messagesContainerRef}
         >
           {messages.map(m => (
             <div key={m.id} className='whitespace-pre-wrap'>
-              {/* Prefix for message */}
               {m.role === 'user' ? (
                 <span className='font-bold'>You: </span>
-              ) : (
-                m.content.length > 0 && (
-                  <span className='font-bold'>Lois: </span>
-                )
-              )}
-
-              {/* Show which tool AI used */}
+              ) : m.content.length > 0 ? (
+                <span className='font-bold'>Lois: </span>
+              ) : null}
               {process.env.NODE_ENV !== 'production' &&
                 m.content.length == 0 && (
                   <p>
@@ -115,21 +133,14 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
                     </span>
                   </p>
                 )}
-
-              <>
-                {m.content.length > 0 && (
-                  <MDXContentClient source={m.content} />
-                )}
-              </>
+              {m.content.length > 0 && <MDXContentClient source={m.content} />}
             </div>
           ))}
 
-          {/* isPending -> Show pending state */}
           {isLoading &&
             messages[messages.length - 1].role === 'assistant' &&
             !messages[messages.length - 1].content && <LoisThinking />}
 
-          {/* TextInput */}
           <form
             onSubmit={(e: FormEvent) => {
               e.preventDefault()
@@ -137,7 +148,7 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
             }}
           >
             <input
-              className='w-full rounded border border-gray-300 p-2 shadow-xl'
+              className='w-full rounded border border-gray-300 p-2'
               value={input}
               placeholder={dict.lois.inputPh}
               onChange={handleInputChange}
@@ -146,7 +157,6 @@ export default function Lois({ dict }: { dict: DictionaryResult }) {
         </div>
       )}
 
-      {/* Figure of Lois */}
       <button
         type='button'
         className='ml-auto mr-4'
