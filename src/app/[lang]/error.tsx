@@ -1,12 +1,15 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation'
+
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 import { Button } from '@/components/ui/button'
 
-import { DictionaryResult, getDictionary } from '@/dictionaries/dictionaries'
+import { IDictionary, getDictionary } from '@/dictionaries/dictionaries'
+import { getEnvironment, getLocale } from '@/lib/utils'
+
 import { ArrowLeft } from 'lucide-react'
 
 export default function Error({
@@ -16,10 +19,11 @@ export default function Error({
   error: Error & { digest?: string }
   reset: () => void
 }) {
-  const [dict, setDict] = useState<DictionaryResult | null>(null)
+  const [dict, setDict] = useState<IDictionary | null>(null)
 
   const pathname = usePathname()
-  const locale = pathname.split('/').filter(a => a !== '')[0]
+  const locale = getLocale(pathname)
+  const env = getEnvironment()
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -34,12 +38,7 @@ export default function Error({
     fetchDictionary()
   }, [locale])
 
-  useEffect(() => {
-    // Log the error to an error reporting service
-    console.error(error)
-  }, [error])
-  
-  if (process.env.NODE_ENV === 'development') {
+  if (env === 'dev') {
     return (
       <div className='absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%]'>
         <h2>Development Mode: Error Stack Trace</h2>

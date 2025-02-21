@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    --min-screen-width: 300px;
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
@@ -39,6 +40,14 @@
     --sh-jsxliterals: #000000;
     --sh-sign: #9da000;
     --sh-comment: #00491a;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
@@ -76,6 +85,14 @@
     --sh-jsxliterals: #e3e3e3;
     --sh-sign: #c2c500;
     --sh-comment: #1ea14c;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -129,7 +146,8 @@
   }
 
   @keyframes blink {
-    0%, 20% {
+    0%,
+    20% {
       opacity: 0;
     }
     40% {

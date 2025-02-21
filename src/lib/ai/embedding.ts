@@ -1,19 +1,30 @@
-import { embed, embedMany } from 'ai'
+import prisma from '@/lib/db/prisma'
+
 import { openai } from '@ai-sdk/openai'
-import prisma from '@/lib/prisma'
+import { embed, embedMany } from 'ai'
 
 const embeddingModel = openai.embedding('text-embedding-ada-002')
 
-const generateChunks = (input: string): string[] => {
+/**
+ * Splits a string into chunks based on periods.
+ * @param input - The string to be split.
+ * @returns An array of strings, each representing a chunk.
+ */
+function generateChunks(input: string): string[] {
   return input
     .trim()
     .split('.')
     .filter(i => i !== '')
 }
 
-export const generateEmbeddings = async (
+/**
+ * Generates embeddings for a given value.
+ * @param value - The value to generate embeddings for.
+ * @returns An array of objects containing the embedding and content of each chunk.
+ */
+export async function generateEmbeddings(
   value: string
-): Promise<Array<{ embedding: number[]; content: string }>> => {
+): Promise<Array<{ embedding: number[]; content: string }>> {
   const chunks = generateChunks(value)
   const { embeddings } = await embedMany({
     model: embeddingModel,
@@ -22,7 +33,12 @@ export const generateEmbeddings = async (
   return embeddings.map((e, i) => ({ content: chunks[i], embedding: e }))
 }
 
-export const generateEmbedding = async (value: string): Promise<number[]> => {
+/**
+ * Generates an embedding for a given value.
+ * @param value - The value to generate an embedding for.
+ * @returns A promise that resolves to an array of numbers representing the embedding.
+ */
+export async function generateEmbedding(value: string): Promise<number[]> {
   const input = value.replaceAll('\\n', ' ')
   const { embedding } = await embed({
     model: embeddingModel,
@@ -31,14 +47,25 @@ export const generateEmbedding = async (value: string): Promise<number[]> => {
   return embedding
 }
 
-const cosineSimilarity = (vecA: number[], vecB: number[]): number => {
+/**
+ * Calculates the cosine similarity between two vectors.
+ * @param vecA - The first vector.
+ * @param vecB - The second vector.
+ * @returns The cosine similarity between the two vectors.
+ */
+function cosineSimilarity(vecA: number[], vecB: number[]): number {
   const dotProduct = vecA.reduce((sum, a, idx) => sum + a * vecB[idx], 0)
   const magnitudeA = Math.sqrt(vecA.reduce((sum, a) => sum + a * a, 0))
   const magnitudeB = Math.sqrt(vecB.reduce((sum, b) => sum + b * b, 0))
   return dotProduct / (magnitudeA * magnitudeB)
 }
 
-export const findRelevantContent = async (userQuery: string) => {
+/**
+ * Finds relevant content based on user query.
+ * @param userQuery - The query of the user.
+ * @returns An array of objects containing the content and similarity score of each relevant item.
+ */
+export async function findRelevantContent(userQuery: string) {
   const userQueryEmbedded = await generateEmbedding(userQuery)
 
   // Fetch all embeddings from the database

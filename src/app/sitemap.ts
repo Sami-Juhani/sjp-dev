@@ -1,5 +1,6 @@
-import { getContent } from '@/lib/content'
-import { SUPPORTED_LANGS } from '@/types/types'
+import { SUPPORTED_LANGS } from '@/constants'
+import { getContent } from '@/lib/db/content'
+
 import { MetadataRoute } from 'next'
 
 export default async function generateSitemap(): Promise<MetadataRoute.Sitemap> {
@@ -7,10 +8,10 @@ export default async function generateSitemap(): Promise<MetadataRoute.Sitemap> 
 
   // Fetch posts and projects for all supported languages
   const postsPromises = SUPPORTED_LANGS.map(lang =>
-    getContent({ dir: 'blog', lang })
+    getContent({ contentType: 'blog', lang })
   )
   const projectsPromises = SUPPORTED_LANGS.map(lang =>
-    getContent({ dir: 'projects', lang })
+    getContent({ contentType: 'projects', lang })
   )
 
   const posts = (await Promise.all(postsPromises)).flat()

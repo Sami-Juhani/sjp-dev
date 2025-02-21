@@ -1,4 +1,4 @@
-export interface DictionaryResult {
+export interface IDictionary {
   common: {
     error: string
   }
@@ -22,6 +22,7 @@ export interface DictionaryResult {
       theme: string
       dark: string
       light: string
+      dashboard: string
     }
   }
   footer: {
@@ -194,7 +195,7 @@ export interface DictionaryResult {
 }
 
 interface Dictionary {
-  [key: string]: () => Promise<DictionaryResult>
+  [key: string]: () => Promise<IDictionary>
 }
 
 const dictionaries: Dictionary = {
@@ -202,9 +203,7 @@ const dictionaries: Dictionary = {
   fi: () => import('./fi.json').then(module => module.default)
 }
 
-export const getDictionary = async (
-  locale: string
-): Promise<DictionaryResult> => {
+export const getDictionary = async (locale: string): Promise<IDictionary> => {
   if (dictionaries[locale]) {
     return await dictionaries[locale]()
   } else {

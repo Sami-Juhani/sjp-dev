@@ -1,8 +1,9 @@
+import prisma from '@/lib/db/prisma'
+import { getUser, updateUserActivity } from '@/lib/db/user'
+
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { NextAuthOptions, Session } from 'next-auth'
 import { AdapterUser } from 'next-auth/adapters'
-import { getUser, updateUserActivity } from '@/lib/user'
-import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import prisma from '@/lib/prisma'
 import GoogleProvider from 'next-auth/providers/google'
 
 const googleClientId = process.env.GOOGLE_ID

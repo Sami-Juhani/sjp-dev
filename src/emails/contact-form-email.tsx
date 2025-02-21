@@ -1,4 +1,4 @@
-import { DictionaryResult } from '@/dictionaries/dictionaries'
+import { IDictionary } from '@/dictionaries/dictionaries'
 import {
   Head,
   Html,
@@ -19,7 +19,7 @@ interface ContactFormEmailProps {
   email: string
   phone?: string
   message: string
-  dict: DictionaryResult
+  dict: IDictionary
 }
 
 export default function ContactFormEmail({
@@ -44,7 +44,9 @@ export default function ContactFormEmail({
           From: <strong>{name}</strong> at <strong>{email}</strong>
         </Text>
         {phone !== undefined && (
-          <Text className='m-0 mb-2'>Phone: <strong>{phone}</strong></Text>
+          <Text className='m-0 mb-2'>
+            Phone: <strong>{phone}</strong>
+          </Text>
         )}
         <Text className='m-0'>
           Message: <strong>{message}</strong>
