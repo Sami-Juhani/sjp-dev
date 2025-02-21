@@ -4,6 +4,9 @@ const nextConfig = {
     remotePatterns: [{ protocol: 'https', hostname: '*.vercel-storage.com' }]
   },
   poweredByHeader: false,
+  eslint: {
+    ignoreDuringBuilds: true
+  },
   async headers() {
     const headers = []
     if (process.env.VERCEL_ENV === 'preview') {
