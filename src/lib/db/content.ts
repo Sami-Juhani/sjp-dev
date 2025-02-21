@@ -2,7 +2,7 @@
 
 import path from 'path'
 
-import { ContentFormInputs } from '@/app/[lang]/(admin)/_lib/services/content'
+import { ContentFormInputs } from '@/_lib/services/content'
 import { SUPPORTED_LANGS } from '@/constants'
 
 import { list, put } from '@vercel/blob'
