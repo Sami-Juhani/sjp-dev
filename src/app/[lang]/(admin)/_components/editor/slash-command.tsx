@@ -16,7 +16,7 @@ import { createSuggestionItems } from 'novel/extensions'
 import { Command, renderItems } from 'novel/extensions'
 import { toast } from 'sonner'
 
-import { uploadFn } from './image-upload'
+import { uploadFn } from '../../_lib/services/image-upload'
 
 export const suggestionItems = createSuggestionItems([
   {

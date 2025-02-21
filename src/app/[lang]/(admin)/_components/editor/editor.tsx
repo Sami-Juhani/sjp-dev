@@ -32,7 +32,7 @@ import { toast } from 'sonner'
 
 import EditorMenu from './editor-menu'
 import { defaultExtensions } from './extensions'
-import { uploadFn } from './image-upload'
+import { uploadFn } from '../../_lib/services/image-upload'
 import { ColorSelector } from './selectors/color-selector'
 import { LinkSelector } from './selectors/link-selector'
 import { MathSelector } from './selectors/math-selector'

@@ -12,7 +12,6 @@ const onUpload = (file: File) => {
   })
 
   return new Promise((resolve, reject) => {
-
     toast.promise(
       promise.then(async res => {
         // Successfully uploaded image
