@@ -12,6 +12,11 @@ const openAIClient = createOpenAI({
   apiKey: API_KEY
 })
 
+/**
+ * Translates text using the OpenAI API.
+ * @param prompt - The text to translate.
+ * @returns A promise that resolves to an object containing the success status and the translated text.
+ */
 export async function aiTranslateText(
   prompt: string
 ): Promise<
