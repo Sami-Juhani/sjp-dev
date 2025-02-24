@@ -22,7 +22,7 @@ export default async function RecentPosts({
       <BlogList blogs={blogs} lang={lang} isLandingPage />
       <Link
         href={`/${lang}/blog`}
-        className='mt-8 inline-flex items-center gap-2 text-muted-foreground underline decoration-1 underline-offset-2 transition-colors hover:text-foreground'
+        className='text-muted-foreground hover:text-foreground mt-8 inline-flex items-center gap-2 underline decoration-1 underline-offset-2 transition-colors'
       >
         <span>{dict.blog.allPosts}</span>
       </Link>

@@ -12,7 +12,7 @@ export default function Header({
   lang: SupportedLangs
 }) {
   return (
-    <header className='fixed inset-x-0 top-0 z-50 bg-background/75 py-6 backdrop-blur-sm'>
+    <header className='fixed inset-x-0 top-0 z-50 bg-background/75 py-6 backdrop-blur-xs'>
       <nav className='relative mx-auto flex max-w-3xl items-center justify-between gap-2'>
         <div className='relative rounded-full border-l-[30px] border-r-[30px] border-t-[40px] border-transparent border-t-zinc-100'>
           <Link

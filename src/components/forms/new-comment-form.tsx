@@ -130,7 +130,7 @@ export default function NewCommentForm({
                 </div>
 
                 {errors.title?.message && (
-                  <p className='!mt-2 ml-1 text-sm text-rose-400'>
+                  <p className='mt-2! ml-1 text-sm text-rose-400'>
                     {errors.title.message}
                   </p>
                 )}
@@ -146,7 +146,7 @@ export default function NewCommentForm({
                 </div>
 
                 {errors.body?.message && (
-                  <p className='!mt-2 ml-1 text-sm text-rose-400'>
+                  <p className='mt-2! ml-1 text-sm text-rose-400'>
                     {errors.body.message}
                   </p>
                 )}

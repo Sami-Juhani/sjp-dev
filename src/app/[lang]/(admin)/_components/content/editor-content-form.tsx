@@ -176,7 +176,7 @@ export default function EditorContentForm({
                 {...register('titleEn')}
               />
               {errors.titleEn?.message && (
-                <p className='!mt-2 ml-1 text-sm text-rose-400'>
+                <p className='mt-2! ml-1 text-sm text-rose-400'>
                   {errors.titleEn.message}
                 </p>
               )}
@@ -194,7 +194,7 @@ export default function EditorContentForm({
                 {...register('titleFi')}
               />
               {errors.titleFi?.message && (
-                <p className='!mt-2 ml-1 text-sm text-rose-400'>
+                <p className='mt-2! ml-1 text-sm text-rose-400'>
                   {errors.titleFi.message}
                 </p>
               )}
@@ -213,7 +213,7 @@ export default function EditorContentForm({
                 {...register('descriptionEn')}
               />
               {errors.descriptionEn?.message && (
-                <p className='!mt-2 ml-1 text-sm text-rose-400'>
+                <p className='mt-2! ml-1 text-sm text-rose-400'>
                   {errors.descriptionEn.message}
                 </p>
               )}
@@ -231,7 +231,7 @@ export default function EditorContentForm({
                 {...register('descriptionFi')}
               />
               {errors.descriptionFi?.message && (
-                <p className='!mt-2 ml-1 text-sm text-rose-400'>
+                <p className='mt-2! ml-1 text-sm text-rose-400'>
                   {errors.descriptionFi.message}
                 </p>
               )}
@@ -251,7 +251,7 @@ export default function EditorContentForm({
                 {...register('keywords')}
               />
               {errors.keywords?.message && (
-                <p className='!mt-2 ml-1 text-sm text-rose-400'>
+                <p className='mt-2! ml-1 text-sm text-rose-400'>
                   {errors.keywords.message}
                 </p>
               )}
@@ -269,7 +269,7 @@ export default function EditorContentForm({
                 {...register('slug')}
               />
               {errors.slug?.message && (
-                <p className='!mt-2 ml-1 text-sm text-rose-400'>
+                <p className='mt-2! ml-1 text-sm text-rose-400'>
                   {errors.slug.message}
                 </p>
               )}
@@ -282,7 +282,7 @@ export default function EditorContentForm({
               setValue={setValue}
             />
             {errors.contentType?.message && (
-              <p className='!mt-2 ml-1 text-sm text-rose-400'>
+              <p className='mt-2! ml-1 text-sm text-rose-400'>
                 {errors.contentType.message}
               </p>
             )}
@@ -295,7 +295,7 @@ export default function EditorContentForm({
             fileName={formValues.image}
           />
           {errors.image?.message && (
-            <p className='!mt-2 ml-1 text-sm text-rose-400'>
+            <p className='mt-2! ml-1 text-sm text-rose-400'>
               {errors.image.message}
             </p>
           )}
@@ -315,7 +315,7 @@ export default function EditorContentForm({
               />
 
               {errors.contentEn?.message && (
-                <p className='!mt-2 ml-1 text-sm text-rose-400'>
+                <p className='mt-2! ml-1 text-sm text-rose-400'>
                   {errors.contentEn.message}
                 </p>
               )}
@@ -353,7 +353,7 @@ export default function EditorContentForm({
               />
 
               {errors.contentFi?.message && (
-                <p className='!mt-2 ml-1 text-sm text-rose-400'>
+                <p className='mt-2! ml-1 text-sm text-rose-400'>
                   {errors.contentFi.message}
                 </p>
               )}

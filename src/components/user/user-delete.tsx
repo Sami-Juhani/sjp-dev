@@ -73,7 +73,7 @@ export default function UserDelete({
           <DialogTitle className='text-2xl'>
             {dict.settings.modal.title}?
           </DialogTitle>
-          <DialogDescription className='!mt-4'>
+          <DialogDescription className='mt-4!'>
             {dict.settings.modal.description}.
           </DialogDescription>
         </DialogHeader>

@@ -123,7 +123,7 @@ export default function ReplyForm({
                 </div>
 
                 {errors.body?.message && (
-                  <p className='!mt-2 ml-1 text-sm text-rose-400'>
+                  <p className='mt-2! ml-1 text-sm text-rose-400'>
                     {errors.body.message}
                   </p>
                 )}

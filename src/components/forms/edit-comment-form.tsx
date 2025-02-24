@@ -109,7 +109,7 @@ export default function EditCommentForm({
         )}
 
         {errors.body?.message && (
-          <p className='!mt-0 ml-1 text-sm text-rose-400'>
+          <p className='mt-0! ml-1 text-sm text-rose-400'>
             {errors.body.message}
           </p>
         )}

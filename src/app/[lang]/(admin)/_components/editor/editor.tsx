@@ -259,7 +259,7 @@ export default function Editor({ initialValue, lang, onChange }: EditorProps) {
   const extensions = [...defaultExtensions, slashCommand]
 
   return (
-    <div className='relative w-full max-w-screen-lg'>
+    <div className='relative w-full max-w-(--breakpoint-lg)'>
       <EditorRoot>
         <EditorContent
           onUpdate={({ editor }) => {
@@ -280,7 +280,7 @@ export default function Editor({ initialValue, lang, onChange }: EditorProps) {
 
             attributes: {
               class:
-                'prose dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full'
+                'prose dark:prose-invert prose-headings:font-title font-default focus:outline-hidden max-w-full'
             }
           }}
           slotAfter={<ImageResizer />}

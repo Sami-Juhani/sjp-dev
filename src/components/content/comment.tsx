@@ -57,7 +57,7 @@ export default function Comment({
         </Avatar>
         <div className='flex flex-col'>
           <h5 className='m-0 text-lg font-semibold'>{title}</h5>
-          <p className='!my-0 text-sm text-muted-foreground'>
+          <p className='my-0! text-sm text-muted-foreground'>
             {!isReply
               ? `${author.name} • ${dict.blog.comments.published} ${date}`
               : `${author.name} ${dict.blog.comments.replied} ${date}`}

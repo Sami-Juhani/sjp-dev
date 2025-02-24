@@ -24,7 +24,7 @@ export default async function RecentProjects({
 
         <Link
           href={`/${lang}/projects`}
-          className='mt-8 inline-flex items-center gap-2 text-muted-foreground underline decoration-1 underline-offset-2 transition-colors hover:text-foreground'
+          className='text-muted-foreground hover:text-foreground mt-8 inline-flex items-center gap-2 underline decoration-1 underline-offset-2 transition-colors'
         >
           <span>{dict.projects.allProjects}</span>
         </Link>

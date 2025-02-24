@@ -1,8 +1,8 @@
 export default function AiThinking() {
   return (
     <>
-      <span className='!mt-0 font-bold'>Lois: </span>
-      <div className='!mt-0 flex'>
+      <span className='mt-0! font-bold'>Lois: </span>
+      <div className='mt-0! flex'>
         <div className='animate-[blink] opacity-0 delay-0 duration-1000 repeat-infinite'>
           .
         </div>

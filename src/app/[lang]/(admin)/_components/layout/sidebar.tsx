@@ -49,7 +49,8 @@ import {
   SidebarTrigger
 } from '@/components/ui/sidebar'
 
-import SJPDevIcon from '/public/images/author/sjp_dev.png'
+import { cn, getInitials } from '@/lib/utils'
+import SJPDevIcon from '@/public/images/author/sjp_dev.png'
 
 import { CubeIcon } from '@radix-ui/react-icons'
 import {
@@ -69,8 +70,6 @@ import {
 } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useTheme } from 'next-themes'
-
-import { cn, getInitials } from '@/lib/utils'
 
 export default function DashboardSidebar({
   lang,
@@ -109,7 +108,7 @@ export default function DashboardSidebar({
         <SidebarHeader>
           <div className='flex items-center gap-2 text-left text-sm leading-tight'>
             <Image
-              className='flex aspect-square size-12 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground'
+              className='bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-12 items-center justify-center rounded-lg'
               src={SJPDevIcon}
               alt='logo'
             />
@@ -198,14 +197,14 @@ export default function DashboardSidebar({
                         router.replace(`/${lang}/dashboard/content?type=blog`)
                       }
                     >
-                      <Folder className='mr-2 h-4 w-4 text-muted-foreground' />
+                      <Folder className='text-muted-foreground mr-2 h-4 w-4' />
                       <span>View Blogs</span>
                     </DropdownMenuItem>
 
                     <DropdownMenuSeparator />
                     <Link href={`/${lang}/dashboard/content/new`}>
                       <DropdownMenuItem>
-                        <SquarePen className='mr-2 h-4 w-4 text-muted-foreground' />
+                        <SquarePen className='text-muted-foreground mr-2 h-4 w-4' />
                         <span>Create Blog</span>
                       </DropdownMenuItem>
                     </Link>
@@ -240,14 +239,14 @@ export default function DashboardSidebar({
                         )
                       }
                     >
-                      <Folder className='mr-2 h-4 w-4 text-muted-foreground' />
+                      <Folder className='text-muted-foreground mr-2 h-4 w-4' />
                       <span>View Projects</span>
                     </DropdownMenuItem>
 
                     <DropdownMenuSeparator />
                     <Link href={`/${lang}/dashboard/content/new`}>
                       <DropdownMenuItem>
-                        <SquarePen className='mr-2 h-4 w-4 text-muted-foreground' />
+                        <SquarePen className='text-muted-foreground mr-2 h-4 w-4' />
                         <span>Create Project</span>
                       </DropdownMenuItem>
                     </Link>
@@ -294,7 +293,7 @@ export default function DashboardSidebar({
                   </SidebarMenuButton>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
-                  className='w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg'
+                  className='w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg'
                   side='bottom'
                   align='end'
                   sideOffset={4}
@@ -346,7 +345,7 @@ export default function DashboardSidebar({
         <SidebarRail />
       </Sidebar>
       <SidebarInset>
-        <header className='flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12'>
+        <header className='flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12'>
           <div className='flex items-center gap-2 px-4'>
             <SidebarTrigger className='-ml-1' />
             <Separator orientation='vertical' className='mr-2 h-4' />

@@ -137,7 +137,7 @@ export default function UserSettings({
               />
             ))
           ) : (
-            <p className='!mt-0 text-sm text-muted-foreground'>
+            <p className='mt-0! text-sm text-muted-foreground'>
               {dict.settings.noComments}
             </p>
           )}
