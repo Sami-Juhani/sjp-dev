@@ -1,8 +1,8 @@
-import { getDictionary } from '@/dictionaries/dictionaries'
+import EditorContentForm from '@/_components/content/editor-content-form'
 
-import ContentForm from '@/_components/content/editor-content-form'
+import { getDictionary } from '@/dictionaries/dictionaries'
 
 export default async function Dashboard({ lang }: { lang: SupportedLangs }) {
   const dict = await getDictionary(lang)
-  return <ContentForm lang={lang} dict={dict} />
+  return <EditorContentForm dict={dict} />
 }

@@ -1,7 +1,9 @@
+'use server'
+
 import { revalidatePath } from 'next/cache'
 
 import { SUPPORTED_LANGS } from '@/constants'
-import { getContentBySlug, writeContent } from '@/lib/db/content'
+import { createOrUpdateMdxContent, getContentBySlug } from '@/lib/db/content'
 import { ContentFormSchema } from '@/lib/db/schemas'
 
 import { z } from 'zod'
@@ -34,7 +36,13 @@ export async function getAllContent({
 /**
  * Creates a new content item.
  */
-export async function createContent({ data }: { data: ContentFormInputs }) {
+export async function createOrUpdateContent({
+  data,
+  isUpdating
+}: {
+  data: ContentFormInputs
+  isUpdating: boolean
+}) {
   const result = ContentFormSchema.safeParse(data)
 
   if (result.error) {
@@ -42,7 +50,7 @@ export async function createContent({ data }: { data: ContentFormInputs }) {
   }
 
   try {
-    const wasCreated = writeContent({ ...result.data })
+    const wasCreated = createOrUpdateMdxContent({ ...result.data, isUpdating })
 
     if (!wasCreated) {
       return { success: false, error: 'Error writing to file' }

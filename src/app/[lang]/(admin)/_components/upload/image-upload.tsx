@@ -3,11 +3,16 @@ import { useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { toast } from 'sonner'
 
 import { Upload } from 'lucide-react'
+import { toast } from 'sonner'
 
-export default function ImageUpload({ fileName, setValue }: ImageUploadProps) {
+export default function ImageUpload({
+  className,
+  fileName,
+  setValue,
+  ...props
+}: ImageUploadProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleButtonClick = () => {
@@ -58,16 +63,16 @@ export default function ImageUpload({ fileName, setValue }: ImageUploadProps) {
   }
 
   return (
-    <div className='w-full space-y-2'>
+    <div className={className} {...props}>
       <Label htmlFor='image' className='text-sm font-medium'>
         Main Image
       </Label>
-      <div className='flex items-center space-x-2'>
+      <div className='flex w-full items-center space-x-2'>
         <Button
           size='sm'
           type='button'
           onClick={handleButtonClick}
-          className='flex items-center space-x-2'
+          className='flex w-full items-center space-x-2'
         >
           <Upload className='h-4 w-4' />
           <span>Choose File</span>
@@ -80,12 +85,12 @@ export default function ImageUpload({ fileName, setValue }: ImageUploadProps) {
           className='hidden'
           ref={fileInputRef}
         />
-        {fileName && (
-          <span className='truncate text-sm text-muted-foreground'>
-            {fileName}
-          </span>
-        )}
       </div>
+      {fileName && (
+        <span className='truncate text-sm text-muted-foreground'>
+          {fileName}
+        </span>
+      )}
     </div>
   )
 }

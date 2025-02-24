@@ -5,14 +5,14 @@ declare type ContentType = 'blog' | 'projects'
 declare type SupportedLangs = 'fi' | 'en'
 
 interface ContentFormProps {
-  lang: SupportedLangs
   dict: IDictionary
   contentFi?: Post | Project | null
   contentEn?: Post | Project | null
   contentType?: ContentType
 }
 
-interface ImageUploadProps {
+interface ImageUploadProps extends React.HTMLDivElementAttributes<HTMLElement> {
+  className?: string
   setValue: React.Dispatch<React.SetStateAction<string>> | UseFormSetValue<T>
   fileName: string
 }
@@ -182,10 +182,11 @@ interface FormatDateProps {
   options?: Intl.DateTimeFormatOptions
 }
 
-interface EditorContentPreviewProps {
+interface EditorContentPreviewProps
+  extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string
   title: string
   image: string
-  lang: SupportedLangs
   dict: IDictionary
 }
 

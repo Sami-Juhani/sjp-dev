@@ -9,5 +9,5 @@ export default async function NewContent({
 }) {
   const dict = await getDictionary(lang)
 
-  return <ContentForm lang={lang} dict={dict} />
+  return <ContentForm dict={dict} />
 }

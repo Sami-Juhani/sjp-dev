@@ -122,26 +122,42 @@ export async function getContent({
  * @param param0 - The title, slug, description, keywords, content type, and image of the content to be written.
  * @returns A promise that resolves to a boolean indicating whether the content was written successfully.
  */
-export async function writeContent({
-  title,
+export async function createOrUpdateMdxContent({
+  titleEn,
+  titleFi,
   slug,
-  description,
+  descriptionEn,
+  descriptionFi,
   keywords,
   contentType,
   image,
   contentEn,
-  contentFi
-}: ContentFormInputs) {
-  let contentPrefix: string
+  contentFi,
+  isUpdating
+}: ContentFormInputs & { isUpdating: boolean }) {
+  if (!isUpdating) {
+    let allContent
+    if (contentType === 'blog') allContent = await prisma.blog.findMany()
+    else allContent = await prisma.project.findMany()
+
+    if (allContent.some(c => c.slug === slug))
+      throw new Error(`Content with slug ${slug} already exists.`)
+  }
 
   const env = getEnvironment()
+
+  let contentPrefix: string
 
   if (env === 'dev') contentPrefix = 'dev_content'
   else contentPrefix = 'content'
 
   for (const language of SUPPORTED_LANGS) {
     const rootDirectory = path.join(contentPrefix, contentType, language)
-    const frontMatter = `---\ntitle: ${title}\nslug: ${slug}\ndescription: ${description}\nkeywords: ${keywords}\nimage: ${image}\nauthor: 'Sami Paananen'\npublishedAt: ${new Date().toISOString()}\n---\n\n`
+    let frontMatter: string
+    if (language === 'en')
+      frontMatter = `---\ntitle: ${titleEn}\nslug: ${slug}\ndescription: ${descriptionEn}\nkeywords: ${keywords}\nimage: ${image}\nauthor: 'Sami Paananen'\npublishedAt: ${new Date().toISOString()}\n---\n\n`
+    else
+      frontMatter = `---\ntitle: ${titleFi}\nslug: ${slug}\ndescription: ${descriptionFi}\nkeywords: ${keywords}\nimage: ${image}\nauthor: 'Sami Paananen'\npublishedAt: ${new Date().toISOString()}\n---\n\n`
 
     let fileContent: string
     if (language === 'en') fileContent = frontMatter + contentEn
@@ -157,8 +173,10 @@ export async function writeContent({
     }
   }
 
-  if (contentType === 'blog') await prisma.blog.create({ data: { slug } })
-  if (contentType === 'project') await prisma.project.create({ data: { slug } })
+  if (!isUpdating && contentType === 'blog')
+    await prisma.blog.create({ data: { slug } })
+  if (!isUpdating && contentType === 'projects')
+    await prisma.project.create({ data: { slug } })
 
   return { wasCreated: true }
 }

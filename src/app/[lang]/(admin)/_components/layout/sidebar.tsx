@@ -383,7 +383,7 @@ export default function DashboardSidebar({
             </Breadcrumb>
           </div>
         </header>
-        <section className='container h-full max-w-[1900px] pt-12'>
+        <section className='container max-w-[1900px]'>
           {status !== 'loading' ? children : <Loading />}
         </section>
       </SidebarInset>
@@ -393,7 +393,7 @@ export default function DashboardSidebar({
 
 function Loading() {
   return (
-    <h1 className='title relative inset-1/2 flex w-fit -translate-x-1/2 -translate-y-1/2 no-underline'>
+    <h1 className='title relative inset-1/2 mt-8 flex w-fit -translate-x-1/2 -translate-y-1/2 no-underline'>
       Loading...
     </h1>
   )

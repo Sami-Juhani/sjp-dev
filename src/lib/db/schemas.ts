@@ -46,9 +46,11 @@ export const insertResourceSchema = z.object({
 })
 
 export const ContentFormSchema = z.object({
-  title: z.string().min(1, { message: 'Title is required' }),
+  titleEn: z.string().min(1, { message: 'English title is required' }),
+  titleFi: z.string().min(1, { message: 'Finnish title is required' }),
   slug: z.string().min(1, { message: 'Slug is required' }),
-  description: z.string().min(1, { message: 'Description is required' }),
+  descriptionEn: z.string().min(1, { message: 'Description is required' }),
+  descriptionFi: z.string().min(1, { message: 'Description is required' }),
   keywords: z.string().min(1, { message: 'At least one keyword is required' }),
   contentType: z.string().min(1, { message: 'ContentType is required' }),
   image: z.string().min(1, { message: 'Image is required' }),

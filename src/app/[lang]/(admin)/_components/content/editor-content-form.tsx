@@ -2,20 +2,19 @@
 
 import { useEffect, useState, useTransition } from 'react'
 
+import { usePathname } from 'next/navigation'
+
 import { MDXContentClient } from '@/components/mdx/mdx-content-client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import GoogleRecaptchaPrivacy from '@/components/utils/security/google-recaptcha-privacy'
 
-import ContentPreviewHeader from '@/_components/content/editor-content-preview-header'
 import ContentTypeDropdown from '@/_components/content/editor-content-type-dropdown'
 import Editor from '@/_components/editor/editor'
 import ImageUpload from '@/_components/upload/image-upload'
 
 import { aiTranslateText } from '@/_lib/services/ai'
-import { createContent } from '@/_lib/services/content'
-import { useRecaptcha } from '@/hooks/useRecaptcha'
+import { createOrUpdateContent } from '@/_lib/services/content'
 import { ContentFormSchema } from '@/lib/db/schemas'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -24,6 +23,8 @@ import { JSONContent } from 'novel'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
+
+import EditorContentHeader from './editor-content-header'
 
 export const defaultValue = {
   type: 'doc',
@@ -37,14 +38,17 @@ export const defaultValue = {
 
 type Inputs = z.infer<typeof ContentFormSchema>
 
-export default function ContentForm({
-  lang,
+export default function EditorContentForm({
   dict,
   contentFi,
   contentEn,
   contentType
 }: ContentFormProps) {
   const [isPending, startTransition] = useTransition()
+  const [fiEditorUUID, setFiEditorUUID] = useState(crypto.randomUUID())
+  const [enEditorUUID, setEnEditorUUID] = useState(crypto.randomUUID())
+  const [isUpdating, setIsUpdating] = useState(false)
+  const pathname = usePathname()
 
   const { title, slug, description, keywords, image } =
     // Get metadata from either content
@@ -53,9 +57,6 @@ export default function ContentForm({
       : (contentFi?.metadata ?? {})
   const contentBodyEn = contentEn?.content
   const contentBodyFi = contentFi?.content
-
-  const [fiEditorUUID, setFiEditorUUID] = useState(crypto.randomUUID())
-  const [enEditorUUID, setEnEditorUUID] = useState(crypto.randomUUID())
 
   const {
     register,
@@ -67,28 +68,35 @@ export default function ContentForm({
   } = useForm<Inputs>({
     resolver: zodResolver(ContentFormSchema),
     defaultValues: {
-      title: title || '',
+      titleEn: title || '',
+      titleFi: title || '',
       slug: slug || '',
       image: image || '',
-      description: description || '',
+      descriptionEn: description || '',
+      descriptionFi: description || '',
       keywords: keywords || '',
       contentType: contentType || '',
       contentEn: contentBodyEn || '',
       contentFi: contentBodyFi || ''
     }
   })
-  const callRecaptcha = useRecaptcha()
 
   const formValues = watch()
 
   useEffect(() => {
-    const name = formValues.title
+    if (pathname.includes('edit')) {
+      setIsUpdating(true)
+    }
+  }, [pathname])
+
+  useEffect(() => {
+    const name = formValues.titleEn
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)+/g, '')
 
     setValue('slug', name)
-  }, [formValues.title, setValue])
+  }, [formValues.titleEn, setValue])
 
   function setMdx({
     content,
@@ -103,29 +111,24 @@ export default function ContentForm({
   }
 
   const processForm: SubmitHandler<Inputs> = async data => {
-    const { success, response } = await callRecaptcha()
+    try {
+      const { success, error } = await createOrUpdateContent({
+        data,
+        isUpdating
+      })
+      console.log(success, error)
 
-    if (!success) {
-      toast.error(`${dict.common.error}.`)
-      return
-    }
-
-    if (response.success) {
-      try {
-        const { success, error } = await createContent({
-          data
-        })
-
-        if (error || success == false) {
-          toast.error(`${dict.common.error}.`)
-          return
-        }
-
-        toast.success('Content created Succesfully: ' + data.title)
-        reset()
-      } catch (err) {
+      if (error || success == false) {
         toast.error(`${dict.common.error}.`)
+        return
       }
+
+      toast.success(
+        'Content created Succesfully: ' + data.titleEn + ' / ' + data.titleFi
+      )
+      reset()
+    } catch (err) {
+      toast.error(`${dict.common.error}.`)
     }
   }
 
@@ -153,31 +156,108 @@ export default function ContentForm({
   }
 
   return (
-    <div className='flex h-full flex-col gap-4 lg:flex-row'>
-      <div className='w-full p-8 lg:w-1/2 lg:border-r'>
+    <div className='flex h-full flex-col gap-4 2xl:flex-row'>
+      <div className='w-full px-8 pt-8 2xl:w-1/2 2xl:border-r 2xl:pb-8'>
         <form
           onSubmit={handleSubmit(processForm)}
           className='mx-auto flex max-w-2xl flex-col gap-4'
         >
           <h1 className='title no-underline'>Metadata</h1>
           <div className='flex flex-col gap-4 lg:flex-row'>
+            {/* English Title */}
             <div className='w-full lg:w-1/2'>
               <Label className='mb-2 block' htmlFor='title'>
-                Title
+                English Title
               </Label>
               <Input
                 type='text'
                 id='title'
                 placeholder='Title'
-                {...register('title')}
+                {...register('titleEn')}
               />
-              {errors.title?.message && (
+              {errors.titleEn?.message && (
                 <p className='!mt-2 ml-1 text-sm text-rose-400'>
-                  {errors.title.message}
+                  {errors.titleEn.message}
                 </p>
               )}
             </div>
 
+            {/* Finnish Title */}
+            <div className='w-full lg:w-1/2'>
+              <Label className='mb-2 block' htmlFor='title'>
+                Finnish Title
+              </Label>
+              <Input
+                type='text'
+                id='title'
+                placeholder='Title'
+                {...register('titleFi')}
+              />
+              {errors.titleFi?.message && (
+                <p className='!mt-2 ml-1 text-sm text-rose-400'>
+                  {errors.titleFi.message}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className='flex flex-col gap-4 lg:flex-row'>
+            {/* Description English*/}
+            <div className='w-full lg:w-1/2'>
+              <Label className='mb-2 block' htmlFor='description'>
+                English Description
+              </Label>
+              <Input
+                id='description'
+                type='text'
+                placeholder='Description'
+                {...register('descriptionEn')}
+              />
+              {errors.descriptionEn?.message && (
+                <p className='!mt-2 ml-1 text-sm text-rose-400'>
+                  {errors.descriptionEn.message}
+                </p>
+              )}
+            </div>
+
+            {/* Description Finnish*/}
+            <div className='w-full lg:w-1/2'>
+              <Label className='mb-2 block' htmlFor='description'>
+                Finnish Description
+              </Label>
+              <Input
+                id='description'
+                type='text'
+                placeholder='Description'
+                {...register('descriptionFi')}
+              />
+              {errors.descriptionFi?.message && (
+                <p className='!mt-2 ml-1 text-sm text-rose-400'>
+                  {errors.descriptionFi.message}
+                </p>
+              )}
+            </div>
+          </div>
+
+          <div className='flex flex-col gap-4 lg:flex-row'>
+            {/* Keywords */}
+            <div className='w-full lg:w-1/2'>
+              <Label className='mb-2 block' htmlFor='keywords'>
+                Keywords
+              </Label>
+              <Input
+                type='text'
+                id='keywords'
+                placeholder='Keywords'
+                {...register('keywords')}
+              />
+              {errors.keywords?.message && (
+                <p className='!mt-2 ml-1 text-sm text-rose-400'>
+                  {errors.keywords.message}
+                </p>
+              )}
+            </div>
+
+            {/* Slug */}
             <div className='w-full lg:w-1/2'>
               <Label className='mb-2 block' htmlFor='slug'>
                 Slug
@@ -196,42 +276,6 @@ export default function ContentForm({
             </div>
           </div>
 
-          <div className='flex flex-col gap-4 lg:flex-row'>
-            <div className='w-full lg:w-1/2'>
-              <Label className='mb-2 block' htmlFor='description'>
-                Description
-              </Label>
-              <Input
-                id='description'
-                type='text'
-                placeholder='Description'
-                {...register('description')}
-              />
-              {errors.description?.message && (
-                <p className='!mt-2 ml-1 text-sm text-rose-400'>
-                  {errors.description.message}
-                </p>
-              )}
-            </div>
-
-            <div className='w-full lg:w-1/2'>
-              <Label className='mb-2 block' htmlFor='keywords'>
-                Keywords
-              </Label>
-              <Input
-                type='text'
-                id='keywords'
-                placeholder='Keywords'
-                {...register('keywords')}
-              />
-              {errors.keywords?.message && (
-                <p className='!mt-2 ml-1 text-sm text-rose-400'>
-                  {errors.keywords.message}
-                </p>
-              )}
-            </div>
-          </div>
-
           <div className='w-full'>
             <ContentTypeDropdown
               contentType={contentType}
@@ -245,16 +289,20 @@ export default function ContentForm({
           </div>
 
           {/* Image upload */}
-          <ImageUpload setValue={setValue} fileName={formValues.image} />
+          <ImageUpload
+            className='mt-4 flex flex-col items-center gap-2'
+            setValue={setValue}
+            fileName={formValues.image}
+          />
           {errors.image?.message && (
             <p className='!mt-2 ml-1 text-sm text-rose-400'>
               {errors.image.message}
             </p>
           )}
 
-          <div className='flex justify-between gap-4'>
+          <div className='flex w-full flex-col flex-wrap gap-4 p-4 xl:flex-row'>
             {/* English Editor */}
-            <div className='w-1/2'>
+            <div className='w-full'>
               <h2 className='title my-8 no-underline'>Content (EN)</h2>
               <Editor
                 key={enEditorUUID}
@@ -271,10 +319,27 @@ export default function ContentForm({
                   {errors.contentEn.message}
                 </p>
               )}
+              <Button
+                className='mt-4 w-full'
+                disabled={isPending}
+                variant={'secondary'}
+                type='button'
+                size='sm'
+                onClick={() =>
+                  startTransition(async () =>
+                    translateText({
+                      text: formValues.contentEn as string,
+                      targetLang: 'fi'
+                    })
+                  )
+                }
+              >
+                {isPending ? 'Translating...' : 'Translate To Finnish'}
+              </Button>
             </div>
 
             {/* Finnish Editor */}
-            <div className='w-1/2'>
+            <div className='w-full'>
               <h2 className='title my-8 no-underline'>Content (FI)</h2>
 
               <Editor
@@ -293,29 +358,10 @@ export default function ContentForm({
                 </p>
               )}
             </div>
-          </div>
-
-          {/* Translations*/}
-          <div className='flex justify-between gap-4'>
             <Button
-              className='w-fit'
+              className='mt-4 w-full'
               disabled={isPending}
-              type='button'
-              size='sm'
-              onClick={() =>
-                startTransition(async () =>
-                  translateText({
-                    text: formValues.contentEn as string,
-                    targetLang: 'fi'
-                  })
-                )
-              }
-            >
-              {isPending ? 'Translating...' : 'Translate to finnish'}
-            </Button>
-            <Button
-              className='w-fit'
-              disabled={isPending}
+              variant={'secondary'}
               type='button'
               size='sm'
               onClick={() =>
@@ -331,37 +377,50 @@ export default function ContentForm({
             </Button>
           </div>
 
-          <Button
-            className='mt-4'
-            variant='default'
-            size='sm'
-            type='submit'
-            disabled={isSubmitting}
-          >
-            {!isSubmitting ? 'Create' : 'Creating...'}
-          </Button>
-          <GoogleRecaptchaPrivacy dict={dict} />
+          {!isUpdating && (
+            <Button
+              className='m-4'
+              variant='default'
+              size='sm'
+              type='submit'
+              disabled={isSubmitting}
+            >
+              {!isSubmitting ? 'Create' : 'Creating...'}
+            </Button>
+          )}
+          {isUpdating && (
+            <Button
+              className='m-4'
+              variant='default'
+              size='sm'
+              type='submit'
+              disabled={isSubmitting}
+            >
+              {!isSubmitting ? 'Update' : 'Updating...'}
+            </Button>
+          )}
         </form>
       </div>
 
       {/* Content Previews */}
-      <div className='w-full p-8 lg:w-1/2'>
-        <ContentPreviewHeader
+
+      <div className='mx-auto w-full max-w-2xl p-4'>
+        <EditorContentHeader
+          className='w-full'
+          title={formValues.titleEn}
           image={formValues.image}
-          lang={lang}
-          title={formValues.title}
           dict={dict}
         />
-        <div className='flex justify-between gap-4'>
-          <div className='mt-8 w-1/2'>
+        <div className='mt-4 flex w-full flex-col gap-4 2xl:flex-row'>
+          <div className='mt-4 w-full 2xl:w-1/2'>
             <h2 className='title no-underline'>Preview (EN)</h2>
-            <div className='prose mt-16 dark:prose-invert'>
+            <div className='prose mt-4 dark:prose-invert'>
               <MDXContentClient source={formValues.contentEn} />
             </div>
           </div>
-          <div className='mt-8 w-1/2'>
+          <div className='mt-4 w-full 2xl:w-1/2'>
             <h2 className='title no-underline'>Preview (FI)</h2>
-            <div className='prose mt-16 dark:prose-invert'>
+            <div className='prose mt-4 dark:prose-invert'>
               <MDXContentClient source={formValues.contentFi} />
             </div>
           </div>

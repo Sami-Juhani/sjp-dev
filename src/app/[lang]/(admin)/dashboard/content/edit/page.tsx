@@ -18,7 +18,6 @@ export default async function EditContent({
 
   return (
     <ContentForm
-      lang={lang}
       dict={dict}
       contentFi={allContent.fi}
       contentEn={allContent.en}
