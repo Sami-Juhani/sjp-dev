@@ -6,15 +6,16 @@ import RecentProjects from '@/components/content/recent-projects'
 import { Button } from '@/components/ui/button'
 
 import { getDictionary } from '@/dictionaries/dictionaries'
+import WhatsAppIcon from '@/public/images/icons/whatsapp-brands-solid.svg'
+import heroImage from '@/public/images/sjpdev/sjp_hero.png'
 
-import heroImage from '/public/images/sjpdev/sjp_hero.png'
-import WhatsAppIcon from '/public/images/icons/whatsapp-brands-solid.svg'
-
-export default async function Home({
-  params: { lang }
-}: {
-  params: { lang: SupportedLangs }
+export default async function Home(props: {
+  params: Promise<{ lang: SupportedLangs }>
 }) {
+  const params = await props.params
+
+  const { lang } = params
+
   const dict = await getDictionary(lang)
 
   return (

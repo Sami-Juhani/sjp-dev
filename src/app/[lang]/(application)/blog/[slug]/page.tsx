@@ -17,11 +17,18 @@ import { Metadata, ResolvingMetadata } from 'next'
 
 const dafoe = Mr_Dafoe({ weight: '400', subsets: ['latin'] })
 
-export default async function Blog({
-  params: { slug, lang }
-}: {
-  params: { slug: string; lang: SupportedLangs }
-}) {
+export default async function Blog(
+  props: {
+    params: Promise<{ slug: string; lang: SupportedLangs }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    slug,
+    lang
+  } = params;
+
   const blog = await getContentBySlug({ contentType: 'blog', slug, lang })
   const dict = await getDictionary(lang)
 
@@ -105,13 +112,18 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(
-  {
-    params: { lang, slug }
-  }: {
-    params: { lang: SupportedLangs; slug: string }
+  props: {
+    params: Promise<{ lang: SupportedLangs; slug: string }>
   },
   parent: ResolvingMetadata
 ): Promise<Metadata | undefined> {
+  const params = await props.params;
+
+  const {
+    lang,
+    slug
+  } = params;
+
   const post = await getContentBySlug({ contentType: 'blog', lang, slug })
 
   if (!post) return

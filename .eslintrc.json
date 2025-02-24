@@ -38,6 +38,11 @@
             "pattern": "@/**",
             "group": "internal",
             "position": "before"
+          },
+          {
+            "pattern": "@/public/**",
+            "group": "object",
+            "position": "before"
           }
         ],
         "pathGroupsExcludedImportTypes": ["react", "next"],

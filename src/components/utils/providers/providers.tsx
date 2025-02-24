@@ -1,23 +1,28 @@
 'use client'
 
 import { ReactNode } from 'react'
+
+import { Toaster } from '@/components/ui/sonner'
+
+import { MotionConfig } from 'framer-motion'
+import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider, useTheme } from 'next-themes'
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3'
-import { SessionProvider } from 'next-auth/react'
-import { Toaster } from '@/components/ui/sonner'
 
 export default function Providers({ children }: { children: ReactNode }) {
   return (
     <SessionProvider>
-      <ThemeProvider
-        enableSystem
-        attribute='class'
-        defaultTheme='system'
-        disableTransitionOnChange
-      >
-        <ReCaptchaProvider>{children}</ReCaptchaProvider>
-        <ToasterProvider />
-      </ThemeProvider>
+      <MotionConfig reducedMotion='user'>
+        <ThemeProvider
+          enableSystem
+          attribute='class'
+          defaultTheme='system'
+          disableTransitionOnChange
+        >
+          <ReCaptchaProvider>{children}</ReCaptchaProvider>
+          <ToasterProvider />
+        </ThemeProvider>
+      </MotionConfig>
     </SessionProvider>
   )
 }

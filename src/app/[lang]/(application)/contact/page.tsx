@@ -9,11 +9,17 @@ import { getDictionary } from '@/dictionaries/dictionaries'
 
 import HandShake from '/public/images/sjpdev/handshake.png'
 
-export default async function Contact({
-  params: { lang }
-}: {
-  params: { lang: SupportedLangs }
-}) {
+export default async function Contact(
+  props: {
+    params: Promise<{ lang: SupportedLangs }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    lang
+  } = params;
+
   const dict = await getDictionary(lang)
 
   return (

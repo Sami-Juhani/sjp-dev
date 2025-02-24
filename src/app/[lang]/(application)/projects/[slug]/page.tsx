@@ -13,11 +13,18 @@ import { formatDate } from '@/lib/utils'
 import { ArrowLeftIcon } from '@radix-ui/react-icons'
 import { Metadata } from 'next'
 
-export default async function Project({
-  params: { slug, lang }
-}: {
-  params: { slug: string; lang: SupportedLangs }
-}) {
+export default async function Project(
+  props: {
+    params: Promise<{ slug: string; lang: SupportedLangs }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    slug,
+    lang
+  } = params;
+
   const project = await getContentBySlug({
     contentType: 'projects',
     lang,
@@ -91,11 +98,18 @@ export async function generateStaticParams() {
   return slugs.flat()
 }
 
-export async function generateMetadata({
-  params: { lang, slug }
-}: {
-  params: { lang: SupportedLangs; slug: string }
-}): Promise<Metadata | undefined> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ lang: SupportedLangs; slug: string }>
+  }
+): Promise<Metadata | undefined> {
+  const params = await props.params;
+
+  const {
+    lang,
+    slug
+  } = params;
+
   const post = await getContentBySlug({ contentType: 'projects', lang, slug })
 
   if (!post) return

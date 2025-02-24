@@ -8,6 +8,7 @@ import AiThinking from '@/components/utils/loading/ai-loading'
 
 import { MAX_CHAT_HISTORY } from '@/constants'
 import { IDictionary } from '@/dictionaries/dictionaries'
+import LoisImage from '@/public/images/sjpdev/lois.png'
 
 import { Message, useChat } from 'ai/react'
 import { debounce } from 'lodash'
@@ -15,8 +16,6 @@ import { toast } from 'sonner'
 import { useLocalStorage } from 'usehooks-ts'
 
 import { MDXContentClient } from '../mdx/mdx-content-client'
-
-import LoisImage from '/public/images/sjpdev/lois.png'
 
 export default function Lois({ dict }: { dict: IDictionary }) {
   const [chatHistory, setChatHistory] = useLocalStorage<Message[]>(

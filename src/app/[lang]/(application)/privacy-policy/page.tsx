@@ -2,11 +2,17 @@ import { getDictionary } from '@/dictionaries/dictionaries'
 
 import { Metadata } from 'next'
 
-export default async function PrivacyPolicy({
-  params: { lang }
-}: {
-  params: { lang: string }
-}) {
+export default async function PrivacyPolicy(
+  props: {
+    params: Promise<{ lang: string }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    lang
+  } = params;
+
   const dict = await getDictionary(lang)
   const { title, sections } = dict.policy
 

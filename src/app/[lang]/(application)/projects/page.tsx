@@ -5,11 +5,17 @@ import { getContent } from '@/lib/db/content'
 
 import { Metadata } from 'next'
 
-export default async function ProjectsPage({
-  params: { lang }
-}: {
-  params: { lang: SupportedLangs }
-}) {
+export default async function ProjectsPage(
+  props: {
+    params: Promise<{ lang: SupportedLangs }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    lang
+  } = params;
+
   const projects = await getContent({ contentType: 'projects', lang })
   const dict = await getDictionary(lang)
 

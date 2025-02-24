@@ -6,13 +6,18 @@ import { getDictionary } from '@/dictionaries/dictionaries'
 
 import { Metadata } from 'next'
 
-export default async function AppRootLayout({
-  params: { lang },
-  children
-}: Readonly<{
-  params: { lang: SupportedLangs }
-  children: React.ReactNode
-}>) {
+export default async function AppRootLayout(
+  props: Readonly<{
+    params: { lang: SupportedLangs }
+    children: React.ReactNode
+  }>
+) {
+  const params = await props.params
+
+  const { lang } = params
+
+  const { children } = props
+
   const dict = await getDictionary(lang)
 
   return (

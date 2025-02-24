@@ -17,13 +17,22 @@ const bangers = Bangers({
   variable: '--font-bangers'
 })
 
-export default async function RootLayout({
-  params: { lang },
-  children
-}: Readonly<{
-  params: { lang: SupportedLangs }
-  children: React.ReactNode
-}>) {
+export default async function RootLayout(
+  props: Readonly<{
+    params: { lang: SupportedLangs }
+    children: React.ReactNode
+  }>
+) {
+  const params = await props.params;
+
+  const {
+    lang
+  } = params;
+
+  const {
+    children
+  } = props;
+
   return (
     <html lang={lang} suppressHydrationWarning>
       <body

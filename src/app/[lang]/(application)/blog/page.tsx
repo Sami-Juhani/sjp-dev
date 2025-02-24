@@ -5,11 +5,17 @@ import { getContent } from '@/lib/db/content'
 
 import { Metadata } from 'next'
 
-export default async function BlogList({
-  params: { lang }
-}: {
-  params: { lang: SupportedLangs }
-}) {
+export default async function BlogList(
+  props: {
+    params: Promise<{ lang: SupportedLangs }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    lang
+  } = params;
+
   const blogs = await getContent({ contentType: 'blog', lang })
   const dict = await getDictionary(lang)
 

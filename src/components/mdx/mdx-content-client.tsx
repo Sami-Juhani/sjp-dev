@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useState, type JSX } from 'react';
 
 import { evaluate, EvaluateOptions } from '@mdx-js/mdx'
 import { MDXProps } from 'mdx/types'
