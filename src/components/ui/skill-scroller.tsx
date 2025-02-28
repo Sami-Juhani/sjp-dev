@@ -14,8 +14,8 @@ export default function SkillScroller() {
   const reducedMotion = useReducedMotion()
 
   return (
-    <>
-      <p className='title text-foreground/80 relative -top-2 left-1/2 -mt-8 w-fit -translate-x-1/2 text-lg text-nowrap md:text-2xl'>
+    <div className='relative mx-auto max-w-2xl'>
+      <p className='title text-foreground/80 absolute -top-3 left-0 -mt-8 w-fit text-lg text-nowrap md:text-2xl'>
         Tech I work with
       </p>
       <div
@@ -77,6 +77,6 @@ export default function SkillScroller() {
           ))}
         </ul>
       </div>
-    </>
+    </div>
   )
 }
