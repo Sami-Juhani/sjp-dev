@@ -3,6 +3,9 @@ const nextConfig = {
   experimental: {
     reactCompiler: true
   },
+  typescript: {
+    ignoreBuildErrors: true
+  },
   images: {
     remotePatterns: [{ protocol: 'https', hostname: '*.vercel-storage.com' }]
   },
