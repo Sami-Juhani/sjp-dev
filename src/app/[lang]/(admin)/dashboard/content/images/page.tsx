@@ -9,7 +9,7 @@ export default async function AllImages() {
 
   return (
     <>
-      <h1 className='title mb-8 no-underline'>Images</h1>
+      <h1 className='title mb-8'>Images</h1>
       <AllImagesToolbar images={images} handleDelete={deleteContent} />
     </>
   )

@@ -80,7 +80,7 @@ const navigation = [
 
 export default function Footer({ dict }: { dict: IDictionary }) {
   return (
-    <footer className='py-8'>
+    <footer className='border-muted border-t py-8'>
       <div className='container max-w-3xl'>
         <div className='md:flex md:items-center md:justify-between'>
           <div className='flex justify-center space-x-6 md:order-2'>
@@ -98,7 +98,7 @@ export default function Footer({ dict }: { dict: IDictionary }) {
             ))}
           </div>
           <div className='mt-8 md:order-1 md:mt-0'>
-            <p className='text-center text-xs leading-5 text-muted-foreground'>
+            <p className='text-muted-foreground text-center text-xs leading-5'>
               &copy; {new Date().getFullYear()} SjP Dev. {dict.footer.rights}.
             </p>
           </div>

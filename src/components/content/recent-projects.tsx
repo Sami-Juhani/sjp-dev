@@ -1,34 +1,73 @@
+'use client'
+
+import { useState } from 'react'
+
 import Link from 'next/link'
 
-import ProjectsList from '@/components/content/projects-list'
+import CircularGallery from '@/components/ui/CircularGallery'
 
-import { IDictionary } from '@/dictionaries/dictionaries'
-import { getContent } from '@/lib/db/content'
+import { useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
+import { useTheme } from 'next-themes'
 
-export default async function RecentProjects({
-  dict,
-  lang
+export default function RecentProjects({
+  lang,
+  projects
 }: {
-  dict: IDictionary
   lang: SupportedLangs
+  projects: ContentMetadata[]
 }) {
-  const projects = await getContent({ limit: 4, contentType: 'projects', lang })
+  const [activeIndex, setActiveIndex] = useState<number | null>(0)
+  const { theme } = useTheme()
+  const shouldReduceMotion = useReducedMotion()
+  const galleryItems = projects.map(project => ({
+    text: project.title as string,
+    image: project.image as string,
+    description: project.description as string,
+    slug: project.slug as string
+  }))
+  const textColor = theme === 'dark' ? 'hsl(0 0% 100%)' : 'hsl(0 0% 3.9%)'
 
   return (
-    <section>
-      <div>
-        <h2 className='comic-title mb-12 w-fit text-2xl invert'>
-          {dict.projects.title}
-        </h2>
-        <ProjectsList isLandingPage projects={projects} lang={lang} />
-
-        <Link
-          href={`/${lang}/projects`}
-          className='text-muted-foreground hover:text-foreground mt-8 inline-flex items-center gap-2 underline decoration-1 underline-offset-2 transition-colors'
-        >
-          <span>{dict.projects.allProjects}</span>
-        </Link>
+    <>
+      <div className='relative -mt-[4rem] h-[500px]'>
+        {/* Left fade */}
+        <div className='from-background pointer-events-none absolute top-0 left-0 -z-10 h-full w-1/6 bg-gradient-to-r to-transparent' />
+        {/* Right fade */}
+        <div className='from-background pointer-events-none absolute top-0 right-0 -z-10 h-full w-1/6 bg-gradient-to-l to-transparent' />
+        <CircularGallery
+          items={galleryItems}
+          bend={0.5}
+          borderRadius={0.05}
+          textColor={textColor}
+          shouldReduceMotion={shouldReduceMotion}
+          setActiveIndex={setActiveIndex}
+        />
       </div>
-    </section>
+      <div className='text-muted-foreground relative h-[7rem] overflow-hidden pb-6'>
+        {activeIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{
+              opacity: 1,
+              y: 0
+            }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className='line-clamp-3 text-ellipsis'>
+              {galleryItems[activeIndex].description}
+            </p>
+          </motion.div>
+        )}
+        {activeIndex !== null && (
+          <Link
+            className='text-tertiary-neon mt-4 ml-auto block w-fit underline'
+            href={`/${lang}/projects/${galleryItems[activeIndex].slug}`}
+          >
+            Read more...
+          </Link>
+        )}
+      </div>
+    </>
   )
 }

@@ -95,9 +95,7 @@ export default function DashboardSidebar({
   if (status === 'unauthenticated')
     return (
       <div className='relative inset-1/2 flex w-fit -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-2'>
-        <h1 className='title no-underline'>
-          You are not authorized to access this page
-        </h1>
+        <h1 className='title'>You are not authorized to access this page</h1>
         <Link href='/'>Back to home</Link>
       </div>
     )
@@ -392,7 +390,7 @@ export default function DashboardSidebar({
 
 function Loading() {
   return (
-    <h1 className='title relative inset-1/2 mt-8 flex w-fit -translate-x-1/2 -translate-y-1/2 no-underline'>
+    <h1 className='title relative inset-1/2 mt-8 flex w-fit -translate-x-1/2 -translate-y-1/2'>
       Loading...
     </h1>
   )

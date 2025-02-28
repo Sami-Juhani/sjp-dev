@@ -162,7 +162,7 @@ export default function EditorContentForm({
           onSubmit={handleSubmit(processForm)}
           className='mx-auto flex max-w-2xl flex-col gap-4'
         >
-          <h1 className='title no-underline'>Metadata</h1>
+          <h1 className='title'>Metadata</h1>
           <div className='flex flex-col gap-4 lg:flex-row'>
             {/* English Title */}
             <div className='w-full lg:w-1/2'>
@@ -303,7 +303,7 @@ export default function EditorContentForm({
           <div className='flex w-full flex-col flex-wrap gap-4 p-4 xl:flex-row'>
             {/* English Editor */}
             <div className='w-full'>
-              <h2 className='title my-8 no-underline'>Content (EN)</h2>
+              <h2 className='title my-8'>Content (EN)</h2>
               <Editor
                 key={enEditorUUID}
                 initialValue={
@@ -340,7 +340,7 @@ export default function EditorContentForm({
 
             {/* Finnish Editor */}
             <div className='w-full'>
-              <h2 className='title my-8 no-underline'>Content (FI)</h2>
+              <h2 className='title my-8'>Content (FI)</h2>
 
               <Editor
                 key={fiEditorUUID}
@@ -413,14 +413,14 @@ export default function EditorContentForm({
         />
         <div className='mt-4 flex w-full flex-col gap-4 2xl:flex-row'>
           <div className='mt-4 w-full 2xl:w-1/2'>
-            <h2 className='title no-underline'>Preview (EN)</h2>
-            <div className='prose mt-4 dark:prose-invert'>
+            <h2 className='title'>Preview (EN)</h2>
+            <div className='prose dark:prose-invert mt-4'>
               <MDXContentClient source={formValues.contentEn} />
             </div>
           </div>
           <div className='mt-4 w-full 2xl:w-1/2'>
-            <h2 className='title no-underline'>Preview (FI)</h2>
-            <div className='prose mt-4 dark:prose-invert'>
+            <h2 className='title'>Preview (FI)</h2>
+            <div className='prose dark:prose-invert mt-4'>
               <MDXContentClient source={formValues.contentFi} />
             </div>
           </div>

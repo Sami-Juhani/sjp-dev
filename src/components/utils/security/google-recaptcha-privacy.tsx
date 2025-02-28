@@ -8,19 +8,19 @@ export default function GoogleRecaptchaPrivacy({
 }) {
   return (
     <div>
-      <p className='mb-0 mt-4 text-xs text-muted-foreground'>
+      <p className='text-muted-foreground mt-4 mb-0 text-xs'>
         {dict.privacy.google.title}
       </p>
-      <p className='mt-0 text-xs text-muted-foreground'>
+      <p className='text-muted-foreground mt-0 text-xs'>
         <Link
-          className='font-bold text-inherit no-underline'
+          className='font-bold text-inherit'
           href='https://policies.google.com/privacy'
         >
           {dict.privacy.google.privacyPolicy}
         </Link>{' '}
         {dict.privacy.google.and}{' '}
         <Link
-          className='font-bold text-inherit no-underline'
+          className='font-bold text-inherit'
           href='https://policies.google.com/terms'
         >
           {dict.privacy.google.termsOfService}

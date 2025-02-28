@@ -46,12 +46,15 @@ export default function Dropdownmenu({
     <>
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
-          <Button size='sm' variant='ghost' aria-label='Settings'>
+          <Button size='default' variant='ghost' aria-label='Settings'>
             <span className='sr-only'>Settings Button</span>
-            <GearIcon className='size-4' />
+            <GearIcon
+              className='text-tertiary-neon'
+              style={{ height: 20, width: 20 }}
+            />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align='end' className='min-w-48'>
+        <DropdownMenuContent align='end' className='relative z-100 min-w-48'>
           <DropdownMenuLabel>{dict.header.dropdownmenu.menu}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>

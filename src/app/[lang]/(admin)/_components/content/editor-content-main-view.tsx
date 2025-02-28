@@ -29,7 +29,7 @@ export default function ContentMainView({ lang }: { lang: SupportedLangs }) {
 
   return (
     <div className='flex flex-col'>
-      <h2 className='title my-4 no-underline'>Content</h2>
+      <h2 className='title my-4'>Content</h2>
       <p className='mb-2'>
         Copy all Content from production to development storage
       </p>

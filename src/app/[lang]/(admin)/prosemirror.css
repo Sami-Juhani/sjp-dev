@@ -1,3 +1,9 @@
+@import 'tailwindcss';
+
+.ProseMirror {
+  @apply p-2;
+}
+
 .ProseMirror .is-editor-empty:first-child::before {
   content: attr(data-placeholder);
   float: left;

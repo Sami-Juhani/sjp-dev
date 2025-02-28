@@ -1,4 +1,4 @@
-import { Bangers, Inter, Playfair_Display } from 'next/font/google'
+import { Inter, Playfair_Display } from 'next/font/google'
 
 import Providers from '@/components/utils/providers/providers'
 
@@ -11,11 +11,6 @@ const playfair = Playfair_Display({
   subsets: ['latin'],
   variable: '--font-serif'
 })
-const bangers = Bangers({
-  weight: '400',
-  subsets: ['latin'],
-  variable: '--font-bangers'
-})
 
 export default async function RootLayout(
   props: Readonly<{
@@ -23,24 +18,19 @@ export default async function RootLayout(
     children: React.ReactNode
   }>
 ) {
-  const params = await props.params;
+  const params = await props.params
 
-  const {
-    lang
-  } = params;
+  const { lang } = params
 
-  const {
-    children
-  } = props;
+  const { children } = props
 
   return (
     <html lang={lang} suppressHydrationWarning>
       <body
         className={cn(
-          'flex h-mobile flex-col font-sans antialiased',
+          'h-mobile flex flex-col font-sans antialiased',
           inter.variable,
-          playfair.variable,
-          bangers.variable
+          playfair.variable
         )}
       >
         <Providers>{children}</Providers>

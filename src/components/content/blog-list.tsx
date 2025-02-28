@@ -1,18 +1,30 @@
 import BlogArticle from '@/components/content/blog-article'
 
-import { cn } from '@/lib/utils'
-
 export default function BlogList({ blogs, lang, isLandingPage }: BlogsProps) {
   return (
     <ul className='grid grid-cols-1 gap-8 sm:grid-cols-2'>
-      {blogs.map((post, i) => (
+      {isLandingPage && (
         <li
-          key={post.slug}
-          className={`${cn(i === 0 && isLandingPage && 'col-span-2')} min-w-[240px] rounded-b-lg shadow-lg`}
+          key={blogs[0].slug}
+          className='group relative overflow-hidden rounded-lg sm:col-span-2'
         >
-          <BlogArticle blog={post} lang={lang} />
+          <h3 className='mb-2 ml-2 text-sm'>Recent Post</h3>
+          <BlogArticle blog={blogs[0]} lang={lang} />
         </li>
-      ))}
+      )}
+
+      {blogs.map((post, i) => {
+        if (i == 0 && isLandingPage) return
+
+        return (
+          <li
+            key={post.slug}
+            className='group relative overflow-hidden rounded-lg'
+          >
+            <BlogArticle blog={post} lang={lang} />
+          </li>
+        )
+      })}
     </ul>
   )
 }

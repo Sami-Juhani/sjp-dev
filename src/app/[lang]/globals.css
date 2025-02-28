@@ -13,8 +13,6 @@
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-serif: var(--font-serif), ui-serif, Georgia, Cambria, 'Times New Roman',
     Times, serif;
-  --font-bangers: var(--font-bangers), ui-serif, Georgia, Cambria,
-    'Times New Roman', Times, serif;
 
   --color-border: var(--border);
   --color-input: var(--input);
@@ -24,6 +22,11 @@
 
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+
+  --color-primary-neon: var(--primary-neon);
+  --color-secondary-neon: var(--secondary-neon);
+  --color-tertiary-neon: var(--tertiary-neon);
+  --color-quaternary-neon: var(--quaternary-neon);
 
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -58,6 +61,7 @@
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-scroll-left: scroll-left forwards 10s linear infinite;
 
   @keyframes accordion-down {
     from {
@@ -73,6 +77,12 @@
     }
     to {
       height: 0;
+    }
+  }
+
+  @keyframes scroll-left {
+    to {
+      transform: translate(calc(-50% + 0.5rem));
     }
   }
 }
@@ -93,6 +103,42 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  .title {
+    @apply font-serif text-xl font-bold;
+  }
+
+  .prose {
+    @apply space-y-2;
+  }
+
+  .prose pre {
+    @apply bg-accent overflow-x-auto rounded-lg px-5 py-4 text-sm;
+  }
+
+  .prose code {
+    @apply rounded-lg px-1 py-0.5;
+  }
+
+  .prose pre code {
+    @apply p-0;
+    line-height: 1.75;
+  }
+
+  .prose code span {
+    @apply font-medium;
+  }
+
+  .prose ul {
+    @apply ml-4 list-inside list-disc;
+  }
 }
 
 :root {
@@ -103,7 +149,11 @@
   --card-foreground: hsl(0 0% 3.9%);
   --popover: hsl(0 0% 100%);
   --popover-foreground: hsl(0 0% 3.9%);
-  --primary: hsl(0 72.2% 50.6%);
+  --primary: hsl(189, 94%, 50%);
+  --primary-neon: hsl(189, 93%, 37%);
+  --secondary-neon: hsl(298, 100%, 50%);
+  --tertiary-neon: hsl(168, 94%, 33%);
+  --quaternary-neon: hsl(248, 61%, 60%);
   --primary-foreground: hsl(0 85.7% 97.3%);
   --secondary: hsl(0 0% 96.1%);
   --secondary-foreground: hsl(0 0% 9%);
@@ -115,8 +165,8 @@
   --destructive-foreground: hsl(0 0% 98%);
   --border: hsl(0 0% 89.8%);
   --input: hsl(0 0% 89.8%);
-  --ring: hsl(0 72.2% 50.6%);
-  --radius: hsl(0 0% 5%);
+  --ring: hsl(189, 94%, 50%);
+  --radius: 0.5rem;
   --chart-1: hsl(12 76% 61%);
   --chart-2: hsl(173 58% 39%);
   --chart-3: hsl(197 37% 24%);
@@ -143,14 +193,18 @@
 }
 
 .dark {
-  --background: hsl(0 0% 3.9%);
+  --background: hsl(0 0% 3%);
   --foreground: hsl(0 0% 98%);
   --card: hsl(0 0% 3.9%);
   --card-foreground: hsl(0 0% 98%);
   --popover: hsl(0 0% 3.9%);
   --popover-foreground: hsl(0 0% 98%);
-  --primary: hsl(0 72.2% 50.6%);
+  --primary: hsl(189, 94%, 30%);
   --primary-foreground: hsl(0 85.7% 97.3%);
+  --primary-neon: hsl(189, 97%, 64%);
+  --secondary-neon: hsl(298, 95%, 66%);
+  --tertiary-neon: hsl(168, 94%, 33%);
+  --quaternary-neon: hsl(248, 61%, 60%);
   --secondary: hsl(0 0% 14.9%);
   --secondary-foreground: hsl(0 0% 98%);
   --muted: hsl(0 0% 14.9%);
@@ -161,7 +215,7 @@
   --destructive-foreground: hsl(0 0% 98%);
   --border: hsl(0 0% 14.9%);
   --input: hsl(0 0% 14.9%);
-  --ring: hsl(0 72.2% 50.6%);
+  --ring: hsl(189, 94%, 50%);
   --chart-1: hsl(220 70% 50%);
   --chart-2: hsl(160 60% 45%);
   --chart-3: hsl(30 80% 55%);
@@ -187,18 +241,38 @@
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
-@utility card-footer {
-  background: linear-gradient(
-    45deg,
-    hsl(from var(--primary) h s 5),
-    hsl(from var(--foreground) h s 2),
-    hsl(from var(--foreground) h s 2),
-    hsl(from var(--primary) h s 5)
+@utility scroller-mask {
+  -webkit-mask: linear-gradient(
+    90deg,
+    transparent,
+    white 20%,
+    white 80%,
+    transparent
   );
+  mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+}
+
+@utility tilted-bottom {
+  clip-path: polygon(0 0, 100% 0%, 100% 92.5%, 0% 100%);
 }
 
 @utility mt-main {
-  margin-top: clamp(-177px, -20%, -70px);
+  margin-top: clamp(-850px, -50%, -360px);
+}
+
+@utility shiny-text {
+  color: #b5b5b5a4; /* Adjust this color to change intensity/style */
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  display: inline-block;
+  animation: shine 5s linear infinite;
 }
 
 @utility container {
@@ -209,40 +283,6 @@
   }
   @media (width >= 1400px) {
     max-width: 1400px;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-
-  .title {
-    @apply decoration-border/75 font-serif text-3xl font-bold underline decoration-2 underline-offset-8;
-  }
-
-  .comic-title {
-    @apply bg-background font-bangers text-foreground outline-foreground px-6 py-2 font-normal tracking-[0.1ch] text-pretty outline outline-2 -outline-offset-[8px];
-  }
-
-  .prose pre {
-    @apply bg-accent overflow-x-auto rounded-lg px-5 py-4 text-sm;
-  }
-
-  .prose code {
-    @apply rounded-lg px-1 py-0.5;
-  }
-
-  .prose pre code {
-    @apply p-0;
-    line-height: 1.75;
-  }
-
-  .prose code span {
-    @apply font-medium;
   }
 }
 
@@ -259,6 +299,15 @@
       opacity: 0;
     }
   }
+
+  @keyframes shine {
+    0% {
+      background-position: 100%;
+    }
+    100% {
+      background-position: -100%;
+    }
+  }
 }
 
 /* Hide google-recaptcha-v3 badge 
@@ -266,4 +315,15 @@
 */
 .grecaptcha-badge {
   visibility: hidden;
+}
+/*
+  ---break---
+*/
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }

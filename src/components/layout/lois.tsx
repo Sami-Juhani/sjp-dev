@@ -8,7 +8,7 @@ import AiThinking from '@/components/utils/loading/ai-loading'
 
 import { MAX_CHAT_HISTORY } from '@/constants'
 import { IDictionary } from '@/dictionaries/dictionaries'
-import LoisImage from '@/public/images/sjpdev/lois.png'
+import ChatBotIcon from '@/public/images/sjpdev/cyber_chatbot.png'
 
 import { Message, useChat } from 'ai/react'
 import { debounce } from 'lodash'
@@ -114,10 +114,10 @@ export default function Lois({ dict }: { dict: IDictionary }) {
   }, [isOpen])
 
   return (
-    <div className='fixed bottom-0 right-0 flex h-[85%] max-w-xl flex-col justify-end gap-4'>
+    <div className='fixed right-0 bottom-0 flex h-[85%] max-w-xl flex-col justify-end gap-4'>
       {isOpen && (
         <div
-          className='z-10 mx-4 flex flex-col space-y-4 overflow-hidden overflow-y-auto rounded-lg bg-muted p-4 shadow-xl'
+          className='bg-muted z-10 mx-4 flex flex-col space-y-4 overflow-hidden overflow-y-auto rounded-lg p-4 shadow-xl'
           ref={messagesContainerRef}
         >
           {messages.map(m => (
@@ -162,7 +162,7 @@ export default function Lois({ dict }: { dict: IDictionary }) {
 
       <button
         type='button'
-        className='ml-auto mr-4'
+        className='mr-4 ml-auto'
         onClick={() => {
           if (openMsgTimeout.current) {
             clearTimeout(openMsgTimeout.current)
@@ -174,10 +174,9 @@ export default function Lois({ dict }: { dict: IDictionary }) {
         ref={loisIconRef}
       >
         <Image
-          src={LoisImage}
+          src={ChatBotIcon}
           alt='Image of AI assistant'
           width={100}
-          height={100}
           draggable={false}
         />
       </button>
