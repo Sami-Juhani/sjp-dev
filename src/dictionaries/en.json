@@ -29,16 +29,24 @@
     "rights": "All rights reserved"
   },
   "home": {
-    "mainTitle": "Software Beyond Limits, Beyond Code!",
-    "authorTitle": "Hey, I'm Sami",
-    "authorIntro": "I'm a software developer based in Finland with expertise in web development, proficiency in backend development, and a strong passion for cloud technologies",
-    "downloadButton": "Download CV",
-    "getInTouch": "Get in touch"
+    "hero": {
+      "greetings": "Hey, I'm Sami",
+      "greetingsSub": "I'm a Software Engineer based in Finland. I'm passionate about building web applications with modern technologies",
+      "getInTouch": "Get in touch",
+      "downloadButton": "Download CV",
+      "services": {
+        "title": "My Services",
+        "webDevelopment": "Web Development",
+        "backendDevelopment": "Backend Development",
+        "cloudServices": "Cloud Services"
+      },
+      "techTitle": "Tech I work with"
+    }
   },
   "blog": {
     "backButton": "Back to posts",
     "title": "Blog",
-    "recent": "Recent posts",
+    "recent": "Recent post",
     "allPosts": "All Posts",
     "signatureTitle": "Cheers",
     "signature": "Software developer",
@@ -77,6 +85,7 @@
     "backButton": "Back to projects",
     "title": "Projects",
     "recent": "Recent projects",
+    "readMore": "Read more...",
     "allProjects": "All Projects"
   },
   "contact": {
@@ -93,8 +102,7 @@
     "privacy": "By submitting this form, I agree to the",
     "privacyLink": "privacy policy",
     "formSuccess": "Message sent successfully",
-    "formError": "An error occurred! Please try again",
-    "about": "About me"
+    "formError": "An error occurred! Please try again"
   },
   "privacy": {
     "google": {

@@ -29,11 +29,19 @@ export interface IDictionary {
     rights: string
   }
   home: {
-    mainTitle: string
-    authorTitle: string
-    authorIntro: string
-    downloadButton: string
-    getInTouch: string
+    hero: {
+      greetings: string
+      greetingsSub: string
+      getInTouch: string
+      downloadButton: string
+      services: {
+        title: string
+        webDevelopment: string
+        backendDevelopment: string
+        cloudServices: string
+      }
+      techTitle: string
+    }
   }
   blog: {
     backButton: string
@@ -77,6 +85,7 @@ export interface IDictionary {
     title: string
     backButton: string
     recent: string
+    readMore: string
     allProjects: string
   }
   contact: {
@@ -94,7 +103,6 @@ export interface IDictionary {
     privacyLink: string
     formSuccess: string
     formError: string
-    about: string
   }
   privacy: {
     google: {
