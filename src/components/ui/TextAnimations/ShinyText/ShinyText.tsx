@@ -1,10 +1,13 @@
+'use client'
+
+import React from 'react'
+
+import useMounted from '@/hooks/useMounted'
 /*
 	jsrepo 1.40.1
 	Installed from https://reactbits.dev/ts/tailwind/
 	25-02-2025
 */
-
-import React from 'react'
 
 interface ShinyTextProps {
   text: string
@@ -21,9 +24,11 @@ const ShinyText: React.FC<ShinyTextProps> = ({
 }) => {
   const animationDuration = `${speed}s`
 
+  const mounted = useMounted()
+
   return (
     <div
-      className={`inline-block ${disabled ? '' : 'animate-shine'} ${className}`}
+      className={`inline-block ${disabled ? '' : 'animate-shine'} ${mounted ? className : ''}`}
       style={{
         backgroundSize: '200% 100%',
         WebkitBackgroundClip: 'text',

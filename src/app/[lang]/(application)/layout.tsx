@@ -1,6 +1,6 @@
+import ChatBot from '@/components/layout/chat-bot'
 import Footer from '@/components/layout/footer'
 import Header from '@/components/layout/header'
-import Lois from '@/components/layout/lois'
 
 import { getDictionary } from '@/dictionaries/dictionaries'
 
@@ -24,7 +24,7 @@ export default async function AppRootLayout(
     <>
       <Header dict={dict} lang={lang} />
       <main className='min-w-min-screen-width grow'>{children}</main>
-      <Lois dict={dict} />
+      <ChatBot dict={dict} />
       <Footer dict={dict} />
     </>
   )

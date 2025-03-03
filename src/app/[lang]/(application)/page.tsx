@@ -38,7 +38,7 @@ export default async function Home(props: {
           <div className='bg-primary-neon/70 absolute top-0 left-0 -z-10 hidden h-64 w-64 -translate-x-1/2 transform rounded-full opacity-50 blur-[180px] md:block'></div>
           <div className='bg-primary-neon/70 absolute -right-24 bottom-0 -z-10 mt-40 h-64 w-64 rounded-full opacity-50 blur-[180px]'></div>
           <div className='container mx-auto flex max-w-2xl justify-between gap-4'>
-            <h3 className='title text-primary-neon text-2xl'>
+            <h3 className='title text-tertiary-neon text-2xl'>
               {dict.blog.title}
             </h3>
             <GlowingButton
@@ -65,8 +65,8 @@ export default async function Home(props: {
 
       {/* Projects */}
       <section>
-        <div className='relative z-10 container mx-auto flex max-w-2xl justify-between gap-4 pt-8'>
-          <h2 className='title text-primary-neon text-2xl'>
+        <div className='container mx-auto flex max-w-2xl justify-between gap-4 pt-8'>
+          <h2 className='title text-tertiary-neon text-2xl'>
             {dict.projects.title}
           </h2>
           <GlowingButton

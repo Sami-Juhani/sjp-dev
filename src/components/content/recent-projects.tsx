@@ -34,7 +34,7 @@ export default function RecentProjects({
 
   return (
     <>
-      <div className='relative -mt-[4rem] h-[500px]'>
+      <div className='h-[500px]'>
         {/* Left fade */}
         <div className='from-background pointer-events-none absolute top-0 left-0 -z-10 h-full w-1/6 bg-gradient-to-r to-transparent' />
         {/* Right fade */}
@@ -65,7 +65,7 @@ export default function RecentProjects({
         )}
         {activeIndex !== null && (
           <Link
-            className='text-tertiary-neon mt-4 ml-auto block w-fit underline'
+            className='text-tertiary-neon hover:text-quaternary-neon mt-4 ml-auto block w-fit underline transition-colors duration-300'
             href={`/${lang}/projects/${galleryItems[activeIndex].slug}`}
           >
             {dict.projects.readMore}

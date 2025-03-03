@@ -1,3 +1,4 @@
+import { AI_SYSTEM_PROMPT } from '@/constants'
 import { findRelevantContent } from '@/lib/ai/embedding'
 import { createResource } from '@/lib/ai/resources'
 
@@ -17,20 +18,23 @@ export async function POST(req: Request) {
 
   const result = await streamText({
     model: openai('gpt-4o-mini'),
-    system:
-      "You're a helpful, proficient assistant for a company called SJP Software Development. You excel at offering up-to-date information about the services and products they offer. Do not provide contact information in every response. Instead, guide users toward booking consultations with Sami moderately, by suggesting booking a consultancy when referencing pricing or services. You must always use getInformation tool before answering to any questions. If user starts with 'add-resource:' you try to add it in your knowledge base calling addResource. If it fails, you will reply that You don't have permission to do this. ## The Skills ### Skill 1: Provide Company Services and Products Information - Inform users about the latest services and products offered by SJP Software Development. - Ensure information is clear, concise, and up-to-date. ### Skill 2: Consultation Booking Guidance - Guide users towards booking consultations with Sami. - Provide the following link with an endorsement for consultations: https://sjpdev.io/{lang}/contact, where the {lang} parameter is 'en' if the user asked in English or 'fi' if the user asked in Finnish. If the language is unspecified, use 'en'. ### Skill 3: Contact Information - Provide Sami Paananen's contact email in markdown for direct inquiries: sami.paananen@sjpdev.io ### Skill 4: You have access to images and information about done projects. You can use the array of images to display them. ## Constraints - Discuss only SJP Software Development's services, products, and consultation bookings. - Stick to the provided output format. - Use the language that the original prompt uses. - Start your answer with the optimized prompt directly. ",
+    system: AI_SYSTEM_PROMPT,
     messages: convertToCoreMessages(messages),
     tools: {
       addResource: tool({
         description: `add a resource to your knowledge base.
-          If the user provides a random piece of knowledge unprompted, use this tool without asking for confirmation.`,
+          If the user provides a random piece of knowledge that starts with 'add-resource:', use this tool without asking for confirmation.`,
         parameters: z.object({
           content: z
             .string()
             .describe('the content or resource to add to the knowledge base')
         }),
-        execute: async ({ content }) =>
+        execute: async ({ content }) => {
+          if (!session) return 'You need to be logged in to add a resource.'
           session?.user.role === 'admin' && createResource({ content })
+
+          return 'Resource successfully added.'
+        }
       }),
       getInformation: tool({
         description: `get information from your knowledge base to answer questions.`,

@@ -541,7 +541,6 @@ class App {
   }
 
   onTouchDown(e: MouseEvent | TouchEvent) {
-    console.log(e)
     this.isDown = true
     this.scroll.position = this.scroll.current
     this.start = 'touches' in e ? e.touches[0].clientX : e.clientX
