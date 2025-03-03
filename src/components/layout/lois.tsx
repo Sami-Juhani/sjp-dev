@@ -114,7 +114,7 @@ export default function Lois({ dict }: { dict: IDictionary }) {
   }, [isOpen])
 
   return (
-    <div className='fixed right-0 bottom-0 flex h-[85%] max-w-xl flex-col justify-end gap-4'>
+    <div className='fixed right-0 bottom-0 z-50 flex h-[85%] max-w-xl flex-col justify-end gap-4'>
       {isOpen && (
         <div
           className='bg-muted z-10 mx-4 flex flex-col space-y-4 overflow-hidden overflow-y-auto rounded-lg p-4 shadow-xl'
