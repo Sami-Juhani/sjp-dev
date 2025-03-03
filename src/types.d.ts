@@ -101,6 +101,7 @@ interface IBlog {
 }
 
 interface BlogsProps extends IBlog {
+  dict: IDictionary
   isLandingPage?: boolean
 }
 
