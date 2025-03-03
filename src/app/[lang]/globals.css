@@ -1,51 +1,65 @@
+/* 
+ * globals.css
+ * Main stylesheet organizing styles in a logical order:
+ * 1. Imports and Layer Declarations
+ * 2. Theme Variables and Custom Properties
+ * 3. Base Styles
+ * 4. Components
+ * 5. Animations
+ * 6. Utilities
+ */
+
+/* ---------- 1. Imports and Layer Declarations ---------- */
 @import 'tailwindcss';
 @layer theme, base, components, utilities;
 
 @custom-variant dark (&:is(.dark *));
 
+/* ---------- 2. Theme Variables and Custom Properties ---------- */
 @theme inline {
+  /* Layout */
   --min-width-min-screen-width: var(--min-screen-width);
-
   --height-screen: 100dvh;
   --height-mobile: 100svh;
 
+  /* Typography */
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-serif: var(--font-serif), ui-serif, Georgia, Cambria, 'Times New Roman',
     Times, serif;
 
+  /* Colors - Core */
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
+  /* Colors - Primary and Neon */
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-
   --color-primary-neon: var(--primary-neon);
   --color-secondary-neon: var(--secondary-neon);
   --color-tertiary-neon: var(--tertiary-neon);
   --color-quaternary-neon: var(--quaternary-neon);
 
+  /* Colors - Secondary and States */
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
 
+  /* Colors - Components */
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
-
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
 
+  /* Colors - Sidebar */
   --color-sidebar: var(--sidebar-background);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -55,14 +69,17 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
+  /* Border Radius */
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
+  /* Animations */
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-scroll-left: scroll-left forwards 10s linear infinite;
 
+  /* Animation Keyframes */
   @keyframes accordion-down {
     from {
       height: 0;
@@ -71,6 +88,7 @@
       height: var(--radix-accordion-content-height);
     }
   }
+
   @keyframes accordion-up {
     from {
       height: var(--radix-accordion-content-height);
@@ -85,17 +103,148 @@
       transform: translate(calc(-50% + 0.5rem));
     }
   }
+
+  @keyframes blink {
+    0%,
+    20% {
+      opacity: 0;
+    }
+    40% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes shine {
+    0% {
+      background-position: 100%;
+    }
+    100% {
+      background-position: -100%;
+    }
+  }
 }
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
+/* ---------- 3. Base Styles ---------- */
+:root {
+  --min-screen-width: 300px;
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
+  /* Light Theme Colors */
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(0 0% 3.9%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(0 0% 3.9%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(0 0% 3.9%);
+  --primary: hsl(189, 94%, 50%);
+  --primary-neon: hsl(189, 93%, 37%);
+  --secondary-neon: hsl(298, 100%, 50%);
+  --tertiary-neon: hsl(168, 94%, 33%);
+  --quaternary-neon: hsl(248, 61%, 60%);
+  --primary-foreground: hsl(0 85.7% 97.3%);
+  --secondary: hsl(0 0% 96.1%);
+  --secondary-foreground: hsl(0 0% 9%);
+  --muted: hsl(0 0% 96.1%);
+  --muted-foreground: hsl(0 0% 45.1%);
+  --accent: hsl(0 0% 96.1%);
+  --accent-foreground: hsl(0 0% 9%);
+  --destructive: hsl(0 84.2% 60.2%);
+  --destructive-foreground: hsl(0 0% 98%);
+  --border: hsl(0 0% 89.8%);
+  --input: hsl(0 0% 89.8%);
+  --ring: hsl(189, 94%, 50%);
+  --radius: 0.5rem;
+
+  /* Chart Colors */
+  --chart-1: hsl(12 76% 61%);
+  --chart-2: hsl(173 58% 39%);
+  --chart-3: hsl(197 37% 24%);
+  --chart-4: hsl(43 74% 66%);
+  --chart-5: hsl(27 87% 67%);
+
+  /* Syntax Highlighting Colors */
+  --sh-identifier: #354150;
+  --sh-keyword: #760091;
+  --sh-string: #a94600;
+  --sh-class: #004cff;
+  --sh-property: #4060be;
+  --sh-entity: #004cff;
+  --sh-jsxliterals: #000000;
+  --sh-sign: #9da000;
+  --sh-comment: #00491a;
+
+  /* Sidebar Colors */
+  --sidebar-background: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(0 0% 26.1%);
+  --sidebar-primary: hsl(0 5.9% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(0 4.8% 95.9%);
+  --sidebar-accent-foreground: hsl(0 5.9% 10%);
+  --sidebar-border: hsl(0 13% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+
+  interpolate-size: allow-keywords;
+}
+
+/* Dark Theme Colors */
+.dark {
+  --background: hsl(0 0% 3%);
+  --foreground: hsl(0 0% 98%);
+  --card: hsl(0 0% 3.9%);
+  --card-foreground: hsl(0 0% 98%);
+  --popover: hsl(0 0% 3.9%);
+  --popover-foreground: hsl(0 0% 98%);
+  --primary: hsl(189, 94%, 30%);
+  --primary-foreground: hsl(0 85.7% 97.3%);
+  --primary-neon: hsl(189, 97%, 64%);
+  --secondary-neon: hsl(298, 95%, 66%);
+  --tertiary-neon: hsl(168, 94%, 33%);
+  --quaternary-neon: hsl(248, 61%, 60%);
+  --secondary: hsl(0 0% 14.9%);
+  --secondary-foreground: hsl(0 0% 98%);
+  --muted: hsl(0 0% 14.9%);
+  --muted-foreground: hsl(0 0% 63.9%);
+  --accent: hsl(0 0% 14.9%);
+  --accent-foreground: hsl(0 0% 98%);
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(0 0% 98%);
+  --border: hsl(0 0% 14.9%);
+  --input: hsl(0 0% 14.9%);
+  --ring: hsl(189, 94%, 50%);
+
+  /* Chart Colors - Dark Theme */
+  --chart-1: hsl(220 70% 50%);
+  --chart-2: hsl(160 60% 45%);
+  --chart-3: hsl(30 80% 55%);
+  --chart-4: hsl(280 65% 60%);
+  --chart-5: hsl(340 75% 55%);
+
+  /* Syntax Highlighting Colors - Dark Theme */
+  --sh-identifier: #9a9fa6;
+  --sh-keyword: #e365ff;
+  --sh-string: #d07b3f;
+  --sh-class: #5a8bff;
+  --sh-property: #a5b0d2;
+  --sh-entity: #7da4ff;
+  --sh-jsxliterals: #e3e3e3;
+  --sh-sign: #c2c500;
+  --sh-comment: #1ea14c;
+
+  /* Sidebar Colors - Dark Theme */
+  --sidebar-background: hsl(240 5.9% 10%);
+  --sidebar-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-primary: hsl(224.3 76.3% 48%);
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: hsl(240 3.7% 15.9%);
+  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-border: hsl(240 3.7% 15.9%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+}
+
 @layer base {
+  /* Tailwind v4 compatibility styles */
   *,
   ::after,
   ::before,
@@ -105,16 +254,19 @@
   }
 
   * {
-    @apply border-border;
+    @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 
+  /* Typography */
   .title {
     @apply font-serif text-xl font-bold;
   }
 
+  /* Prose Styles */
   .prose {
     @apply space-y-2;
   }
@@ -141,106 +293,28 @@
   }
 }
 
-:root {
-  --min-screen-width: 300px;
-  --background: hsl(0 0% 100%);
-  --foreground: hsl(0 0% 3.9%);
-  --card: hsl(0 0% 100%);
-  --card-foreground: hsl(0 0% 3.9%);
-  --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(0 0% 3.9%);
-  --primary: hsl(189, 94%, 50%);
-  --primary-neon: hsl(189, 93%, 37%);
-  --secondary-neon: hsl(298, 100%, 50%);
-  --tertiary-neon: hsl(168, 94%, 33%);
-  --quaternary-neon: hsl(248, 61%, 60%);
-  --primary-foreground: hsl(0 85.7% 97.3%);
-  --secondary: hsl(0 0% 96.1%);
-  --secondary-foreground: hsl(0 0% 9%);
-  --muted: hsl(0 0% 96.1%);
-  --muted-foreground: hsl(0 0% 45.1%);
-  --accent: hsl(0 0% 96.1%);
-  --accent-foreground: hsl(0 0% 9%);
-  --destructive: hsl(0 84.2% 60.2%);
-  --destructive-foreground: hsl(0 0% 98%);
-  --border: hsl(0 0% 89.8%);
-  --input: hsl(0 0% 89.8%);
-  --ring: hsl(189, 94%, 50%);
-  --radius: 0.5rem;
-  --chart-1: hsl(12 76% 61%);
-  --chart-2: hsl(173 58% 39%);
-  --chart-3: hsl(197 37% 24%);
-  --chart-4: hsl(43 74% 66%);
-  --chart-5: hsl(27 87% 67%);
-
-  --sh-identifier: #354150;
-  --sh-keyword: #760091;
-  --sh-string: #a94600;
-  --sh-class: #004cff;
-  --sh-property: #4060be;
-  --sh-entity: #004cff;
-  --sh-jsxliterals: #000000;
-  --sh-sign: #9da000;
-  --sh-comment: #00491a;
-  --sidebar-background: hsl(0 0% 98%);
-  --sidebar-foreground: hsl(0 0% 26.1%);
-  --sidebar-primary: hsl(0 5.9% 10%);
-  --sidebar-primary-foreground: hsl(0 0% 98%);
-  --sidebar-accent: hsl(0 4.8% 95.9%);
-  --sidebar-accent-foreground: hsl(0 5.9% 10%);
-  --sidebar-border: hsl(0 13% 91%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+/* ---------- 4. Components ---------- */
+/* Mobile Menu */
+.mobile-menu {
+  height: 0;
+  visibility: hidden;
+  transition:
+    height 1s ease,
+    visibility 1s;
+  overflow: clip;
 }
 
-.dark {
-  --background: hsl(0 0% 3%);
-  --foreground: hsl(0 0% 98%);
-  --card: hsl(0 0% 3.9%);
-  --card-foreground: hsl(0 0% 98%);
-  --popover: hsl(0 0% 3.9%);
-  --popover-foreground: hsl(0 0% 98%);
-  --primary: hsl(189, 94%, 30%);
-  --primary-foreground: hsl(0 85.7% 97.3%);
-  --primary-neon: hsl(189, 97%, 64%);
-  --secondary-neon: hsl(298, 95%, 66%);
-  --tertiary-neon: hsl(168, 94%, 33%);
-  --quaternary-neon: hsl(248, 61%, 60%);
-  --secondary: hsl(0 0% 14.9%);
-  --secondary-foreground: hsl(0 0% 98%);
-  --muted: hsl(0 0% 14.9%);
-  --muted-foreground: hsl(0 0% 63.9%);
-  --accent: hsl(0 0% 14.9%);
-  --accent-foreground: hsl(0 0% 98%);
-  --destructive: hsl(0 62.8% 30.6%);
-  --destructive-foreground: hsl(0 0% 98%);
-  --border: hsl(0 0% 14.9%);
-  --input: hsl(0 0% 14.9%);
-  --ring: hsl(189, 94%, 50%);
-  --chart-1: hsl(220 70% 50%);
-  --chart-2: hsl(160 60% 45%);
-  --chart-3: hsl(30 80% 55%);
-  --chart-4: hsl(280 65% 60%);
-  --chart-5: hsl(340 75% 55%);
-
-  --sh-identifier: #9a9fa6;
-  --sh-keyword: #e365ff;
-  --sh-string: #d07b3f;
-  --sh-class: #5a8bff;
-  --sh-property: #a5b0d2;
-  --sh-entity: #7da4ff;
-  --sh-jsxliterals: #e3e3e3;
-  --sh-sign: #c2c500;
-  --sh-comment: #1ea14c;
-  --sidebar-background: hsl(240 5.9% 10%);
-  --sidebar-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-primary: hsl(224.3 76.3% 48%);
-  --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: hsl(240 3.7% 15.9%);
-  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-border: hsl(240 3.7% 15.9%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+.mobile-menu[aria-expanded='true'] {
+  height: auto;
+  visibility: visible;
 }
 
+/* Hide reCAPTCHA Badge */
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+/* ---------- 5. Utilities and Animations ---------- */
 @utility scroller-mask {
   -webkit-mask: linear-gradient(
     90deg,
@@ -261,7 +335,7 @@
 }
 
 @utility shiny-text {
-  color: #b5b5b5a4; /* Adjust this color to change intensity/style */
+  color: #b5b5b5a4;
   background: linear-gradient(
     120deg,
     rgba(255, 255, 255, 0) 40%,
@@ -283,47 +357,5 @@
   }
   @media (width >= 1400px) {
     max-width: 1400px;
-  }
-}
-
-@layer utilities {
-  @keyframes blink {
-    0%,
-    20% {
-      opacity: 0;
-    }
-    40% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-
-  @keyframes shine {
-    0% {
-      background-position: 100%;
-    }
-    100% {
-      background-position: -100%;
-    }
-  }
-}
-
-/* Hide google-recaptcha-v3 badge 
-   Remember to add google's privacy policy 
-*/
-.grecaptcha-badge {
-  visibility: hidden;
-}
-/*
-  ---break---
-*/
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }
