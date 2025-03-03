@@ -266,8 +266,12 @@
       "profileDeleted": "Profile deleted successfully"
     }
   },
-  "lois": {
-    "inputPh": "Ask something...",
+  "ai": {
+    "title": "Chat with AI assistant",
+    "subTitle": "Ask any question for our AI to answer",
+    "newChat": "New Chat",
+    "greetings": "Hello, Welcome to SjpDev.io\n\nI'm your AI assistant. How may I help you today?",
+    "inputPh": "Type your message here...",
     "responseError": "AI not responding. Try again later..."
   }
 }

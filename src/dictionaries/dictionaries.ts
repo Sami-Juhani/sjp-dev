@@ -196,7 +196,11 @@ export interface IDictionary {
       profileDeleted: string
     }
   }
-  lois: {
+  ai: {
+    title: string
+    subTitle: string
+    newChat: string
+    greetings: string
     inputPh: string
     responseError: string
   }

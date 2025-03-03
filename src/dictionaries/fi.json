@@ -31,7 +31,7 @@
   "home": {
     "hero": {
       "greetings": "Hei, Nimeni on Sami",
-      "greetingsSub": "Olen Suomessa toimiva ohjelmistoinsinööri ja intohimoinen web-applikaatioiden tekijä, joka hyödyntää moderneja teknologioita työssään.",
+      "greetingsSub": "Olen Suomessa toimiva ohjelmistoinsinööri ja intohimoinen web-applikaatioiden tekijä, joka hyödyntää moderneja teknologioita työssään",
       "getInTouch": "Lähetä viesti",
       "downloadButton": "Lataa CV",
       "services": {
@@ -207,8 +207,12 @@
       "profileDeleted": "Profiili poistettu"
     }
   },
-  "lois": {
-    "inputPh": "Kysy jotakin...",
+  "ai": {
+    "title": "Juttele AI-assistentin kanssa",
+    "subTitle": "Kysy jotain SjPDev:in AI-assistentilta",
+    "newChat": "Uusi Chat",
+    "greetings": "Hei, tervetuloa SjpDev.io-sivuille\n\nOlen sinun AI-assistenttisi. Miten voin auttaa?",
+    "inputPh": "Kirjoita kysymyksesi...",
     "responseError": "AI ei vastaa. Yritä myöhemmin uudelleen..."
   }
 }
