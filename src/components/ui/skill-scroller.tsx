@@ -1,6 +1,7 @@
 'use client'
 
 import { SKILLS } from '@/constants'
+import { IDictionary } from '@/dictionaries/dictionaries'
 import { cn } from '@/lib/utils'
 
 import { useReducedMotion } from 'framer-motion'
@@ -10,17 +11,17 @@ import SkillBadge from './skill-badge'
 const outerScrollerAnimated = 'overflow-hidden scroller-mask'
 const innerScrollerAnimated = 'w-max flex-nowrap animate-scroll-left'
 
-export default function SkillScroller() {
+export default function SkillScroller({ dict }: { dict: IDictionary }) {
   const reducedMotion = useReducedMotion()
 
   return (
     <div className='relative mx-auto max-w-2xl'>
-      <p className='title text-foreground/80 absolute -top-3 left-0 -mt-8 w-fit text-lg text-nowrap md:text-2xl'>
-        Tech I work with
+      <p className='title text-foreground/90 absolute -top-2 left-0 -mt-8 w-fit text-lg text-nowrap md:text-xl'>
+        {dict.home.hero.techTitle}
       </p>
       <div
         className={cn(
-          'mx-auto w-[700px]',
+          'mx-auto max-w-2xl',
           !reducedMotion && outerScrollerAnimated
         )}
       >

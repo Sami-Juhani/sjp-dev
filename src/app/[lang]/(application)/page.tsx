@@ -25,11 +25,11 @@ export default async function Home(props: {
   return (
     <section className='m-auto flex flex-col overflow-hidden py-20'>
       {/* Hero */}
-      <Hero dict={dict} />
+      <Hero dict={dict} lang={lang} />
 
       {/* Skills */}
       <div className='bg-secondary-neon/3 border-secondary-neon/10 w-full border-t px-4 pt-5 pb-4'>
-        <SkillScroller />
+        <SkillScroller dict={dict} />
       </div>
 
       {/* Blog */}
@@ -87,7 +87,7 @@ export default async function Home(props: {
 
         {/* Recent Projects */}
         <div className='container mx-auto mt-8 max-w-2xl'>
-          <RecentProjects lang={lang} projects={projects} />
+          <RecentProjects lang={lang} dict={dict} projects={projects} />
         </div>
       </section>
     </section>

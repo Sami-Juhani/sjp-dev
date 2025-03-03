@@ -6,15 +6,19 @@ import Link from 'next/link'
 
 import CircularGallery from '@/components/ui/CircularGallery'
 
+import { IDictionary } from '@/dictionaries/dictionaries'
+
 import { useReducedMotion } from 'framer-motion'
 import { motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
 
 export default function RecentProjects({
   lang,
+  dict,
   projects
 }: {
   lang: SupportedLangs
+  dict: IDictionary
   projects: ContentMetadata[]
 }) {
   const [activeIndex, setActiveIndex] = useState<number | null>(0)
@@ -64,7 +68,7 @@ export default function RecentProjects({
             className='text-tertiary-neon mt-4 ml-auto block w-fit underline'
             href={`/${lang}/projects/${galleryItems[activeIndex].slug}`}
           >
-            Read more...
+            {dict.projects.readMore}
           </Link>
         )}
       </div>

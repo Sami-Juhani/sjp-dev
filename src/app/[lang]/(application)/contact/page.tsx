@@ -29,8 +29,6 @@ export default async function Contact(props: {
           </h1>
         </div>
         <ContactForm dict={dict} lang={lang} />
-        <h2 className='title py-12'>{dict.contact.about}</h2>
-        <Intro dict={dict} />
       </div>
     </section>
   )
