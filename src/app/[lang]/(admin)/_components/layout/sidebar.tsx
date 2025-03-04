@@ -380,9 +380,7 @@ export default function DashboardSidebar({
             </Breadcrumb>
           </div>
         </header>
-        <section className='container max-w-[1900px]'>
-          {status !== 'loading' ? children : <Loading />}
-        </section>
+        <section className='container max-w-[1900px]'>{children}</section>
       </SidebarInset>
     </SidebarProvider>
   )

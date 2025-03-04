@@ -1,6 +1,7 @@
 {
   "common": {
-    "error": "Tapahtui odottamaton virhe. Yritä myöhemmin uudelleen."
+    "error": "Tapahtui odottamaton virhe. Yritä myöhemmin uudelleen.",
+    "loading": "Ladataan..."
   },
   "notfound": {
     "title": "Sivua ei löydy",

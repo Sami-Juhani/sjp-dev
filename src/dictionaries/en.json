@@ -1,6 +1,7 @@
 {
   "common": {
-    "error": "Unexpected error occurred. Please try again later"
+    "error": "Unexpected error occurred. Please try again later",
+    "loading": "Loading..."
   },
   "notfound": {
     "title": "Page not found",

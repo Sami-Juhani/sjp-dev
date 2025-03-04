@@ -1,6 +1,7 @@
 export interface IDictionary {
   common: {
     error: string
+    loading: string
   }
   notfound: {
     title: string

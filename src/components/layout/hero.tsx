@@ -38,6 +38,7 @@ export default function Hero({
         alt='Laptop with Coffee'
         fill
         priority
+        sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 1080px'
         className='-z-10 mr-auto ml-auto max-w-[1080px] object-cover opacity-50 md:mr-[5%] 2xl:opacity-70'
       />
       <div className='bg-secondary-neon absolute top-0 left-0 -z-10 hidden h-64 w-64 rounded-full opacity-50 blur-[180px] md:block'></div>
