@@ -34,11 +34,11 @@ export default function RecentProjects({
 
   return (
     <>
-      <div className='h-[500px]'>
+      <div className='relative h-[500px]'>
         {/* Left fade */}
-        <div className='from-background pointer-events-none absolute top-0 left-0 -z-10 h-full w-1/6 bg-gradient-to-r to-transparent' />
+        <div className='from-background pointer-events-none absolute top-0 left-0 h-full w-1/6 bg-gradient-to-r to-transparent' />
         {/* Right fade */}
-        <div className='from-background pointer-events-none absolute top-0 right-0 -z-10 h-full w-1/6 bg-gradient-to-l to-transparent' />
+        <div className='from-background pointer-events-none absolute top-0 right-0 h-full w-1/6 bg-gradient-to-l to-transparent' />
         <CircularGallery
           items={galleryItems}
           bend={0.5}
