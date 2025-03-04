@@ -65,6 +65,7 @@ export default function ChatBot({ dict }: { dict: IDictionary }) {
     isLoading,
     reload
   } = useChat({
+    maxSteps: 5,
     onResponse(response) {
       if (response) {
         setIsGenerating(false)
@@ -134,6 +135,8 @@ export default function ChatBot({ dict }: { dict: IDictionary }) {
     }
   }
 
+  const filteredMessages = messages.filter(message => message.content !== '')
+
   return (
     <ExpandableChat size='xl' position='bottom-right'>
       <ExpandableChatHeader className='flex-col justify-center text-center'>
@@ -156,14 +159,8 @@ export default function ChatBot({ dict }: { dict: IDictionary }) {
       <ExpandableChatBody>
         <ChatMessageList>
           {/* Messages */}
-          {messages &&
-            messages.map((message, index) => {
-              if (
-                message.role === 'assistant' &&
-                message.toolInvocations?.[0].toolName
-              )
-                return null
-
+          {filteredMessages &&
+            filteredMessages.map((message, index) => {
               return (
                 <ChatBubble
                   key={index}
