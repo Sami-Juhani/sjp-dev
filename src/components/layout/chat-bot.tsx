@@ -178,7 +178,7 @@ export default function ChatBot({ dict }: { dict: IDictionary }) {
                           src={ChatBotImage}
                           alt='ChatBot Image'
                           fill
-                          className='object-cover'
+                          className='object-cover p-1'
                         />
                       )
                     }
@@ -221,7 +221,17 @@ export default function ChatBot({ dict }: { dict: IDictionary }) {
           {/* Loading */}
           {isGenerating && (
             <ChatBubble variant='received'>
-              <ChatBubbleAvatar src='' fallback='🤖' />
+              <ChatBubbleAvatar
+                src=''
+                fallback={
+                  <Image
+                    src={ChatBotImage}
+                    alt='ChatBot Image'
+                    fill
+                    className='object-cover p-1'
+                  />
+                }
+              />
               <ChatBubbleMessage isLoading />
             </ChatBubble>
           )}
