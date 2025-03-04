@@ -11,6 +11,7 @@
 
 /* ---------- 1. Imports and Layer Declarations ---------- */
 @import 'tailwindcss';
+@plugin "@tailwindcss/typography";
 @layer theme, base, components, utilities;
 
 @custom-variant dark (&:is(.dark *));
