@@ -144,8 +144,9 @@ export default function ChatBot({ dict }: { dict: IDictionary }) {
           <h1 className='text-xl font-semibold'>{dict.ai.title}</h1>
           <Image
             src={ChatBotImage}
+            sizes='75px'
             width={75}
-            height={75}
+            className='h-auto'
             alt='Chat Bot Image'
           />
         </div>
@@ -174,7 +175,7 @@ export default function ChatBot({ dict }: { dict: IDictionary }) {
                         <Image
                           src={ChatBotImage}
                           alt='ChatBot Image'
-                          fill
+                          sizes='75px'
                           className='object-cover p-1'
                         />
                       )
@@ -224,7 +225,7 @@ export default function ChatBot({ dict }: { dict: IDictionary }) {
                   <Image
                     src={ChatBotImage}
                     alt='ChatBot Image'
-                    fill
+                    sizes='75px'
                     className='object-cover p-1'
                   />
                 }

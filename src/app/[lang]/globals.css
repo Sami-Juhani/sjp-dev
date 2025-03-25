@@ -310,6 +310,7 @@
   visibility: visible;
 }
 
+/* Glitchy Text */
 .glitch {
   color: var(--color-foreground);
   font-size: clamp(2rem, 10vw, 8rem);
@@ -367,6 +368,12 @@
   text-shadow: var(--before-shadow, 10px 0 cyan);
   animation: animate-glitch var(--before-duration, 2s) infinite linear
     alternate-reverse;
+}
+
+.pause-on-hover {
+  &:hover {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes animate-glitch {

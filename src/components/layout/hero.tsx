@@ -32,14 +32,13 @@ export default function Hero({
   const skills = getSkills(lang)
 
   return (
-    <div className='relative pb-12 md:pb-20'>
+    <div className='relative h-auto pb-12 md:h-[90vh] md:pb-20'>
       <Image
         src={LaptopWithCoffee}
         alt='Laptop with Coffee'
-        fill
         priority
         sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 1080px'
-        className='-z-10 mr-auto ml-auto max-w-[1080px] object-cover opacity-50 md:mr-[5%] 2xl:opacity-70'
+        className='absolute inset-0 -z-10 mr-auto ml-auto h-[500px] w-[600px] max-w-[1080px] object-cover opacity-50 md:left-1/3 md:h-full md:w-full 2xl:opacity-70'
       />
       <div className='bg-secondary-neon absolute top-0 left-0 -z-10 hidden h-64 w-64 rounded-full opacity-50 blur-[180px] md:block'></div>
       <div className='bg-secondary-neon absolute top-0 right-0 -z-10 mt-40 h-80 w-80 rounded-full opacity-50 blur-[180px]'></div>
@@ -49,12 +48,12 @@ export default function Hero({
             <p className='title text-secondary-neon text-xl font-light md:text-2xl'>
               {dict.home.hero.greetings}
             </p>
-            <h1 className='title mt-3 ml-3 text-2xl leading-10 font-medium md:text-3xl md:leading-12 lg:text-4xl'>
+            <h1 className='title mt-3 ml-3 text-2xl leading-10 font-medium text-balance md:text-3xl md:leading-12 lg:text-4xl'>
               {dict.home.hero.greetingsSub}
             </h1>
 
             <Button
-              className='bg-tertiary-neon/60 text-foreground hover:bg-tertiary-neon mx-auto mt-6 flex w-fit items-center justify-center gap-2 rounded-full pr-2 pl-4 tracking-wider'
+              className='bg-tertiary-neon text-foreground hover:bg-tertiary-neon mt-6 flex w-fit items-center justify-center gap-2 rounded-full pr-2 pl-4 tracking-wider'
               asChild
             >
               <Link
@@ -77,7 +76,7 @@ export default function Hero({
         <Accordion
           type='single'
           collapsible
-          className='border-muted/50 bg-background hover:border-secondary-neon/80 transition-color mt-4 h-fit w-full max-w-2xl rounded-lg border px-4 pt-4 opacity-100 shadow-lg duration-300 ease-in-out sm:opacity-95 md:w-1/2'
+          className='border-muted/50 bg-background hover:border-secondary-neon/80 transition-color z-[2] mt-4 h-fit w-full max-w-2xl rounded-lg border px-4 pt-4 shadow-lg duration-300 ease-in-out md:w-1/2'
         >
           <h2 className='title text-secondary-neon text-2xl'>
             {dict.home.hero.services.title}

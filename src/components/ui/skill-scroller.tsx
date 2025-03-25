@@ -9,7 +9,8 @@ import { useReducedMotion } from 'framer-motion'
 import SkillBadge from './skill-badge'
 
 const outerScrollerAnimated = 'overflow-hidden scroller-mask'
-const innerScrollerAnimated = 'w-max flex-nowrap animate-scroll-left'
+const innerScrollerAnimated =
+  'w-max flex-nowrap animate-scroll-left pause-on-hover'
 
 export default function SkillScroller({ dict }: { dict: IDictionary }) {
   const reducedMotion = useReducedMotion()
